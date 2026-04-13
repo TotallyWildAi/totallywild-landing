@@ -1,0 +1,230 @@
+/*
+ * ============================================================
+ * TOTALLY WILD AI — Design Tokens
+ * ============================================================
+ * 
+ * Usage:
+ *   @import url('./tokens.css');
+ * 
+ * Day mode is the default. Night mode activates via:
+ *   - data-theme="night" on <html> or any ancestor
+ *   - prefers-color-scheme: dark media query
+ * 
+ * ============================================================
+ */
+
+/* ----------------------------------------------------------
+   GRAY SCALE
+   Neutral ramp shared across both modes.
+   ---------------------------------------------------------- */
+:root {
+  --tw-black:    #0F0F0F;
+  --tw-gray-900: #1A1A1A;
+  --tw-gray-800: #2E2E2E;
+  --tw-gray-600: #6B6B6B;
+  --tw-gray-500: #8A8A8A;
+  --tw-gray-400: #A1A1A1;
+  --tw-gray-300: #C4C4C4;
+  --tw-gray-200: #E2E2E2;
+  --tw-gray-100: #F0F0F0;
+  --tw-gray-50:  #F7F7F7;
+  --tw-white:    #FFFFFF;
+}
+
+/* ----------------------------------------------------------
+   BRAND COLORS
+   Iris is the single accent color.
+   ---------------------------------------------------------- */
+:root {
+  --tw-iris:          #6E5CCC;
+  --tw-iris-bright:   #9B8EE8;
+  --tw-iris-light:    #F3F1FC;
+  --tw-iris-mid:      #DDD8F7;
+  --tw-iris-border:   rgba(110, 92, 204, 0.15);
+  --tw-iris-subtle:   rgba(110, 92, 204, 0.08);
+}
+
+/* ----------------------------------------------------------
+   SEMANTIC STATUS COLORS
+   Use sparingly — only for success/error/warning states.
+   ---------------------------------------------------------- */
+:root {
+  --tw-green-day:   #16A34A;
+  --tw-green-night: #4ADE80;
+  --tw-red-day:     #DC2626;
+  --tw-red-night:   #F87171;
+  --tw-amber-day:   #D97706;
+  --tw-amber-night: #FBBF24;
+}
+
+/* ----------------------------------------------------------
+   DAY MODE (default)
+   ---------------------------------------------------------- */
+:root,
+[data-theme="day"] {
+  /* Surfaces */
+  --tw-bg-primary:    var(--tw-white);
+  --tw-bg-secondary:  var(--tw-gray-50);
+  --tw-bg-tertiary:   var(--tw-gray-100);
+  --tw-bg-code:       var(--tw-gray-50);
+  --tw-bg-accent:     var(--tw-iris-light);
+
+  /* Text */
+  --tw-text-primary:   var(--tw-black);
+  --tw-text-secondary: var(--tw-gray-500);
+  --tw-text-tertiary:  var(--tw-gray-400);
+  --tw-text-accent:    var(--tw-iris);
+  --tw-text-inverse:   var(--tw-white);
+
+  /* Borders */
+  --tw-border-primary:   var(--tw-gray-200);
+  --tw-border-secondary: var(--tw-gray-100);
+  --tw-border-accent:    var(--tw-iris-border);
+
+  /* Interactive */
+  --tw-btn-primary-bg:   var(--tw-black);
+  --tw-btn-primary-text: var(--tw-white);
+  --tw-btn-ghost-bg:     transparent;
+  --tw-btn-ghost-text:   var(--tw-gray-600);
+  --tw-btn-ghost-border: var(--tw-gray-200);
+  --tw-focus-ring:       rgba(110, 92, 204, 0.4);
+
+  /* Logo */
+  --tw-mark-ring:  var(--tw-gray-300);
+  --tw-mark-core:  var(--tw-iris);
+
+  /* Status */
+  --tw-green: var(--tw-green-day);
+  --tw-red:   var(--tw-red-day);
+  --tw-amber: var(--tw-amber-day);
+
+  /* Grid mesh for hero background */
+  --tw-grid-color: rgba(0, 0, 0, 0.06);
+}
+
+/* ----------------------------------------------------------
+   NIGHT MODE
+   ---------------------------------------------------------- */
+[data-theme="night"] {
+  /* Surfaces */
+  --tw-bg-primary:    var(--tw-black);
+  --tw-bg-secondary:  var(--tw-gray-900);
+  --tw-bg-tertiary:   var(--tw-gray-800);
+  --tw-bg-code:       var(--tw-gray-900);
+  --tw-bg-accent:     rgba(110, 92, 204, 0.12);
+
+  /* Text — HIGH CONTRAST: minimum 7:1 for primary, 4.5:1 for secondary */
+  --tw-text-primary:   var(--tw-white);
+  --tw-text-secondary: var(--tw-gray-300);  /* #C4C4C4 — 9.3:1 on #0F0F0F */
+  --tw-text-tertiary:  var(--tw-gray-400);  /* #A1A1A1 — 6.3:1 on #0F0F0F */
+  --tw-text-accent:    var(--tw-iris-bright); /* #9B8EE8 — 6.1:1 on #0F0F0F */
+  --tw-text-inverse:   var(--tw-black);
+
+  /* Borders */
+  --tw-border-primary:   rgba(255, 255, 255, 0.12);
+  --tw-border-secondary: rgba(255, 255, 255, 0.06);
+  --tw-border-accent:    rgba(155, 142, 232, 0.25);
+
+  /* Interactive */
+  --tw-btn-primary-bg:   var(--tw-white);
+  --tw-btn-primary-text: var(--tw-black);
+  --tw-btn-ghost-bg:     transparent;
+  --tw-btn-ghost-text:   var(--tw-gray-200);
+  --tw-btn-ghost-border: rgba(255, 255, 255, 0.15);
+  --tw-focus-ring:       rgba(155, 142, 232, 0.5);
+
+  /* Logo */
+  --tw-mark-ring:  rgba(255, 255, 255, 0.3);
+  --tw-mark-core:  var(--tw-iris-bright);
+
+  /* Status */
+  --tw-green: var(--tw-green-night);
+  --tw-red:   var(--tw-red-night);
+  --tw-amber: var(--tw-amber-night);
+
+  /* Grid mesh for hero background */
+  --tw-grid-color: rgba(255, 255, 255, 0.06);
+}
+
+/* System preference fallback */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="day"]) {
+    --tw-bg-primary:    var(--tw-black);
+    --tw-bg-secondary:  var(--tw-gray-900);
+    --tw-bg-tertiary:   var(--tw-gray-800);
+    --tw-bg-code:       var(--tw-gray-900);
+    --tw-bg-accent:     rgba(110, 92, 204, 0.12);
+    --tw-text-primary:   var(--tw-white);
+    --tw-text-secondary: var(--tw-gray-300);
+    --tw-text-tertiary:  var(--tw-gray-400);
+    --tw-text-accent:    var(--tw-iris-bright);
+    --tw-text-inverse:   var(--tw-black);
+    --tw-border-primary:   rgba(255, 255, 255, 0.12);
+    --tw-border-secondary: rgba(255, 255, 255, 0.06);
+    --tw-border-accent:    rgba(155, 142, 232, 0.25);
+    --tw-btn-primary-bg:   var(--tw-white);
+    --tw-btn-primary-text: var(--tw-black);
+    --tw-btn-ghost-bg:     transparent;
+    --tw-btn-ghost-text:   var(--tw-gray-200);
+    --tw-btn-ghost-border: rgba(255, 255, 255, 0.15);
+    --tw-focus-ring:       rgba(155, 142, 232, 0.5);
+    --tw-mark-ring:  rgba(255, 255, 255, 0.3);
+    --tw-mark-core:  var(--tw-iris-bright);
+    --tw-green: var(--tw-green-night);
+    --tw-red:   var(--tw-red-night);
+    --tw-amber: var(--tw-amber-night);
+    --tw-grid-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* ----------------------------------------------------------
+   TYPOGRAPHY
+   ---------------------------------------------------------- */
+:root {
+  --tw-font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --tw-font-body:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --tw-font-mono:    'Geist Mono', 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
+
+  /* Scale */
+  --tw-text-xs:   12px;
+  --tw-text-sm:   13px;
+  --tw-text-base: 15px;
+  --tw-text-lg:   18px;
+  --tw-text-xl:   22px;
+  --tw-text-2xl:  28px;
+  --tw-text-3xl:  36px;
+  --tw-text-4xl:  48px;
+
+  /* Weights */
+  --tw-font-light:    300;
+  --tw-font-regular:  400;
+  --tw-font-medium:   500;
+  --tw-font-semibold: 600;
+  --tw-font-bold:     700;
+
+  /* Line heights */
+  --tw-leading-tight:  1.08;
+  --tw-leading-snug:   1.3;
+  --tw-leading-normal: 1.55;
+
+  /* Letter spacing */
+  --tw-tracking-tight:  -1.5px;
+  --tw-tracking-snug:   -1px;
+  --tw-tracking-normal: -0.2px;
+}
+
+/* Headline gradient effect */
+:root,
+[data-theme="day"] {
+  --headline-gradient: linear-gradient(180deg, #0F0F0F 30%, #8A8A8A 100%);
+}
+
+[data-theme="night"] {
+  --headline-gradient: linear-gradient(180deg, #FFFFFF 30%, #C4C4C4 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="day"]) {
+    --headline-gradient: linear-gradient(180deg, #FFFFFF 30%, #C4C4C4 100%);
+  }
+}

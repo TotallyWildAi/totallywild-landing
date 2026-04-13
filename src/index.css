@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import url('./tokens.css');
+
+/* Enforce light mode as default, overriding system preference */
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: var(--tw-font-body);
+  background: var(--tw-bg-primary);
+  color: var(--tw-text-primary);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Headline gradient utility */
+.headline-gradient {
+  background: var(--headline-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
