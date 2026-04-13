@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
 import Navigation from './Navigation'
 
 export default function Layout() {
@@ -15,8 +15,8 @@ export default function Layout() {
             © 2026 Totally Wild AI. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="/about" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>About</a>
-            <a href="/contact" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>Contact</a>
+            <Link to="/about" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>About</Link>
+            <Link to="/contact" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>Contact</Link>
           </div>
         </div>
       </footer>
