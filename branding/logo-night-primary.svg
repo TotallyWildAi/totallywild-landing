@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 40" fill="none">
+  <!-- Totally Wild AI - Night Primary: white text, bright iris core -->
+  <circle cx="20" cy="20" r="15" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+  <circle cx="20" cy="20" r="5" fill="#9B8EE8"/>
+  <text x="46" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="18" fill="#FFFFFF" letter-spacing="-0.2">Totally Wild</text>
+</svg>
