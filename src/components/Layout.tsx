@@ -26,21 +26,9 @@ export default function Layout() {
           }}
         />
 
-        <div className="max-w-7xl mx-auto px-6 h-10 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <span
-              aria-hidden="true"
-              className="w-1.5 h-1.5 rounded-full"
-              style={{
-                background: 'var(--tw-text-accent)',
-                boxShadow: '0 0 8px var(--tw-text-accent)',
-              }}
-            />
-            <img src="/logo-muted.svg" alt="Totally Wild" className="h-3.5 opacity-80" />
-          </div>
-
+        <div className="relative max-w-7xl mx-auto px-6 h-10 flex items-center justify-end">
           <p
-            className="hidden sm:block text-[11px] tracking-wide"
+            className="hidden sm:block absolute left-1/2 -translate-x-1/2 text-[11px] tracking-wide"
             style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
           >
             © 2026 Totally Wild AI
