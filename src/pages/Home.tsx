@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 px-6 overflow-hidden">
+      <section className="relative pt-24 md:pt-32 pb-8 md:pb-10 px-6 overflow-hidden">
         {/* Grid background with iris glow */}
         <div 
           className="absolute inset-0 pointer-events-none"
@@ -57,8 +57,8 @@ export default function Home() {
           </div>
 
           {/* 3D Wireframe Cube Cluster */}
-          <div className="mt-16 flex justify-center">
-            <svg width="400" height="300" viewBox="0 0 400 300" className="opacity-40">
+          <div className="mt-10 flex justify-center">
+            <svg width="400" height="200" viewBox="0 0 400 200" className="opacity-40">
               {/* Interconnected isometric cubes */}
               {/* Cube 1 - center */}
               <g stroke="var(--tw-text-accent)" strokeWidth="0.8" fill="none">
@@ -107,7 +107,7 @@ export default function Home() {
 
       {/* How It Works Section */}
       <ScrollReveal>
-        <section id="how-it-works" className="py-16 md:py-20 px-6" style={{ background: 'var(--tw-bg-secondary)' }}>
+        <section id="how-it-works" className="py-12 md:py-16 px-6" style={{ background: 'var(--tw-bg-secondary)' }}>
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12" style={{ color: 'var(--tw-text-primary)', letterSpacing: '-1px' }}>
               How It Works

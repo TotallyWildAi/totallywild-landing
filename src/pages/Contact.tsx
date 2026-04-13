@@ -1,19 +1,41 @@
 import { useState, FormEvent } from 'react'
 import ScrollReveal from '../components/ScrollReveal'
 
-export default function Contact() {
-  const [submitted, setSubmitted] = useState(false)
+type Status = 'idle' | 'sending' | 'success' | 'error'
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+export default function Contact() {
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState<string>('')
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    console.log('Form submission:', {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message')
-    })
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const payload = {
+      name: String(formData.get('name') ?? ''),
+      email: String(formData.get('email') ?? ''),
+      message: String(formData.get('message') ?? ''),
+    }
+
+    setStatus('sending')
+    setErrorMsg('')
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) {
+        const body = await res.text()
+        throw new Error(body || `Request failed (${res.status})`)
+      }
+      setStatus('success')
+      form.reset()
+      setTimeout(() => setStatus('idle'), 4000)
+    } catch (err) {
+      setStatus('error')
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
+    }
   }
 
   return (
@@ -92,15 +114,22 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="w-full px-8 py-4 rounded-lg text-base font-semibold transition-all duration-200 hover:opacity-90"
+              disabled={status === 'sending'}
+              className="w-full px-8 py-4 rounded-lg text-base font-semibold transition-all duration-200 hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
             >
-              Send Message
+              {status === 'sending' ? 'Sending…' : 'Send Message'}
             </button>
 
-            {submitted && (
+            {status === 'success' && (
               <div className="p-4 rounded-lg text-center" style={{ background: 'var(--tw-bg-accent)', color: 'var(--tw-text-accent)' }}>
                 Message sent! We'll be in touch soon.
+              </div>
+            )}
+
+            {status === 'error' && (
+              <div className="p-4 rounded-lg text-center" style={{ background: 'var(--tw-bg-accent)', color: 'var(--tw-text-accent)' }}>
+                Couldn't send: {errorMsg || 'please try again later.'}
               </div>
             )}
           </form>
