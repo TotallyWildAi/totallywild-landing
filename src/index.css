@@ -1,35 +1,29 @@
-@import "tailwindcss";
 @import url('./tokens.css');
+@import 'tailwindcss';
 
-/* Headline gradient effect (brand guide section 5) */
+/* Hero headline gradient effect */
 .headline-gradient {
   background: linear-gradient(180deg, var(--tw-text-primary) 30%, var(--tw-text-secondary) 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Enforce light mode as default, overriding system preference */
 html {
   color-scheme: light;
+  font-family: var(--tw-font-body);
+  background: var(--tw-bg-primary);
+  color: var(--tw-text-primary);
 }
 
 body {
   margin: 0;
-  font-family: var(--tw-font-body);
-  background: var(--tw-bg-primary);
-  color: var(--tw-text-primary);
-  transition: background-color 200ms ease, color 200ms ease;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Headline gradient utility */
-.headline-gradient {
-  background: var(--headline-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
