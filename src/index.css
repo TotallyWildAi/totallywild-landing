@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import url('./tokens.css');
 
+/* Headline gradient effect (brand guide section 5) */
+.headline-gradient {
+  background: linear-gradient(180deg, var(--tw-text-primary) 30%, var(--tw-text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Enforce light mode as default, overriding system preference */
 html {
   color-scheme: light;

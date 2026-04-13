@@ -6,10 +6,10 @@ export default {
     extend: {
       colors: {
         brand: {
-          DEFAULT: '#6E5CCC',
-          bright: '#9B8EE8',
-          light: '#F3F1FC',
-          mid: '#DDD8F7'
+          DEFAULT: 'var(--tw-iris)',
+          bright: 'var(--tw-iris-bright)',
+          light: 'var(--tw-iris-light)',
+          mid: 'var(--tw-iris-mid)'
         },
         surface: {
           DEFAULT: '#FFFFFF',
