@@ -119,7 +119,7 @@ export default function Home() {
                 { num: '03', title: 'Build', desc: 'Multiple engineers write code in parallel. Reviewers verify. Testers validate. Security audits run automatically.' },
                 { num: '04', title: 'Ship', desc: 'Tested, reviewed, and deployed. Production-ready.' }
               ].map((step) => (
-                <div key={step.num} className="text-center">
+                <div key={step.num} className="text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
                   {/* Large gradient badge */}
                   <div 
                     className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-white text-xl font-bold"
