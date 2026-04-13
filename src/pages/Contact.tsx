@@ -1,40 +1,48 @@
 import { useState, FormEvent } from 'react'
 import ScrollReveal from '../components/ScrollReveal'
 
-type Status = 'idle' | 'sending' | 'success' | 'error'
+type SubmitState = 'idle' | 'sending' | 'success' | 'error'
 
 export default function Contact() {
-  const [status, setStatus] = useState<Status>('idle')
-  const [errorMsg, setErrorMsg] = useState<string>('')
+  const [submitState, setSubmitState] = useState<SubmitState>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const formData = new FormData(form)
     const payload = {
-      name: String(formData.get('name') ?? ''),
-      email: String(formData.get('email') ?? ''),
-      message: String(formData.get('message') ?? ''),
+      name: String(formData.get('name') ?? '').trim(),
+      email: String(formData.get('email') ?? '').trim(),
+      message: String(formData.get('message') ?? '').trim()
     }
 
-    setStatus('sending')
-    setErrorMsg('')
+    setSubmitState('sending')
+    setErrorMessage('')
+
     try {
-      const res = await fetch('/api/send', {
+      const response = await fetch('/api/send', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
       })
-      if (!res.ok) {
-        const body = await res.text()
-        throw new Error(body || `Request failed (${res.status})`)
+
+      const data = await response.json().catch(() => null)
+
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.error || 'Something went wrong. Please try again.')
       }
-      setStatus('success')
+
       form.reset()
-      setTimeout(() => setStatus('idle'), 4000)
-    } catch (err) {
-      setStatus('error')
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
+      setSubmitState('success')
+      window.setTimeout(() => {
+        setSubmitState((currentState) => currentState === 'success' ? 'idle' : currentState)
+      }, 4000)
+    } catch (error) {
+      setSubmitState('error')
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again or email us directly.')
     }
   }
 
@@ -114,22 +122,27 @@ export default function Contact() {
 
             <button
               type="submit"
-              disabled={status === 'sending'}
-              className="w-full px-8 py-4 rounded-lg text-base font-semibold transition-all duration-200 hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
-              style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
+              disabled={submitState === 'sending'}
+              className="w-full px-8 py-4 rounded-lg text-base font-semibold transition-all duration-200 hover:opacity-90"
+              style={{
+                background: 'var(--tw-btn-primary-bg)',
+                color: 'var(--tw-btn-primary-text)',
+                cursor: submitState === 'sending' ? 'wait' : 'pointer',
+                opacity: submitState === 'sending' ? 0.75 : 1
+              }}
             >
-              {status === 'sending' ? 'Sending…' : 'Send Message'}
+              {submitState === 'sending' ? 'Sending...' : 'Send Message'}
             </button>
 
-            {status === 'success' && (
+            {submitState === 'success' && (
               <div className="p-4 rounded-lg text-center" style={{ background: 'var(--tw-bg-accent)', color: 'var(--tw-text-accent)' }}>
                 Message sent! We'll be in touch soon.
               </div>
             )}
 
-            {status === 'error' && (
-              <div className="p-4 rounded-lg text-center" style={{ background: 'var(--tw-bg-accent)', color: 'var(--tw-text-accent)' }}>
-                Couldn't send: {errorMsg || 'please try again later.'}
+            {submitState === 'error' && (
+              <div className="p-4 rounded-lg text-center" style={{ background: 'var(--tw-bg-secondary)', color: 'var(--tw-text-primary)', border: '0.5px solid var(--tw-border-primary)' }}>
+                {errorMessage}
               </div>
             )}
           </form>
