@@ -51,18 +51,38 @@ export default function TerminalDemo() {
   }, [visibleCount, hasAnimated])
 
   return (
-    <div ref={containerRef} className="w-full max-w-3xl mx-auto">
+    <div
+      ref={containerRef}
+      className="w-full max-w-3xl mx-auto rounded-xl overflow-hidden"
+      style={{
+        border: '0.5px solid var(--tw-border-primary)',
+        boxShadow:
+          '0 1px 0 0 color-mix(in srgb, var(--tw-text-primary) 4%, transparent) inset, 0 20px 60px -20px rgba(110, 92, 204, 0.25), 0 8px 24px -12px rgba(0, 0, 0, 0.15)',
+        background: 'var(--tw-bg-code)',
+      }}
+    >
       {/* macOS window chrome */}
-      <div className="rounded-t-xl px-4 py-3 flex items-center gap-2" style={{ background: 'var(--tw-bg-tertiary)' }}>
+      <div
+        className="px-4 py-3 flex items-center gap-2"
+        style={{
+          background: 'var(--tw-bg-tertiary)',
+          borderBottom: '0.5px solid var(--tw-border-primary)',
+        }}
+      >
         <div className="w-3 h-3 rounded-full" style={{ background: '#FF5F57' }} />
         <div className="w-3 h-3 rounded-full" style={{ background: '#FEBC2E' }} />
         <div className="w-3 h-3 rounded-full" style={{ background: '#28C840' }} />
+        <span
+          className="ml-3 text-[11px] font-mono"
+          style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
+        >
+          tw@totallywild — zsh
+        </span>
       </div>
       {/* Terminal content */}
-      <div 
-        className="rounded-b-xl p-6 font-mono text-sm overflow-x-auto"
-        style={{ 
-          background: 'var(--tw-bg-code)',
+      <div
+        className="p-6 font-mono text-sm overflow-x-auto"
+        style={{
           color: 'var(--tw-text-primary)',
           lineHeight: 1.8
         }}

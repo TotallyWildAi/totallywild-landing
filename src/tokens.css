@@ -100,6 +100,14 @@
 
   /* Grid mesh for hero background */
   --tw-grid-color: rgba(0, 0, 0, 0.06);
+
+  /* Hero mesh gradient — soft, professional, iris-tonal (day) */
+  --tw-hero-mesh:
+    radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 88% 82%, rgba(221, 216, 247, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 65% 55% at 12% 85%, rgba(243, 241, 252, 0.70) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.08) 0%, transparent 75%);
 }
 
 /* ----------------------------------------------------------
@@ -144,6 +152,14 @@
 
   /* Grid mesh for hero background */
   --tw-grid-color: rgba(255, 255, 255, 0.06);
+
+  /* Hero mesh gradient — deep iris glow on near-black (night) */
+  --tw-hero-mesh:
+    radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 88% 82%, rgba(72, 56, 148, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 65% 55% at 12% 85%, rgba(45, 33, 100, 0.40) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.14) 0%, transparent 75%);
 }
 
 /* System preference fallback */
@@ -174,6 +190,12 @@
     --tw-red:   var(--tw-red-night);
     --tw-amber: var(--tw-amber-night);
     --tw-grid-color: rgba(255, 255, 255, 0.06);
+    --tw-hero-mesh:
+      radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.32) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.22) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 60% at 88% 82%, rgba(72, 56, 148, 0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 65% 55% at 12% 85%, rgba(45, 33, 100, 0.40) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.14) 0%, transparent 75%);
   }
 }
 

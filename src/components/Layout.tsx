@@ -5,19 +5,68 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-      <main className="flex-1">
+      <main className="flex-1 pb-12">
         <Outlet />
       </main>
-      <footer className="py-8 px-6" style={{ borderTop: '0.5px solid var(--tw-border-primary)' }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <img src="/logo-muted.svg" alt="Totally Wild" className="h-6" />
-          <p className="text-sm" style={{ color: 'var(--tw-text-tertiary)' }}>
-            © 2026 Totally Wild AI. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            <Link to="/about" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>About</Link>
-            <Link to="/contact" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>Contact</Link>
+      <footer
+        className="fixed bottom-0 left-0 right-0 z-40"
+        style={{
+          background: 'color-mix(in srgb, var(--tw-bg-primary) 72%, transparent)',
+          backdropFilter: 'blur(16px) saturate(140%)',
+          WebkitBackdropFilter: 'blur(16px) saturate(140%)',
+        }}
+      >
+        {/* hairline gradient top border */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, var(--tw-border-primary) 20%, var(--tw-border-accent) 50%, var(--tw-border-primary) 80%, transparent 100%)',
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-6 h-10 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-2.5">
+            <span
+              aria-hidden="true"
+              className="w-1.5 h-1.5 rounded-full"
+              style={{
+                background: 'var(--tw-text-accent)',
+                boxShadow: '0 0 8px var(--tw-text-accent)',
+              }}
+            />
+            <img src="/logo-muted.svg" alt="Totally Wild" className="h-3.5 opacity-80" />
           </div>
+
+          <p
+            className="hidden sm:block text-[11px] tracking-wide"
+            style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
+          >
+            © 2026 Totally Wild AI
+          </p>
+
+          <nav className="flex items-center gap-5 text-[11px]" style={{ letterSpacing: '0.02em' }}>
+            <Link
+              to="/about"
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
+              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+            >
+              About
+            </Link>
+            <span
+              aria-hidden="true"
+              className="w-px h-3"
+              style={{ background: 'var(--tw-border-primary)' }}
+            />
+            <Link
+              to="/contact"
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
+              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+            >
+              Contact
+            </Link>
+          </nav>
         </div>
       </footer>
     </div>
