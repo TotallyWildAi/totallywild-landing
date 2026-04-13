@@ -97,6 +97,9 @@
   --tw-green: var(--tw-green-day);
   --tw-red:   var(--tw-red-day);
   --tw-amber: var(--tw-amber-day);
+
+  /* Grid mesh color for hero background */
+  --tw-grid-color: rgba(226, 226, 226, 0.12);
 }
 
 /* ----------------------------------------------------------
@@ -138,6 +141,9 @@
   --tw-green: var(--tw-green-night);
   --tw-red:   var(--tw-red-night);
   --tw-amber: var(--tw-amber-night);
+
+  /* Grid mesh color for hero background */
+  --tw-grid-color: rgba(255, 255, 255, 0.08);
 }
 
 /* System preference fallback */
@@ -167,6 +173,7 @@
     --tw-green: var(--tw-green-night);
     --tw-red:   var(--tw-red-night);
     --tw-amber: var(--tw-amber-night);
+    --tw-grid-color: rgba(255, 255, 255, 0.08);
   }
 }
 

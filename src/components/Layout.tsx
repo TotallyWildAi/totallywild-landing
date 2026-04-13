@@ -15,8 +15,8 @@ export default function Layout() {
             © 2026 Totally Wild AI. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="/about" className="text-sm hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-secondary)' }}>About</a>
-            <a href="/contact" className="text-sm hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-secondary)' }}>Contact</a>
+            <a href="/about" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>About</a>
+            <a href="/contact" className="text-sm hover:text-brand transition-colors duration-150" style={{ color: 'var(--tw-text-secondary)' }}>Contact</a>
           </div>
         </div>
       </footer>
