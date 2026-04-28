@@ -5,11 +5,11 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-      <main className="flex-1 pb-12">
+      <main className="flex-1 md:pb-12">
         <Outlet />
       </main>
       <footer
-        className="fixed bottom-0 left-0 right-0 z-40"
+        className="md:fixed md:bottom-0 md:left-0 md:right-0 z-40"
         style={{
           background: 'color-mix(in srgb, var(--tw-bg-primary) 72%, transparent)',
           backdropFilter: 'blur(16px) saturate(140%)',

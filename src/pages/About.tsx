@@ -41,7 +41,7 @@ export default function About() {
             About Totally Wild
           </h1>
           <p className="text-lg mb-12" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
-            Software should build itself. We built the factory that makes it happen. An orchestrated swarm of AI agents handles every stage of delivery — from understanding requirements to shipping production code. No meetings. No delays. Just working software.
+            Software should build itself. We built the factory that makes it happen. An orchestrated swarm of AI agents handles every stage of delivery — from understanding requirements to shipping production code.
           </p>
           
           {/* Prominent tagline */}

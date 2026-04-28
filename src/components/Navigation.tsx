@@ -18,7 +18,7 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 px-6 py-4" style={{ background: 'var(--tw-bg-primary)', borderBottom: '0.5px solid var(--tw-border-primary)' }}>
+    <nav className="sticky top-0 z-50 px-6 py-2.5" style={{ background: 'var(--tw-bg-primary)', borderBottom: '0.5px solid var(--tw-border-primary)' }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
