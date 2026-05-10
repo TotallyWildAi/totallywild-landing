@@ -68,6 +68,30 @@ export default function Layout() {
               className="w-px h-3"
               style={{ background: 'var(--tw-border-primary)' }}
             />
+            <Link
+              to="/terms"
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
+              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+            >
+              Terms
+            </Link>
+            <span
+              aria-hidden="true"
+              className="w-px h-3"
+              style={{ background: 'var(--tw-border-primary)' }}
+            />
+            <Link
+              to="/privacy"
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
+              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+            >
+              Privacy
+            </Link>
+            <span
+              aria-hidden="true"
+              className="w-px h-3"
+              style={{ background: 'var(--tw-border-primary)' }}
+            />
             <a
               href="https://github.com/TotallyWildAi"
               target="_blank"
