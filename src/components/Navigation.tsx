@@ -57,13 +57,13 @@ export default function Navigation() {
               )}
             </svg>
           </button>
-          <Link
-            to="/contact"
+          <a
+            href="https://app-test.totallywild.ai/"
             className="hidden md:block px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
             style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
           >
             Get Started
-          </Link>
+          </a>
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -93,13 +93,13 @@ export default function Navigation() {
           <Link to="/contact" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
             Contact
           </Link>
-          <Link
-            to="/contact"
+          <a
+            href="https://app-test.totallywild.ai/"
             className="px-5 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
             style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
           >
             Get Started
-          </Link>
+          </a>
           {/* Legal links — sit below the primary CTA in a secondary row so
               they're easy to find on mobile without competing with the
               main nav items. */}
