@@ -100,6 +100,28 @@ export default function Navigation() {
           >
             Get Started
           </Link>
+          {/* Legal links — sit below the primary CTA in a secondary row so
+              they're easy to find on mobile without competing with the
+              main nav items. */}
+          <div
+            className="pt-3 mt-1 flex items-center gap-4 text-xs"
+            style={{ borderTop: '0.5px solid var(--tw-border-primary)' }}
+          >
+            <Link
+              to="/terms"
+              className="uppercase tracking-wider hover:opacity-100 transition-opacity"
+              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+            >
+              Terms
+            </Link>
+            <Link
+              to="/privacy"
+              className="uppercase tracking-wider hover:opacity-100 transition-opacity"
+              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+            >
+              Privacy
+            </Link>
+          </div>
         </div>
       )}
     </nav>
