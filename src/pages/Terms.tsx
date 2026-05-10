@@ -774,8 +774,8 @@ export default function Terms() {
             </p>
             <p>
               <strong style={titleColorInline}>Notices.</strong> We may give you notice by email to
-              your Account email address, by in-product notification, or by posting at{' '}
-              <em>totallywild.ai/legal</em>. You may give us notice by email to{' '}
+              your Account email address, by in-product notification, or by posting at the URL of
+              these Terms (<em>www.totallywild.ai/terms</em>). You may give us notice by email to{' '}
               <em>{CONTACT_LEGAL}</em> and, for formal legal notices, by post to our registered
               office.
             </p>
