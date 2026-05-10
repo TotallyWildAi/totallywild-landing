@@ -57,7 +57,7 @@ export default function Home() {
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
               <a
-                href="/contact"
+                href="https://app-test.totallywild.ai/"
                 className="px-8 py-4 rounded-lg text-base font-semibold transition-all duration-200 hover:opacity-90 hover:scale-105"
                 style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
               >
