@@ -12,7 +12,9 @@ import ScrollReveal from '../components/ScrollReveal'
 // privacy lawyer before being relied on for any commercial purpose.
 // ============================================================
 
-const COMPANY_LEGAL_NAME = 'Totally Wild AI Pty Ltd'
+const COMPANY_LEGAL_NAME = 'TW AI Pty Ltd'
+const COMPANY_TRADING_NAME = 'Totally Wild AI'
+const COMPANY_ACN = '697 524 771'
 const COMPANY_ABN = '70 697 524 771'
 const COMPANY_ADDRESS = 'Brisbane, Queensland, Australia'
 const CONTACT_PRIVACY = 'privacy@totallywild.ai'
@@ -119,9 +121,10 @@ export default function Privacy() {
         >
           <Section number="1" title="Who we are and what this policy covers">
             <p>
-              {COMPANY_LEGAL_NAME} (ABN {COMPANY_ABN}), with registered office in{' '}
-              {COMPANY_ADDRESS} (<em>Totally Wild AI</em>, <em>we</em>, <em>us</em>), is the
-              entity responsible for personal information handled in connection with{' '}
+              {COMPANY_LEGAL_NAME} (ACN {COMPANY_ACN}, ABN {COMPANY_ABN}), trading as{' '}
+              {COMPANY_TRADING_NAME}, with registered office in {COMPANY_ADDRESS}{' '}
+              (<em>Totally Wild AI</em>, <em>we</em>, <em>us</em>), is the entity responsible for
+              personal information handled in connection with{' '}
               <em>totallywild.ai</em>, the Totally Wild AI platform at{' '}
               <em>app.totallywild.ai</em>, and our related services (the <em>Service</em>).
             </p>
@@ -639,7 +642,8 @@ export default function Privacy() {
           <Section number="17" title="Contact">
             <p>
               All privacy-related contact: <em>{CONTACT_PRIVACY}</em>.<br />
-              Postal address: {COMPANY_LEGAL_NAME}, {COMPANY_ADDRESS}.
+              Postal address: {COMPANY_LEGAL_NAME} (ACN {COMPANY_ACN}) trading as{' '}
+              {COMPANY_TRADING_NAME}, {COMPANY_ADDRESS}.
             </p>
           </Section>
 
