@@ -14,7 +14,9 @@ import ScrollReveal from '../components/ScrollReveal'
 // on for any commercial transaction.
 // ============================================================
 
-const COMPANY_LEGAL_NAME = 'Totally Wild AI Pty Ltd'
+const COMPANY_LEGAL_NAME = 'TW AI Pty Ltd'
+const COMPANY_TRADING_NAME = 'Totally Wild AI'
+const COMPANY_ACN = '697 524 771'
 const COMPANY_ABN = '70 697 524 771'
 const COMPANY_ADDRESS = 'Brisbane, Queensland, Australia'
 const CONTACT_LEGAL = 'legal@totallywild.ai'
@@ -128,9 +130,10 @@ export default function Terms() {
           <Section number="1" title="About these Terms">
             <p>
               These Terms of Service (the <em>Terms</em>) form a binding agreement between
-              you (the <em>Customer</em>, <em>you</em>) and {COMPANY_LEGAL_NAME} (ABN{' '}
-              {COMPANY_ABN}), a company registered in {COMPANY_ADDRESS} (<em>Totally Wild AI</em>,{' '}
-              <em>we</em>, <em>us</em>, or <em>our</em>).
+              you (the <em>Customer</em>, <em>you</em>) and {COMPANY_LEGAL_NAME} (ACN{' '}
+              {COMPANY_ACN}, ABN {COMPANY_ABN}), a company registered in {COMPANY_ADDRESS} and
+              trading as {COMPANY_TRADING_NAME} (<em>Totally Wild AI</em>, <em>we</em>,{' '}
+              <em>us</em>, or <em>our</em>).
             </p>
             <p>
               They cover your access to and use of the Totally Wild AI platform at{' '}
@@ -784,7 +787,7 @@ export default function Terms() {
               Privacy questions go to <em>{CONTACT_PRIVACY}</em>.
             </p>
             <p className="text-sm" style={{ color: 'var(--tw-text-tertiary)' }}>
-              {COMPANY_LEGAL_NAME} · ABN {COMPANY_ABN} · {COMPANY_ADDRESS}
+              {COMPANY_LEGAL_NAME} (ACN {COMPANY_ACN}) trading as {COMPANY_TRADING_NAME} · ABN {COMPANY_ABN} · {COMPANY_ADDRESS}
             </p>
           </Section>
         </div>
