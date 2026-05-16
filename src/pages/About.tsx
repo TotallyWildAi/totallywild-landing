@@ -4,15 +4,16 @@ import ScrollReveal from '../components/ScrollReveal'
 interface TeamMember {
   name: string
   title: string
+  bio: string
   photo: string
   initials: string
   linkedin: string
 }
 
 const teamMembers: TeamMember[] = [
-  { name: 'Dmitry Kislov', title: 'Co-Founder & Software Engineer', photo: '/team/dmitry.jpg', initials: 'DK', linkedin: 'https://www.linkedin.com/in/dmitrykislov/' },
-  { name: 'Nick Forshteyn', title: 'Co-Founder & Cybersecurity Engineer', photo: '/team/nick.jpg', initials: 'NF', linkedin: 'https://www.linkedin.com/in/forstein/' },
-  { name: 'Nellie Forshteyn', title: 'Co-Founder & Operations', photo: '/team/nellie.jpg', initials: 'NF', linkedin: 'https://www.linkedin.com/in/nellie-forshteyn/' }
+  { name: 'Dmitry Kislov', title: 'Co-Founder & Software Engineer', bio: '20+ years Java. Built the TW AI multi-agent platform from the ground up.', photo: '/team/dmitry.jpg', initials: 'DK', linkedin: 'https://www.linkedin.com/in/dmitrykislov/' },
+  { name: 'Nick Forshteyn', title: 'Co-Founder & Cybersecurity Engineer', bio: "Owns TW AI's platform architecture and security posture.", photo: '/team/nick.jpg', initials: 'NF', linkedin: 'https://www.linkedin.com/in/forstein/' },
+  { name: 'Nellie Forshteyn', title: 'Co-Founder & Operations', bio: 'Owns commercial relationships and corporate operations.', photo: '/team/nellie.jpg', initials: 'NF', linkedin: 'https://www.linkedin.com/in/nellie-forshteyn/' }
 ]
 
 // Shuffle array using Fisher-Yates algorithm
@@ -111,8 +112,11 @@ function TeamCard({ member }: { member: TeamMember }) {
       <h3 className="text-xl font-semibold mb-1" style={{ color: 'var(--tw-text-primary)' }}>
         {member.name}
       </h3>
-      <p className="text-sm mb-3" style={{ color: 'var(--tw-text-secondary)' }}>
+      <p className="text-sm mb-2" style={{ color: 'var(--tw-text-secondary)' }}>
         {member.title}
+      </p>
+      <p className="text-sm mb-3 mx-auto max-w-xs" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
+        {member.bio}
       </p>
       <a
         href={member.linkedin}
