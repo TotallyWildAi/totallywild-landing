@@ -19,6 +19,23 @@
   animation: float-rotate 8s ease-in-out infinite;
 }
 
+/* Continuously scrolling marquee — content is doubled in markup so a
+   -50% transform produces a seamless loop. */
+@keyframes tape-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.tape-track {
+  animation: tape-scroll 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tape-track {
+    animation: none;
+  }
+}
+
 html {
   color-scheme: light;
   font-family: var(--tw-font-body);
