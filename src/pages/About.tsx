@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import ScrollReveal from '../components/ScrollReveal'
+import MarqueeTape from '../components/MarqueeTape'
 
 interface TeamMember {
   name: string
@@ -48,12 +49,8 @@ export default function About() {
             Software should build itself. We built the factory that makes it happen. An orchestrated swarm of AI agents handles every stage of delivery — from understanding requirements to shipping production code.
           </p>
           
-          {/* Prominent tagline */}
-          <div className="py-12 px-8 rounded-2xl" style={{ background: 'var(--tw-bg-secondary)', border: '0.5px solid var(--tw-border-primary)' }}>
-            <p className="text-2xl md:text-3xl font-semibold" style={{ color: 'var(--tw-text-secondary)', letterSpacing: '-0.5px', lineHeight: 1.3 }}>
-              No meetings. No delays. Just working software.
-            </p>
-          </div>
+          {/* Prominent tagline — running terminal tape */}
+          <MarqueeTape />
         </div>
       </section>
 
