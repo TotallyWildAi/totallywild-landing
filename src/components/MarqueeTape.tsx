@@ -1,20 +1,22 @@
 // Continuously scrolling marquee styled as a macOS terminal — same chrome
 // (red/yellow/green dots, "tw@totallywild — zsh" label) as TerminalDemo
-// on the home page. Each phrase is prefixed with a $ in the accent color
-// so the loop reads like a stream of shell commands.
+// on the home page.
 
-const phrases = [
-  'No meetings.',
-  'No delays.',
-  'Just working software.',
-  'Multi-agent coordination.',
-  'Brisbane-based AI company.',
+const phrases: { icon: string; text: string }[] = [
+  { icon: '⏱️', text: 'No meetings.' },
+  { icon: '⚡', text: 'No delays.' },
+  { icon: '✅', text: 'Just working software.' },
+  { icon: '🤖', text: 'Multi-agent coordination.' },
+  { icon: '🛡️', text: 'AWS-native security.' },
+  { icon: '🔁', text: 'Durable workflow orchestration.' },
+  { icon: '🏛️', text: 'Enterprise and government ready.' },
+  { icon: '📍', text: 'Brisbane-based AI company.' },
 ]
 
-function TapeItem({ text }: { text: string }) {
+function TapeItem({ icon, text }: { icon: string; text: string }) {
   return (
     <span className="inline-flex items-center mx-8 whitespace-nowrap">
-      <span className="mr-2" style={{ color: 'var(--tw-text-accent)' }}>$</span>
+      <span className="mr-3" aria-hidden="true">{icon}</span>
       <span>{text}</span>
     </span>
   )
@@ -56,8 +58,8 @@ export default function MarqueeTape() {
         style={{ color: 'var(--tw-text-primary)' }}
       >
         <div className="tape-track flex w-max">
-          {phrases.map((p, i) => <TapeItem key={`a-${i}`} text={p} />)}
-          {phrases.map((p, i) => <TapeItem key={`b-${i}`} text={p} />)}
+          {phrases.map((p, i) => <TapeItem key={`a-${i}`} icon={p.icon} text={p.text} />)}
+          {phrases.map((p, i) => <TapeItem key={`b-${i}`} icon={p.icon} text={p.text} />)}
         </div>
       </div>
     </div>

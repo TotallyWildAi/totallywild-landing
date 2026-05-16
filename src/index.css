@@ -27,7 +27,7 @@
 }
 
 .tape-track {
-  animation: tape-scroll 28s linear infinite;
+  animation: tape-scroll 42s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
