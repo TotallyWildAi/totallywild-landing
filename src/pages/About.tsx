@@ -26,7 +26,10 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 export default function About() {
-  const [shuffledTeam, setShuffledTeam] = useState<TeamMember[]>([])
+  // Start with the default order so SSR + first client render match
+  // (random shuffle on initial state would cause a hydration mismatch);
+  // shuffle after mount in useEffect.
+  const [shuffledTeam, setShuffledTeam] = useState<TeamMember[]>(teamMembers)
 
   useEffect(() => {
     setShuffledTeam(shuffleArray(teamMembers))
