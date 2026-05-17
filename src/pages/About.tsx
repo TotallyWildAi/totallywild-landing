@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../paper.css'
 import ParticleCloud from '../components/ParticleCloud'
+import MarqueeTape from '../components/MarqueeTape'
 import { useDocumentTheme, PARTICLE_THEMES } from '../paperTheme'
 
 interface TeamMember {
@@ -118,6 +119,12 @@ export default function About() {
             agents handles every stage of delivery — from understanding requirements
             to shipping production code.
           </p>
+
+          {/* Running terminal tape — restored from the previous About design.
+              Sits under the lede as a kinetic tagline. */}
+          <div style={{ marginTop: '2rem' }}>
+            <MarqueeTape />
+          </div>
         </header>
 
         {/* Team */}
