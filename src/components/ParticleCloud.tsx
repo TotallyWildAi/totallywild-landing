@@ -599,6 +599,15 @@ export default function ParticleCloud({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // touch-action picks one of three:
+  //  - 'auto': not interactive — let everything through to underlying content
+  //  - 'pan-y': inline + interactive — keep vertical scroll working on phones
+  //    (the hero canvas covers the whole section, so 'none' would trap touch)
+  //  - 'none': fixed full-viewport + interactive — matches existing behavior;
+  //    these instances sit behind a content shell so scroll happens via the
+  //    shell, not the canvas perimeter
+  const touchAction = !interactive ? 'auto' : inline ? 'pan-y' : 'none'
+
   return (
     <canvas
       ref={canvasRef}
@@ -612,7 +621,7 @@ export default function ParticleCloud({
         display: 'block',
         cursor: interactive ? 'grab' : 'default',
         pointerEvents: interactive ? 'auto' : 'none',
-        touchAction: 'none',
+        touchAction,
       }}
     />
   )

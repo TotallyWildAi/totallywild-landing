@@ -48,14 +48,16 @@ export default function Home() {
   return (
     <>
       {/* Hero — v6 copy on a ParticleCloud background.
-          ParticleCloud is `inline` so it positions absolute within this
-          section (not fixed to viewport), and `interactive={false}` so it
-          doesn't capture clicks or react to cursor — the hero is primarily
-          for reading. */}
+          `inline` so the canvas positions absolute within this section.
+          `interactive` so taps/clicks fire ripples and bursts — same touch +
+          mouse behavior as the other pages with ParticleCloud. ParticleCloud
+          sets touch-action: pan-y for inline+interactive canvases so vertical
+          scroll still works on phones; horizontal touches trigger particle
+          interaction. */}
       <section className="relative px-6 py-20 md:py-28 overflow-hidden">
         <ParticleCloud
           inline
-          interactive={false}
+          interactive
           bgColor={p.bgColor}
           particleColor={p.particleColor}
           linkColor={p.linkColor}
@@ -63,8 +65,8 @@ export default function Home() {
           count={isMobile ? 150 : 250}
           speed={isMobile ? 0.6 : 0.32}
           linkRadius={130}
-          cursorPull={0}
-          cursorRadius={0}
+          cursorPull={0.04}
+          cursorRadius={170}
           repelRefs={[subtitleRef]}
           repelHalo={48}
           repelStrength={0.5}
