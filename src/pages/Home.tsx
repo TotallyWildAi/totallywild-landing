@@ -1,9 +1,23 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import TerminalDemo from '../components/TerminalDemo'
 import ScrollReveal from '../components/ScrollReveal'
 import ParticleCloud from '../components/ParticleCloud'
 import { useDocumentTheme } from '../paperTheme'
+
+// Tracks viewport width across the md breakpoint (768px). Used to thin the
+// hero particle cloud on phones — fewer particles + faster motion feels
+// alive without crowding the small screen.
+function useIsMobile(breakpoint = 768): boolean {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [breakpoint])
+  return isMobile
+}
 
 // Home-tuned particle palette — same iris colours as /creators et al, but
 // the canvas paints over bg-primary (white in day, near-black in night)
@@ -26,6 +40,7 @@ const HOME_PARTICLE_THEMES = {
 export default function Home() {
   const theme = useDocumentTheme()
   const p = HOME_PARTICLE_THEMES[theme]
+  const isMobile = useIsMobile()
   // The subtitle gets passed to ParticleCloud as a repel zone so particles
   // flow around its bounding rect instead of drifting over the copy.
   const subtitleRef = useRef<HTMLParagraphElement>(null)
@@ -45,8 +60,8 @@ export default function Home() {
           particleColor={p.particleColor}
           linkColor={p.linkColor}
           glowColor={p.glowColor}
-          count={250}
-          speed={0.32}
+          count={isMobile ? 150 : 250}
+          speed={isMobile ? 0.6 : 0.32}
           linkRadius={130}
           cursorPull={0}
           cursorRadius={0}
