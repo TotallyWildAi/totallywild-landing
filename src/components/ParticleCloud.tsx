@@ -275,17 +275,29 @@ export default function ParticleCloud({
       ripples.push({ x, y, age: 0, max: 65 })
     }
 
+    // Translate viewport-space pointer coords to canvas-local coords.
+    // Particles live in canvas-local space (0..W, 0..H). For a fixed
+    // full-viewport canvas this is a no-op (rect.left/top are 0), but for
+    // an inline canvas positioned anywhere on the page the offset matters
+    // — without it, hit-testing, drag, and cursor-pull all miss by the
+    // canvas's distance from the viewport origin.
+    function toCanvas(clientX: number, clientY: number): { x: number; y: number } {
+      const rect = canvas!.getBoundingClientRect()
+      return { x: clientX - rect.left, y: clientY - rect.top }
+    }
+
     function onPointerDown(e: PointerEvent) {
-      mouse.x = e.clientX
-      mouse.y = e.clientY
+      const c = toCanvas(e.clientX, e.clientY)
+      mouse.x = c.x
+      mouse.y = c.y
       mouse.active = true
       if (!cfgRef.current.interactive) return
-      const hit = pickParticle(e.clientX, e.clientY)
+      const hit = pickParticle(c.x, c.y)
       if (hit) {
         drag.p = hit
         hit.pinned = true
         hit.glow = 1
-        drag.history = [{ x: e.clientX, y: e.clientY, t: performance.now() }]
+        drag.history = [{ x: c.x, y: c.y, t: performance.now() }]
         canvas!.classList.add('pcloud-grabbing')
         try {
           canvas!.setPointerCapture(e.pointerId)
@@ -293,18 +305,19 @@ export default function ParticleCloud({
           /* ignore */
         }
       } else {
-        burstAt(e.clientX, e.clientY)
+        burstAt(c.x, c.y)
       }
     }
 
     function onPointerMove(e: PointerEvent) {
-      mouse.x = e.clientX
-      mouse.y = e.clientY
+      const c = toCanvas(e.clientX, e.clientY)
+      mouse.x = c.x
+      mouse.y = c.y
       mouse.active = true
       if (drag.p) {
-        drag.p.x = e.clientX
-        drag.p.y = e.clientY
-        drag.history.push({ x: e.clientX, y: e.clientY, t: performance.now() })
+        drag.p.x = c.x
+        drag.p.y = c.y
+        drag.history.push({ x: c.x, y: c.y, t: performance.now() })
         if (drag.history.length > 6) drag.history.shift()
       }
     }
