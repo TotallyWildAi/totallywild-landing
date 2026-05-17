@@ -2,8 +2,8 @@ import '../paper.css'
 import ParticleCloud from '../components/ParticleCloud'
 import { useDocumentTheme, PARTICLE_THEMES } from '../paperTheme'
 
-type Category = 'creator' | 'hero' | 'demo' | 'mark'
-type PreviewKind = 'particles' | 'mesh' | 'terminal' | 'orbit' | 'placeholder'
+type Category = 'creator' | 'hero' | 'demo' | 'mark' | 'device'
+type PreviewKind = 'particles' | 'mesh' | 'terminal' | 'orbit' | 'device' | 'placeholder'
 
 interface Template {
   name: string
@@ -83,6 +83,22 @@ const templates: Template[] = [
     ],
     github: 'https://github.com/TotallyWildAi/orbit',
     previewKind: 'orbit',
+    status: 'available',
+  },
+  {
+    name: 'Device Frame',
+    tagline:
+      '3D iPhone-class phone rendered in Blender. Drop your app screenshot onto the screen for a universal product showcase.',
+    category: 'device',
+    categoryLabel: 'Device',
+    iconClass: 'ti ti-device-mobile',
+    features: [
+      'Seamless 6-second rotation loop',
+      'Day and night MP4 variants (~1 MB each)',
+      'Swap the screen content via the bundled .blend',
+    ],
+    github: 'https://github.com/TotallyWildAi/device-frame',
+    previewKind: 'device',
     status: 'available',
   },
 ]
@@ -266,6 +282,29 @@ function OrbitPreview({ theme }: { theme: 'day' | 'night' }) {
   )
 }
 
+function DevicePreview({ theme }: { theme: 'day' | 'night' }) {
+  const src = theme === 'night' ? '/templates/device-night.mp4' : '/templates/device-day.mp4'
+  return (
+    <video
+      key={src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+      }}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  )
+}
+
 function PlaceholderPreview() {
   return (
     <div
@@ -301,6 +340,8 @@ function CardPreview({
       return <TerminalPreview theme={theme} />
     case 'orbit':
       return <OrbitPreview theme={theme} />
+    case 'device':
+      return <DevicePreview theme={theme} />
     default:
       return <PlaceholderPreview />
   }

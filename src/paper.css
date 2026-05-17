@@ -40,6 +40,8 @@
   --cat-demo-fg:      #1D5A45;
   --cat-mark-bg:      #FAF0DC;   /* warm amber — distinct from the other three */
   --cat-mark-fg:      #7A5C18;
+  --cat-device-bg:    #E6F0F4;   /* cool slate — distinct again */
+  --cat-device-fg:    #1F4A5C;
 
   /* Primary button (overridden in night) */
   --btn-primary-bg:   #141413;
@@ -83,6 +85,8 @@
   --cat-demo-fg:      #86E5A8;
   --cat-mark-bg:      rgba(244, 196, 102, 0.16);
   --cat-mark-fg:      #F4C466;
+  --cat-device-bg:    rgba(120, 180, 210, 0.16);
+  --cat-device-fg:    #88C0DC;
 
   /* Inverted primary — matches TW pattern (--tw-btn-primary-bg flips in night) */
   --btn-primary-bg:   #FFFFFF;
@@ -202,6 +206,7 @@
 .tw-card-icon.hero     { background: var(--cat-hero-bg);    color: var(--cat-hero-fg); }
 .tw-card-icon.demo     { background: var(--cat-demo-bg);    color: var(--cat-demo-fg); }
 .tw-card-icon.mark     { background: var(--cat-mark-bg);    color: var(--cat-mark-fg); }
+.tw-card-icon.device   { background: var(--cat-device-bg);  color: var(--cat-device-fg); }
 
 .tw-card-tag {
   font-size: 11px;
@@ -218,6 +223,7 @@
 .tw-card-tag.hero    { background: var(--cat-hero-bg);    color: var(--cat-hero-fg); }
 .tw-card-tag.demo    { background: var(--cat-demo-bg);    color: var(--cat-demo-fg); }
 .tw-card-tag.mark    { background: var(--cat-mark-bg);    color: var(--cat-mark-fg); }
+.tw-card-tag.device  { background: var(--cat-device-bg);  color: var(--cat-device-fg); }
 
 .tw-card h2 {
   font-size: 20px;
