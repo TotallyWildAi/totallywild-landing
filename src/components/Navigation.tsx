@@ -37,6 +37,9 @@ export default function Navigation() {
           <Link to="/about" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
             About
           </Link>
+          <Link to="/creators" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
+            For Creators
+          </Link>
           <Link to="/contact" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
             Contact
           </Link>
@@ -89,6 +92,9 @@ export default function Navigation() {
           </Link>
           <Link to="/about" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
             About
+          </Link>
+          <Link to="/creators" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
+            For Creators
           </Link>
           <Link to="/contact" className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: 'var(--tw-text-primary)' }}>
             Contact

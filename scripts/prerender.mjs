@@ -14,7 +14,7 @@ const distDir = join(root, 'dist')
 const ssrDir = join(root, 'dist-server')
 const ssrEntry = join(ssrDir, 'entry-server.js')
 
-const ROUTES = ['/', '/about', '/contact', '/terms', '/privacy']
+const ROUTES = ['/', '/about', '/creators', '/contact', '/terms', '/privacy']
 
 async function main() {
   if (!existsSync(distDir)) throw new Error(`dist/ not found — run vite build first`)

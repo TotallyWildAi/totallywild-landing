@@ -49,7 +49,9 @@
    Use sparingly — only for success/error/warning states.
    ---------------------------------------------------------- */
 :root {
-  --tw-green-day:   #16A34A;
+  /* Green tuned to match --warm-check on the paper-aesthetic pages so the
+     check icons on Home cards read identically to the ones on Creators. */
+  --tw-green-day:   #1D9E75;
   --tw-green-night: #4ADE80;
   --tw-red-day:     #DC2626;
   --tw-red-night:   #F87171;
@@ -69,10 +71,13 @@
   --tw-bg-code:       var(--tw-gray-50);
   --tw-bg-accent:     var(--tw-iris-light);
 
-  /* Text */
+  /* Text — secondary uses gray-800 in day so body text on Home matches the
+     near-black body text on the warm-paper pages (Creators / About / Contact
+     use --warm-text-soft = #2C2C2A which is visually identical to gray-800
+     #2E2E2E). Tertiary follows one step lighter. */
   --tw-text-primary:   var(--tw-black);
-  --tw-text-secondary: var(--tw-gray-500);
-  --tw-text-tertiary:  var(--tw-gray-400);
+  --tw-text-secondary: var(--tw-gray-800);
+  --tw-text-tertiary:  var(--tw-gray-600);
   --tw-text-accent:    var(--tw-iris);
   --tw-text-inverse:   var(--tw-white);
 
