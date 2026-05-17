@@ -29,7 +29,7 @@ export default function Layout() {
         <div className="relative max-w-7xl mx-auto px-6 h-10 flex items-center justify-end">
           <p
             className="hidden md:block absolute left-6 text-[11px] tracking-wide"
-            style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
+            style={{ color: 'var(--tw-text-primary)', letterSpacing: '0.02em' }}
           >
             Brisbane, Australia
             <span aria-hidden="true" className="mx-2 opacity-60">·</span>
@@ -38,7 +38,7 @@ export default function Layout() {
 
           <p
             className="hidden sm:block absolute left-1/2 -translate-x-1/2 text-[11px] tracking-wide"
-            style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
+            style={{ color: 'var(--tw-text-primary)', letterSpacing: '0.02em' }}
           >
             © 2026 Totally Wild AI
           </p>
@@ -46,8 +46,8 @@ export default function Layout() {
           <nav className="flex items-center gap-5 text-[11px]" style={{ letterSpacing: '0.02em' }}>
             <Link
               to="/about"
-              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
-              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-70"
+              style={{ color: 'var(--tw-text-primary)' }}
             >
               About
             </Link>
@@ -58,8 +58,8 @@ export default function Layout() {
             />
             <Link
               to="/contact"
-              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
-              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-70"
+              style={{ color: 'var(--tw-text-primary)' }}
             >
               Contact
             </Link>
@@ -70,8 +70,8 @@ export default function Layout() {
             />
             <Link
               to="/terms"
-              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
-              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-70"
+              style={{ color: 'var(--tw-text-primary)' }}
             >
               Terms
             </Link>
@@ -82,8 +82,8 @@ export default function Layout() {
             />
             <Link
               to="/privacy"
-              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-100"
-              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+              className="uppercase tracking-wider transition-colors duration-200 hover:opacity-70"
+              style={{ color: 'var(--tw-text-primary)' }}
             >
               Privacy
             </Link>
@@ -97,8 +97,8 @@ export default function Layout() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Totally Wild AI on GitHub"
-              className="inline-flex items-center justify-center transition-opacity duration-200 hover:opacity-100"
-              style={{ color: 'var(--tw-text-secondary)', opacity: 0.75 }}
+              className="inline-flex items-center justify-center transition-opacity duration-200 hover:opacity-70"
+              style={{ color: 'var(--tw-text-primary)' }}
             >
               <svg
                 width="14"
