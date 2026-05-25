@@ -214,7 +214,7 @@ export default function Home() {
 
                 <div className="flex gap-2 mb-3">
                   <a
-                    href="https://app-test.totallywild.ai/"
+                    href="https://app.totallywild.ai/"
                     className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
                     style={{
                       background: 'var(--tw-btn-primary-bg)',
