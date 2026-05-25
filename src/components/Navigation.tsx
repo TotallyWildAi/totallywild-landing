@@ -61,7 +61,7 @@ export default function Navigation() {
             </svg>
           </button>
           <a
-            href="https://app-test.totallywild.ai/"
+            href="https://app.totallywild.ai/"
             className="hidden md:block px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
             style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
           >
@@ -100,7 +100,7 @@ export default function Navigation() {
             Contact
           </Link>
           <a
-            href="https://app-test.totallywild.ai/"
+            href="https://app.totallywild.ai/"
             className="px-5 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
             style={{ background: 'var(--tw-btn-primary-bg)', color: 'var(--tw-btn-primary-text)' }}
           >
