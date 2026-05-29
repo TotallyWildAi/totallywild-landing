@@ -116,8 +116,8 @@ export default function Home() {
       </section>
 
       {/* Two Paths — adapted from C:\code\twai-landing-new\tw_ai_access_page_v6.html.
-          Two product cards (Studio + Marketplace for creators, Workshop for
-          business) followed by a quiz/contact strip for undecided visitors.
+          Two product cards (Workshop for business, then Studio + Marketplace
+          for creators) followed by a quiz/contact strip for undecided visitors.
           On bg-primary so it flows from the hero; How It Works below sits on
           bg-secondary, giving the page its alternating panel rhythm. */}
       <ScrollReveal>
@@ -144,105 +144,6 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Creator card */}
-              <article
-                className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                style={{
-                  background: 'var(--tw-bg-primary)',
-                  border: '0.5px solid var(--tw-border-primary)',
-                }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{ background: 'var(--tw-iris-subtle)', color: 'var(--tw-text-accent)' }}
-                  >
-                    <i className="ti ti-wand" style={{ fontSize: 18 }} aria-hidden="true" />
-                  </div>
-                  <span
-                    className="text-[11px] px-2 py-1 rounded-md font-semibold uppercase"
-                    style={{
-                      background: 'var(--tw-iris-subtle)',
-                      color: 'var(--tw-text-accent)',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    For Creators
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-semibold mb-2"
-                  style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
-                >
-                  Studio + Marketplace
-                </h3>
-                <p className="text-sm mb-5" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
-                  Build software, games and content with agents. Own what you make.
-                  List it for sale.
-                </p>
-
-                <ul className="flex flex-col gap-2 mb-6 flex-1 list-none p-0 m-0">
-                  {[
-                    'Software, gaming, content design',
-                    'You own the output and IP',
-                    '80% revenue share, first year',
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-2"
-                      style={{
-                        color: 'var(--tw-text-secondary)',
-                        fontSize: '13px',
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      <i
-                        className="ti ti-check"
-                        style={{
-                          fontSize: 15,
-                          color: 'var(--tw-green)',
-                          marginTop: 1,
-                          flexShrink: 0,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex gap-2 mb-3">
-                  <a
-                    href="https://app.totallywild.ai/"
-                    className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'var(--tw-btn-primary-bg)',
-                      color: 'var(--tw-btn-primary-text)',
-                    }}
-                  >
-                    Start free
-                  </a>
-                  <Link
-                    to="/creators"
-                    className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--tw-text-primary)',
-                      border: '0.5px solid var(--tw-border-primary)',
-                    }}
-                  >
-                    Browse templates
-                  </Link>
-                </div>
-                <p
-                  className="text-xs text-center"
-                  style={{ color: 'var(--tw-text-tertiary)' }}
-                >
-                  Free tier · Pro · Studio
-                </p>
-              </article>
-
               {/* Business card */}
               <article
                 className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
@@ -315,16 +216,16 @@ export default function Home() {
                 </ul>
 
                 <div className="flex gap-2 mb-3">
-                  <Link
-                    to="/contact"
+                  <a
+                    href="https://app.totallywild.ai/"
                     className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
                     style={{
                       background: 'var(--tw-btn-primary-bg)',
                       color: 'var(--tw-btn-primary-text)',
                     }}
                   >
-                    Book demo
-                  </Link>
+                    Start free
+                  </a>
                   <Link
                     to="/contact"
                     className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
@@ -342,6 +243,105 @@ export default function Home() {
                   style={{ color: 'var(--tw-text-tertiary)' }}
                 >
                   Self-serve · Managed · Enterprise
+                </p>
+              </article>
+
+              {/* Creator card */}
+              <article
+                className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                style={{
+                  background: 'var(--tw-bg-primary)',
+                  border: '0.5px solid var(--tw-border-primary)',
+                }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center"
+                    style={{ background: 'var(--tw-iris-subtle)', color: 'var(--tw-text-accent)' }}
+                  >
+                    <i className="ti ti-wand" style={{ fontSize: 18 }} aria-hidden="true" />
+                  </div>
+                  <span
+                    className="text-[11px] px-2 py-1 rounded-md font-semibold uppercase"
+                    style={{
+                      background: 'var(--tw-iris-subtle)',
+                      color: 'var(--tw-text-accent)',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    For Creators
+                  </span>
+                </div>
+
+                <h3
+                  className="text-xl font-semibold mb-2"
+                  style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
+                >
+                  Studio + Marketplace
+                </h3>
+                <p className="text-sm mb-5" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
+                  Build software, games and content with agents. Own what you make.
+                  List it for sale.
+                </p>
+
+                <ul className="flex flex-col gap-2 mb-6 flex-1 list-none p-0 m-0">
+                  {[
+                    'Software, gaming, content design',
+                    'You own the output and IP',
+                    '80% revenue share, first year',
+                  ].map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-start gap-2"
+                      style={{
+                        color: 'var(--tw-text-secondary)',
+                        fontSize: '13px',
+                        lineHeight: 1.45,
+                      }}
+                    >
+                      <i
+                        className="ti ti-check"
+                        style={{
+                          fontSize: 15,
+                          color: 'var(--tw-green)',
+                          marginTop: 1,
+                          flexShrink: 0,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex gap-2 mb-3">
+                  <Link
+                    to="/contact"
+                    className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
+                    style={{
+                      background: 'var(--tw-btn-primary-bg)',
+                      color: 'var(--tw-btn-primary-text)',
+                    }}
+                  >
+                    Book demo
+                  </Link>
+                  <Link
+                    to="/creators"
+                    className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                    style={{
+                      background: 'transparent',
+                      color: 'var(--tw-text-primary)',
+                      border: '0.5px solid var(--tw-border-primary)',
+                    }}
+                  >
+                    Browse templates
+                  </Link>
+                </div>
+                <p
+                  className="text-xs text-center"
+                  style={{ color: 'var(--tw-text-tertiary)' }}
+                >
+                  Coming soon
                 </p>
               </article>
             </div>
