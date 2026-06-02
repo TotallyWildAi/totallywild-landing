@@ -24,20 +24,6 @@ const VERSION = '1.0-draft'
 export default function Privacy() {
   return (
     <>
-      {/* Draft / review banner */}
-      <div
-        role="note"
-        className="px-6 py-3 text-center text-sm border-b"
-        style={{
-          background: 'color-mix(in srgb, #FFB300 18%, var(--tw-bg-primary))',
-          borderColor: 'color-mix(in srgb, #FFB300 35%, var(--tw-border-primary))',
-          color: 'var(--tw-text-primary)',
-        }}
-      >
-        <strong>Draft for legal review.</strong> This Privacy Policy has not yet been
-        reviewed by an Australian or New Zealand privacy lawyer. Do not rely on it as final.
-      </div>
-
       {/* Hero */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
