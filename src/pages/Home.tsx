@@ -62,7 +62,7 @@ export default function Home() {
           </h1>
 
           <p
-            className="inline-block text-lg md:text-xl max-w-3xl mt-6"
+            className="inline-block text-lg md:text-xl max-w-xl mt-6"
             style={{
               color: 'var(--tw-text-primary)',
               lineHeight: 1.55,
