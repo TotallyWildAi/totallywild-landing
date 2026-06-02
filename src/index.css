@@ -30,8 +30,28 @@
   animation: tape-scroll 42s linear infinite;
 }
 
+/* Blinking caret for the rotating hero headline. Only rendered client-side
+   (after hydration), so it never appears in the prerendered static markup. */
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.tw-caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 4px;
+  vertical-align: baseline;
+  background: var(--tw-text-accent);
+  animation: caret-blink 0.85s steps(1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tape-track {
+    animation: none;
+  }
+  .tw-caret {
     animation: none;
   }
 }
