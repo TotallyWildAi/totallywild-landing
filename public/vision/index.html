@@ -152,10 +152,15 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .uc-collapsible{display:none;border:0.5px solid var(--accent);border-top:none;border-radius:0 0 8px 8px;overflow:hidden}
 .uc-open .uc-collapsible{display:block}
 .uc-grid{display:grid;grid-template-columns:1fr 1fr;border:0.5px solid var(--border);border-radius:10px;overflow:hidden}
-.uc-item{padding:0.85rem 1rem;font-size:0.81rem;color:var(--text2);border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:0.5rem;transition:background .15s,color .15s}
+.uc-item{padding:0.85rem 1rem;font-size:0.81rem;color:var(--text2);border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:0.5rem;transition:background .15s,color .15s;cursor:pointer;user-select:none}
 .uc-item:nth-child(odd){border-right:0.5px solid var(--border)}
 .uc-item:hover{background:linear-gradient(90deg,#E8F5EE,#F4FAF6);color:var(--accent)}
-.uc-item::before{content:'→';color:var(--accent);opacity:0.5;font-size:0.72rem;flex-shrink:0}
+.uc-item::before{content:'→';color:var(--accent);opacity:0.5;font-size:0.72rem;flex-shrink:0;transition:opacity .15s,transform .15s}
+.uc-item.active{background:var(--accent-l);color:var(--accent);font-weight:600}
+.uc-item.active::before{opacity:1;transform:translateX(2px)}
+.uc-detail{padding:1rem 1.1rem;border-top:0.5px solid var(--border);background:var(--bg)}
+.uc-detail h5{font-size:0.84rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+.uc-detail p{font-size:0.8rem;color:var(--text2);line-height:1.65}
 
 .step-prog-fill{height:100%;background:linear-gradient(90deg,#2C4F38,#4A7C59);border-radius:2px;width:20%;transition:width .35s ease}
 
@@ -419,12 +424,16 @@ footer nav a:hover{color:rgba(255,255,255,0.8)}
           <span class="uc-arr">▼</span>
         </div>
         <div class="uc-collapsible">
-          <div class="uc-grid" style="border:none;border-radius:0">
-            <div class="uc-item">Software development</div><div class="uc-item">Industry automation</div>
-            <div class="uc-item">Content creation</div><div class="uc-item">Customer service</div>
-            <div class="uc-item">Sales &amp; CRM</div><div class="uc-item">Operations &amp; workflow</div>
-            <div class="uc-item">Research &amp; analytics</div><div class="uc-item">Marketing automation</div>
-            <div class="uc-item">Data processing</div><div class="uc-item">Legal &amp; compliance</div>
+          <div class="uc-grid" id="uc-grid" style="border:none;border-radius:0">
+            <div class="uc-item" data-desc="agents that scaffold, write and review code, then ship and maintain features.">Software development</div><div class="uc-item" data-desc="automate the repetitive, rules-based work specific to your sector, end to end.">Industry automation</div>
+            <div class="uc-item" data-desc="draft, edit and repurpose copy and assets that stay on brand.">Content creation</div><div class="uc-item" data-desc="answer enquiries, resolve tickets and escalate the rest, around the clock.">Customer service</div>
+            <div class="uc-item" data-desc="qualify leads, update records and follow up so the pipeline never goes cold.">Sales &amp; CRM</div><div class="uc-item" data-desc="orchestrate multi-step processes across your tools without manual handoffs.">Operations &amp; workflow</div>
+            <div class="uc-item" data-desc="gather sources, surface patterns and turn raw data into decisions.">Research &amp; analytics</div><div class="uc-item" data-desc="plan campaigns, schedule sends and personalise outreach at scale.">Marketing automation</div>
+            <div class="uc-item" data-desc="clean, transform and enrich data so it's ready wherever you need it.">Data processing</div><div class="uc-item" data-desc="review documents, flag risk and keep records aligned with your obligations.">Legal &amp; compliance</div>
+          </div>
+          <div class="uc-detail" id="uc-detail">
+            <h5 id="uc-detail-title"></h5>
+            <p id="uc-detail-desc"></p>
           </div>
         </div>
       </div>
@@ -717,6 +726,20 @@ function toggleMobileMenu(){
   var open=m.classList.toggle('open');
   if(t)t.setAttribute('aria-expanded',open?'true':'false');
 }
+(function(){
+  var items=document.querySelectorAll('#uc-grid .uc-item');
+  var title=document.getElementById('uc-detail-title');
+  var desc=document.getElementById('uc-detail-desc');
+  if(!items.length||!title||!desc)return;
+  function select(el){
+    items.forEach(function(i){i.classList.remove('active')});
+    el.classList.add('active');
+    title.textContent=el.textContent;
+    desc.textContent=el.getAttribute('data-desc')||'';
+  }
+  items.forEach(function(el){el.addEventListener('click',function(){select(el)})});
+  select(items[0]);
+})();
 function toggleStat(btn){
   var hs=btn.parentElement;
   var isOpen=hs.classList.contains('open');
