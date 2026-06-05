@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Totally Wild — Future Vision</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAFAF8;--bg2:#F5F5F2;--bg3:#EEECEA;
+  --border:#E2E0DC;--border2:#D0CEC8;
+  --accent:#4A6741;--accent-d:#1E2B1A;--accent-l:#E8EFE6;
+  --text:#1E2B1A;--text2:#4A5244;--text3:#8A9082;
+  --g1:#EEECEA;--g2:#E2E0DC;--g3:#D0CEC8;--g4:#2C3F28;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:60px;background:rgba(248,251,250,0.96);backdrop-filter:blur(18px);border-bottom:0.5px solid var(--border)}
+.logo{font-size:1.1rem;font-weight:700;letter-spacing:-0.02em;background:linear-gradient(90deg,#1F2E24,#4A7C59);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.84rem;font-weight:500;color:var(--text3);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-btn{font-size:0.82rem;font-weight:600;background:#C1693A;color:#fff;padding:0.5rem 1.2rem;border-radius:7px;border:none;cursor:pointer;text-decoration:none;transition:opacity .2s}
+.nav-btn:hover{opacity:0.87}
+.nav-right{display:flex;align-items:center;gap:0.9rem}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);line-height:0}
+.mobile-menu{display:none;flex-direction:column;background:rgba(248,251,250,0.98);backdrop-filter:blur(18px);border-bottom:0.5px solid var(--border);padding:0.25rem 6vw 1.2rem;position:sticky;top:60px;z-index:99}
+.mobile-menu.open{display:flex}
+.mobile-menu>a{font-size:0.95rem;font-weight:500;color:var(--text2);text-decoration:none;padding:0.85rem 0;border-bottom:0.5px solid var(--border)}
+.mobile-menu>a:hover{color:var(--text)}
+.mobile-menu .nav-btn{display:block;text-align:center;margin-top:1rem;color:#fff;border-bottom:none;padding:0.82rem 1.2rem}
+
+/* ── HERO — ombré A: light sage-to-white bg ── */
+.hero-wrap{background:linear-gradient(135deg,#E2F2EE 0%,#EFF7F5 50%,#FDF5F0 100%);position:relative;overflow:hidden}
+.hero-wrap::before{content:'';position:absolute;top:-60px;right:-60px;width:420px;height:420px;background:radial-gradient(ellipse at top right,rgba(74,103,65,0.08),transparent 65%);pointer-events:none}
+.hero-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,#F8FBFA);pointer-events:none}
+.hero-trail{padding:5rem 6vw 3rem;max-width:1200px;margin:0 auto;position:relative;overflow:hidden;cursor:default}
+.blob-hero{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(74,124,89,0.1),transparent 70%);pointer-events:none;filter:blur(55px);opacity:0;transition:opacity .5s;z-index:0}
+.hero-content{position:relative;z-index:1;text-align:left;max-width:660px}
+.hero-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.hero-eyebrow::before{content:'';width:18px;height:1px;background:var(--accent)}
+
+/* ── OMBRÉ TEXT E ── */
+.hero-h1-dark{background:linear-gradient(90deg,#0C2E2A,#144E46);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:700;line-height:1.05;letter-spacing:-0.01em;display:block;margin-bottom:0.05em;font-family:'Playfair Display',serif}
+.hero-h1-green{background:linear-gradient(90deg,#3D6B4F,#4A7C59,#7FAF8A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:700;line-height:1.05;letter-spacing:-0.035em;min-height:1.2em;display:block;margin-bottom:1.5rem}
+.tw-cursor{display:inline-block;width:2px;height:0.85em;background:#4A7C59;margin-left:2px;vertical-align:middle;animation:blink 0.85s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-sub{font-size:1rem;color:var(--text2);line-height:1.8;max-width:480px;margin-bottom:2.4rem;font-weight:400;text-align:left}
+.hero-btns{display:flex;gap:0.85rem;flex-wrap:wrap;margin-bottom:1.5rem;justify-content:flex-start}
+.btn-fill{font-size:0.88rem;font-weight:600;background:#C1693A;color:#fff;padding:0.82rem 1.8rem;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:opacity .15s;position:relative;overflow:hidden}
+.btn-fill:hover{opacity:0.88}
+.btn-ghost{font-size:0.88rem;font-weight:500;background:transparent;color:var(--text2);padding:0.82rem 1.8rem;border-radius:8px;border:0.5px solid var(--border2);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s;position:relative;overflow:hidden}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:0.75rem;flex-wrap:wrap;padding-top:2rem;border-top:0.5px solid rgba(74,124,89,0.2)}
+.hs{position:relative}
+.hs-btn{display:flex;align-items:center;gap:0.6rem;padding:0.65rem 1.1rem;background:var(--bg);border:0.5px solid var(--border2);border-radius:100px;transition:border-color .2s,background .2s}
+.hs-btn:hover{border-color:var(--accent);background:var(--accent-l)}
+.hs-btn .v{font-size:1.05rem;font-weight:700;background:linear-gradient(90deg,#2C4F38,#4A7C59);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.hs-btn .l{font-size:0.78rem;color:var(--text2);font-weight:500}
+
+/* ── SECTIONS ── */
+.section-wrap{padding:3.5rem 6vw}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-alt{background:var(--bg2)}
+.section-g{background:linear-gradient(180deg,#F0F6F1 0%,#FFFFFF 100%)}
+.eyebrow{font-size:0.7rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.eyebrow::before{content:'';width:16px;height:1px;background:var(--accent)}
+.s-title{font-size:clamp(1.7rem,3vw,2.6rem);font-weight:700;line-height:1.1;letter-spacing:-0.01em;max-width:640px;margin-bottom:1rem;color:var(--text);font-family:'Playfair Display',serif}
+.s-title-grad{background:linear-gradient(90deg,#1F2E24,#3D6B4F);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.s-sub{font-size:0.94rem;color:var(--text2);max-width:520px;line-height:1.85;margin-bottom:2rem;font-weight:400}
+
+/* ── CALLOUT ── */
+.callout{background:linear-gradient(135deg,#E2F2EE,#FDF5F0);border:0.5px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:1.8rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.callout h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.callout p{font-size:0.86rem;color:var(--text2);line-height:1.7;max-width:400px}
+.pct{font-size:2.6rem;font-weight:700;line-height:1;white-space:nowrap;background:linear-gradient(135deg,#2C4F38,#4A7C59);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pct small{display:block;font-size:0.72rem;color:var(--text3);font-weight:500;margin-top:3px;-webkit-text-fill-color:var(--text3)}
+
+/* ── STUDIO CARDS — ombré D ── */
+.s-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:3rem}
+.sc{padding:1rem 1.2rem;transition:background .25s}
+.sc:nth-child(1){background:linear-gradient(145deg,#E2F2EE,#EFF7F5)}
+.sc:nth-child(2){background:linear-gradient(145deg,#E3DDD2,#F5F5F2)}
+.sc:nth-child(3){background:linear-gradient(145deg,#D8D0C4,#EEECEA)}
+.sc:nth-child(4){background:linear-gradient(145deg,#FDE8DC,#FDF0E8)}
+.sc:hover{background:linear-gradient(145deg,#A8CEAF,#C2DECC)!important}
+.sc-ico{font-size:1.1rem;display:inline;margin-right:0.4rem;vertical-align:middle}
+.sc{cursor:pointer;position:relative}
+.sc-drop{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0}
+.sc.sc-open .sc-drop{max-height:200px;padding:0.5rem 0 0 0}
+
+
+.sc-drop ul{list-style:none}
+.sc-drop ul li{font-size:0.79rem;color:var(--text2);padding:0.18rem 0;display:flex;gap:0.4rem;line-height:1.4}
+.sc-drop ul li::before{content:'–';color:var(--accent);flex-shrink:0}
+.sc-arr{font-size:0.6rem;color:var(--text3);transition:transform .25s;float:right;margin-top:2px}
+
+
+.sc h4{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.4rem;display:inline;vertical-align:middle}
+.sc ul{list-style:none}
+.sc ul li{font-size:0.81rem;color:var(--text2);padding:0.22rem 0;line-height:1.5;display:flex;gap:0.5rem}
+.sc ul li::before{content:'–';color:var(--accent);flex-shrink:0}
+
+/* ── INDUSTRIES ── */
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:0.6rem}
+.ind-pill{background:linear-gradient(135deg,#F0F6F1,#FFFFFF);border:0.5px solid var(--border);border-radius:8px;padding:0.75rem 1rem;font-size:0.82rem;font-weight:500;color:var(--text2);display:flex;align-items:center;gap:0.6rem;transition:border-color .18s,color .18s,background .18s}
+.ind-pill:hover{border-color:var(--accent);color:var(--text);background:linear-gradient(135deg,#D4E8DA,#EDF5EF)}
+.ind-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;opacity:0.7}
+
+/* ── PROGRESS BARS ── */
+.prog-section{margin-bottom:2.5rem}
+.prog-item{margin-bottom:1rem}
+.prog-item-label{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:500;color:var(--text2);margin-bottom:6px}
+.prog-track{height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.prog-fill{height:100%;border-radius:100px;width:0;background:linear-gradient(90deg,#2C4F38,#4A7C59,#7FAF8A);transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* ── AGENTS ── */
+.agents-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:start;max-width:600px}
+.stepper-progress{display:flex;align-items:center;gap:0;margin-bottom:1.2rem}
+.stepper-dot{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--border2);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:600;color:var(--text3);transition:all .3s;flex-shrink:0;cursor:pointer;z-index:1}
+.stepper-dot.active{background:#2C4F38;border-color:#2C4F38;color:#fff}
+.stepper-dot.done{background:var(--accent-l);border-color:var(--accent);color:var(--accent)}
+.stepper-line{flex:1;height:0.5px;background:var(--border);transition:background .3s}
+.stepper-line.done{background:var(--accent)}
+.stepper-card{background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.2rem;min-height:76px;transition:opacity .2s}
+.stepper-card.fade{opacity:0}
+.stepper-card .s-num{font-size:0.68rem;font-weight:600;color:var(--accent);margin-bottom:3px;letter-spacing:0.06em}
+.stepper-card h5{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.25rem}
+.stepper-card p{font-size:0.8rem;color:var(--text2);line-height:1.65}
+.stepper-nav{display:flex;justify-content:space-between;align-items:center;margin-top:0.8rem}
+.stepper-nav button{font-size:0.78rem;font-weight:500;padding:6px 14px;border-radius:7px;border:0.5px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.stepper-nav button:hover{background:var(--accent-l);color:var(--accent);border-color:var(--accent)}
+.stepper-nav button:disabled{opacity:0.3;cursor:not-allowed}
+.stepper-count{font-size:0.72rem;color:var(--text3)}
+
+.step-item{display:flex;gap:1.2rem;padding:1.2rem 0;border-bottom:0.5px solid var(--border)}
+.step-item:first-child{border-top:0.5px solid var(--border)}
+.step-n{font-size:0.68rem;font-weight:700;color:var(--accent);min-width:22px;padding-top:2px;opacity:0.8}
+.step-item h5{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+.step-item p{font-size:0.81rem;color:var(--text2);line-height:1.7}
+.uc-label{font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:0.8rem}
+.uc-toggle{display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1rem;background:var(--bg);border:0.5px solid var(--border2);border-radius:8px;cursor:pointer;transition:background .2s,border-color .2s;user-select:none;margin-bottom:0}
+.uc-toggle:hover{border-color:var(--accent);background:var(--accent-l)}
+.uc-toggle span{font-size:0.8rem;font-weight:600;color:var(--text2)}
+.uc-toggle .uc-arr{font-size:0.6rem;color:var(--text3);transition:transform .25s}
+.uc-open .uc-toggle{border-color:var(--accent);background:var(--accent-l);border-radius:8px 8px 0 0;border-bottom:none}
+.uc-open .uc-arr{transform:rotate(180deg)}
+.uc-collapsible{display:none;border:0.5px solid var(--accent);border-top:none;border-radius:0 0 8px 8px;overflow:hidden}
+.uc-open .uc-collapsible{display:block}
+.uc-grid{display:grid;grid-template-columns:1fr 1fr;border:0.5px solid var(--border);border-radius:10px;overflow:hidden}
+.uc-item{padding:0.85rem 1rem;font-size:0.81rem;color:var(--text2);border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:0.5rem;transition:background .15s,color .15s}
+.uc-item:nth-child(odd){border-right:0.5px solid var(--border)}
+.uc-item:hover{background:linear-gradient(90deg,#E8F5EE,#F4FAF6);color:var(--accent)}
+.uc-item::before{content:'→';color:var(--accent);opacity:0.5;font-size:0.72rem;flex-shrink:0}
+
+.step-prog-fill{height:100%;background:linear-gradient(90deg,#2C4F38,#4A7C59);border-radius:2px;width:20%;transition:width .35s ease}
+
+
+
+
+/* ── MARKETPLACE — ombré D cards ── */
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem}
+.mkt-card{border:0.5px solid var(--border);border-radius:12px;padding:1.8rem;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+.mkt-card:nth-child(1){background:linear-gradient(145deg,#E8F5EE,#FFFFFF)}
+.mkt-card:nth-child(2){background:linear-gradient(145deg,#DFF2E5,#F6FAF7)}
+.mkt-card:nth-child(3){background:linear-gradient(145deg,#D4E8DA,#EDF5EF)}
+.mkt-card:nth-child(4){background:linear-gradient(145deg,#CCE4D3,#E8F5EE)}
+.mkt-card:nth-child(5){background:linear-gradient(145deg,#C2DECC,#DDF0E3)}
+.mkt-card:nth-child(6){background:linear-gradient(145deg,#BDD9C5,#D4E8DA)}
+.mkt-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.mkt-card h4{font-size:0.93rem;font-weight:600;color:var(--text);margin-bottom:0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.mkt-card h4::after{content:'▼';font-size:0.6rem;color:var(--text3);transition:transform .25s;flex-shrink:0;margin-left:8px}
+.mkt-card.open h4::after{transform:rotate(180deg)}
+.mkt-card p{font-size:0.82rem;color:var(--text2);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .3s ease,margin-top .3s ease;margin-top:0}
+.mkt-card.open p{max-height:120px;margin-top:0.5rem}
+.mkt-how{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;background:linear-gradient(135deg,#E2F2EE,#FDF5F0);border:0.5px solid var(--border2);border-radius:12px;padding:2.2rem}
+.mkt-n{font-size:1.8rem;font-weight:700;line-height:1;margin-bottom:0.6rem;background:linear-gradient(90deg,#2C4F38,#4A7C59);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0.7}
+.mkt-step h5{font-size:0.92rem;font-weight:600;color:var(--text);margin-bottom:0.35rem}
+.mkt-step p{font-size:0.82rem;color:var(--text2);line-height:1.75}
+
+/* ── HR ── */
+.hr-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.hr-card{border:0.5px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem;transition:border-color .2s}
+.hr-card:nth-child(1){background:linear-gradient(145deg,#E8F5EE,#FFFFFF)}
+.hr-card:nth-child(2){background:linear-gradient(145deg,#D4E8DA,#EDF5EF)}
+.hr-card:nth-child(3){background:linear-gradient(145deg,#BDD9C5,#D4E8DA)}
+.hr-card:hover{border-color:var(--accent)}
+.hr-top{height:2px;border-radius:2px;margin-bottom:1rem;background:linear-gradient(90deg,#C1693A,#1F7A6E)}
+.hr-n{font-size:0.68rem;font-weight:700;color:var(--accent);margin-bottom:0.4rem;letter-spacing:0.08em}
+.hr-card h4{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.4rem}
+.hr-card p{font-size:0.8rem;color:var(--text2);line-height:1.65}
+.hr-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem}
+.hr-f{border:0.5px solid var(--border);border-radius:7px;padding:0.6rem 0.9rem;font-size:0.8rem;color:var(--text2);display:flex;align-items:center;gap:0.45rem;transition:border-color .15s,color .15s}
+.hr-f:nth-child(3n+1){background:linear-gradient(135deg,#E8F5EE,#FFFFFF)}
+.hr-f:nth-child(3n+2){background:linear-gradient(135deg,#DFF2E5,#F6FAF7)}
+.hr-f:nth-child(3n){background:linear-gradient(135deg,#D4E8DA,#EDF5EF)}
+.hr-f:hover{border-color:var(--accent);color:var(--text)}
+.hr-f::before{content:'✓';color:var(--accent);font-size:0.75rem;font-weight:700;flex-shrink:0}
+
+/* ── PRICING ── */
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.p-card{border:0.5px solid var(--border);border-radius:14px;padding:2rem;transition:border-color .2s,transform .2s}
+.p-card:hover{transform:translateY(-3px)}
+.p-card:nth-child(1){background:linear-gradient(160deg,#E8F5EE,#FFFFFF)}
+.p-card.feat{background:linear-gradient(160deg,#D4E8DA,#EDF5EF);border-color:var(--accent)}
+.p-card:nth-child(3){background:linear-gradient(160deg,#F0F6F1,#FFFFFF)}
+.p-top{height:2px;border-radius:2px;margin-bottom:1.6rem;background:linear-gradient(90deg,#2C4F38,#7FAF8A)}
+.p-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);border:0.5px solid var(--accent);padding:0.2rem 0.65rem;border-radius:100px;display:inline-block;margin-bottom:1rem}
+.p-card h4{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.4rem}
+.p-price{font-size:2.8rem;font-weight:700;line-height:1;margin:0.6rem 0 0.25rem;letter-spacing:-0.03em;background:linear-gradient(90deg,#1F2E24,#4A7C59);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.p-cycle{font-size:0.78rem;color:var(--text3);margin-bottom:1.6rem}
+.p-div{height:0.5px;background:var(--border);margin-bottom:1.4rem}
+.p-card ul{list-style:none}
+.p-card ul li{font-size:0.82rem;color:var(--text2);padding:0.35rem 0;display:flex;gap:0.55rem;line-height:1.5}
+.p-card ul li::before{content:'✓';color:var(--accent);font-size:0.75rem;flex-shrink:0;margin-top:.1rem}
+.p-btn{display:block;text-align:center;margin-top:1.6rem;font-size:0.86rem;font-weight:600;border-radius:8px;padding:0.72rem;text-decoration:none;transition:all .2s;position:relative;overflow:hidden}
+.p-btn.fill{background:linear-gradient(135deg,#A84E28,#C1693A);color:#fff}
+.p-btn.fill:hover{opacity:0.9}
+.p-btn.outline{border:0.5px solid var(--border2);color:var(--text2)}
+.p-btn.outline:hover{border-color:var(--accent);color:var(--accent);background:linear-gradient(135deg,#E2F2EE,#FDF5F0)}
+
+/* ── FAQ ── */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.accord-item{border:0.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px;background:linear-gradient(145deg,#F0F6F1,#FFFFFF)}
+.accord-item:last-child{margin-bottom:0}
+.accord-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;background:transparent;transition:background .15s}
+.accord-head:hover{background:rgba(74,124,89,0.05)}
+.accord-head h4{font-size:0.93rem;font-weight:600;color:var(--text);margin:0}
+.accord-icon{font-size:18px;color:var(--text3);transition:transform 0.3s ease;line-height:1;flex-shrink:0}
+.accord-body{max-height:0;overflow:hidden;transition:max-height 0.38s cubic-bezier(.4,0,.2,1)}
+.accord-body-inner{padding:0 20px 16px}
+.accord-body-inner p{font-size:0.86rem;color:var(--text2);line-height:1.75}
+.accord-item.open .accord-icon{transform:rotate(45deg)}
+.accord-item.open .accord-body{max-height:140px}
+
+/* ── CONTACT ── */
+.float-wrap{position:relative;margin-bottom:14px}
+.float-input{width:100%;padding:18px 14px 6px;border:0.5px solid var(--border2);border-radius:9px;font-size:0.88rem;font-family:inherit;color:var(--text);background:linear-gradient(145deg,#F0F6F1,#FFFFFF);outline:none;transition:border-color .2s}
+.float-input:focus{border-color:var(--accent)}
+.float-label{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:0.83rem;color:var(--text3);pointer-events:none;transition:top .2s,font-size .2s,color .2s}
+.float-input:focus~.float-label,.float-input:not(:placeholder-shown)~.float-label{top:9px;font-size:0.65rem;color:var(--accent);transform:translateY(0)}
+
+/* ── CTA — from F ── */
+.cta-box{background:linear-gradient(135deg,#E2F2EE,#FDF5F0);padding:3.5rem 6vw;width:100%;position:relative;overflow:hidden;text-align:center;display:flex;flex-direction:column;align-items:center}
+
+.cta-box h2{font-size:clamp(2rem,4vw,3.4rem);font-weight:700;letter-spacing:-0.03em;line-height:1.05;margin-bottom:1.1rem;position:relative;z-index:1}
+.cta-h2-dark{background:linear-gradient(90deg,#1F2E24,#2C4F38);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cta-h2-green{background:linear-gradient(90deg,#3D6B4F,#4A7C59,#7FAF8A);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cta-box p{font-size:0.94rem;color:var(--text2);margin-bottom:2.2rem;max-width:420px;line-height:1.8;position:relative;z-index:1}
+.cta-btns{display:flex;gap:0.85rem;flex-wrap:wrap;position:relative;z-index:1;justify-content:center}
+
+/* ── FOOTER ── */
+footer{background:linear-gradient(135deg,#0C2E2A,#144E46);border-top:0.5px solid rgba(255,255,255,0.08);padding:2.5rem 6vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.foot-logo{font-size:1rem;font-weight:700;color:#fff}
+.foot-logo em{color:#7FAF8A;font-style:normal}
+footer p{font-size:0.76rem;color:rgba(255,255,255,0.4)}
+footer nav{display:flex;gap:1.6rem;flex-wrap:wrap;background:transparent}
+footer nav a{font-size:0.76rem;color:rgba(255,255,255,0.45);text-decoration:none;transition:color .2s}
+footer nav a:hover{color:rgba(255,255,255,0.8)}
+
+/* ── EFFECTS ── */
+@keyframes rpl{to{transform:scale(2.8);opacity:0}}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up-d1{transition-delay:0.08s}.fade-up-d2{transition-delay:0.16s}.fade-up-d3{transition-delay:0.24s}
+.fade-up-d4{transition-delay:0.32s}.fade-up-d5{transition-delay:0.40s}.fade-up-d6{transition-delay:0.48s}
+.lift{transition:transform .22s ease,box-shadow .22s ease}
+.lift:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,.07)}
+.spot-card{position:relative;overflow:hidden}
+.spot-glow{position:absolute;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(74,124,89,0.14),transparent 70%);transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .3s;z-index:0}
+.spot-card:hover .spot-glow{opacity:1}
+.spot-card>*:not(.spot-glow){position:relative;z-index:1}
+.trail-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);pointer-events:none;transform:translate(-50%,-50%);opacity:0}
+
+
+
+
+
+
+
+@media(max-width:960px){
+  .s-cards{grid-template-columns:1fr 1fr}.agents-grid{grid-template-columns:1fr;gap:3rem}
+  .hr-cards,.mkt-grid,.price-grid,.faq-grid{grid-template-columns:1fr}.mkt-how{grid-template-columns:1fr}
+  .hr-feats{grid-template-columns:1fr 1fr}nav .nav-links{display:none}
+  .nav-toggle{display:block}.nav-right>.nav-btn{display:none}
+}
+@media(max-width:600px){
+  .s-cards{grid-template-columns:1fr}.uc-grid{grid-template-columns:1fr}
+  .hr-feats{grid-template-columns:1fr}.ind-grid{grid-template-columns:1fr 1fr}
+  .callout{flex-direction:column;align-items:flex-start}.cta-box{padding:2.5rem 1.8rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+    <svg width="32" height="32" viewBox="0 0 56 56" fill="none">
+      <circle cx="28" cy="28" r="27.25" fill="#EDF1EC" stroke="#2C4F38" stroke-width="1.5"/>
+      <rect x="12" y="18" width="32" height="24" rx="5" fill="none" stroke="#2C4F38" stroke-width="1.5"/>
+      <rect x="17" y="24" width="8" height="8" rx="2" fill="#2C4F38"/>
+      <rect x="22" y="25" width="2" height="2" rx="0.5" fill="#BDD9C5"/>
+      <rect x="31" y="24" width="8" height="8" rx="2" fill="#2C4F38"/>
+      <rect x="36" y="25" width="2" height="2" rx="0.5" fill="#BDD9C5"/>
+      <line x1="18" y1="47" x2="38" y2="47" stroke="#4A7C59" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="28" y1="18" x2="28" y2="12" stroke="#2C4F38" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="28" cy="10" r="2" fill="#4A7C59"/>
+    </svg>
+    <span>Totally<em>Wild</em>.ai</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li><li><a href="/about">About</a></li>
+    <li><a href="/creators">For Creators</a></li><li><a href="/contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://app.totallywild.ai/" class="nav-btn">Get Started <span class="btn-arrow">→</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileMenu()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/creators">For Creators</a>
+  <a href="/contact">Contact</a>
+  <a href="https://app.totallywild.ai/" class="nav-btn">Get Started <span class="btn-arrow">→</span></a>
+</div>
+
+<!-- HERO -->
+<div class="hero-wrap">
+<div class="hero-trail">
+  <div class="blob-hero"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up" style="display:none"></div>
+    <span class="hero-h1-dark fade-up fade-up-d1">Build with AI.</span>
+    <span class="hero-h1-green fade-up fade-up-d2" id="tw-text"><span class="tw-cursor"></span></span>
+    <p class="hero-sub fade-up fade-up-d3">Build it. Own it. Sell it.</p>
+    <div class="hero-btns fade-up fade-up-d4">
+      <a href="#studio" class="btn-fill">Explore the Studio <span class="btn-arrow">→</span></a>
+      <a href="#agents" class="btn-ghost">Build Your Agent</a>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- STUDIO -->
+<div class="section-wrap section-g" id="studio">
+<div class="section-inner">
+  <div class="eyebrow fade-up">Studio + Marketplace</div>
+  <h2 class="s-title fade-up fade-up-d1"><span class="s-title-grad">Build AI agents and software for any industry.</span> Own what you make.</h2>
+  <p class="s-sub fade-up fade-up-d2">You keep the intellectual property on everything you create. Build it, brand it, sell it globally.</p>
+
+  <div class="s-cards">
+    <div class="sc spot-card fade-up fade-up-d1" id="sc1" onclick="toggleSC2(this)">
+      <div class="spot-glow"></div>
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="sc-ico">⚙️</span><h4 style="margin-bottom:0">AI Agents for Business</h4></div>
+      <div class="sc-drop">
+        <ul><li>Custom agents for your workflows</li><li>Use our library or build your own</li><li>Deploy, sell or license your agent</li><li>Full IP ownership on every output</li></ul>
+      </div>
+    </div>
+    <div class="sc spot-card fade-up fade-up-d2" id="sc2" onclick="toggleSC2(this)">
+      <div class="spot-glow"></div>
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="sc-ico">💻</span><h4 style="margin-bottom:0">Software for Industries</h4></div>
+      <div class="sc-drop">
+        <ul><li>Industry-specific AI applications</li><li>Rapid build with AI assistance</li><li>Source code fully yours</li><li>Ready to sell on Marketplace</li></ul>
+      </div>
+    </div>
+    <div class="sc spot-card fade-up fade-up-d3" id="sc3" onclick="toggleSC2(this)">
+      <div class="spot-glow"></div>
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="sc-ico">🛒</span><h4 style="margin-bottom:0">Marketplace</h4></div>
+      <div class="sc-drop">
+        <ul><li>List your creation in one click</li><li>Built-in payments &amp; licensing</li><li>Reach global buyers instantly</li><li>Recurring &amp; one-time pricing</li></ul>
+      </div>
+    </div>
+    <div class="sc spot-card fade-up fade-up-d4" id="sc4" onclick="toggleSC2(this)">
+      <div class="spot-glow"></div>
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="sc-ico">📈</span><h4 style="margin-bottom:0">Creator Economics</h4></div>
+      <div class="sc-drop">
+        <ul><li>80% revenue share, year one</li><li>No upfront listing costs</li><li>Earnings &amp; analytics dashboard</li><li>AUD payments, global reach</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:0.7rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem" class="fade-up">Industries we serve</p>
+  <div class="ind-grid">
+    <div class="ind-pill fade-up"><span class="ind-dot"></span>Healthcare &amp; Medical</div>
+    <div class="ind-pill fade-up fade-up-d1"><span class="ind-dot"></span>Finance &amp; FinTech</div>
+    <div class="ind-pill fade-up fade-up-d2"><span class="ind-dot"></span>Legal &amp; Compliance</div>
+    <div class="ind-pill fade-up fade-up-d3"><span class="ind-dot"></span>Real Estate</div>
+    <div class="ind-pill fade-up fade-up-d4"><span class="ind-dot"></span>Retail &amp; eCommerce</div>
+    <div class="ind-pill fade-up fade-up-d5"><span class="ind-dot"></span>Education &amp; Training</div>
+    <div class="ind-pill fade-up"><span class="ind-dot"></span>Construction &amp; Trades</div>
+    <div class="ind-pill fade-up fade-up-d1"><span class="ind-dot"></span>Logistics &amp; Supply Chain</div>
+    <div class="ind-pill fade-up fade-up-d2"><span class="ind-dot"></span>Hospitality &amp; Tourism</div>
+    <div class="ind-pill fade-up fade-up-d3"><span class="ind-dot"></span>Manufacturing</div>
+    <div class="ind-pill fade-up fade-up-d4"><span class="ind-dot"></span>Marketing &amp; Media</div>
+    <div class="ind-pill fade-up fade-up-d5"><span class="ind-dot"></span>Government &amp; Public Sector</div>
+  </div>
+</div>
+</div>
+
+<!-- AGENTS -->
+<div class="section-wrap" style="padding-top:0.25rem" id="agents">
+<div class="section-inner">
+  <div class="eyebrow fade-up">AI Agents</div>
+  <h2 class="s-title fade-up fade-up-d1">Agents built around your ideas. You own the output and IP.</h2>
+  <p class="s-sub fade-up fade-up-d2">Custom AI agents for businesses and individuals. Use ours, adapt our templates, or we'll build from scratch.</p>
+  <div class="agents-grid">
+    <div class="fade-up">
+      <div class="uc-wrap" id="uc-wrap" style="margin-bottom:1.5rem">
+        <div class="uc-toggle" onclick="toggleUC()">
+          <span>Agent use cases</span>
+          <span class="uc-arr">▼</span>
+        </div>
+        <div class="uc-collapsible">
+          <div class="uc-grid" style="border:none;border-radius:0">
+            <div class="uc-item">Software development</div><div class="uc-item">Industry automation</div>
+            <div class="uc-item">Content creation</div><div class="uc-item">Customer service</div>
+            <div class="uc-item">Sales &amp; CRM</div><div class="uc-item">Operations &amp; workflow</div>
+            <div class="uc-item">Research &amp; analytics</div><div class="uc-item">Marketing automation</div>
+            <div class="uc-item">Data processing</div><div class="uc-item">Legal &amp; compliance</div>
+          </div>
+        </div>
+      </div>
+      <div class="stepper-progress" id="stepper-progress"></div>
+      <div class="stepper-card" id="stepper-card">
+        <div class="s-num" id="s-num"></div>
+        <h5 id="s-title"></h5>
+        <p id="s-desc"></p>
+      </div>
+      <div class="stepper-nav">
+        <button id="step-prev" onclick="stepMove(-1)">← Back</button>
+        <span class="stepper-count" id="stepper-count"></span>
+        <button id="step-next" onclick="stepMove(1)">Next →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- MARKETPLACE -->
+<div class="section-wrap" style="background:linear-gradient(180deg,#F0F6F1,#FFFFFF)" id="marketplace">
+<div class="section-inner">
+  <div class="eyebrow fade-up">Marketplace</div>
+  <h2 class="s-title fade-up fade-up-d1"><span class="s-title-grad">List your AI creations.</span> Reach buyers worldwide. Keep most of what you earn.</h2>
+  <p class="s-sub fade-up fade-up-d2">The TotallyWild Marketplace connects creators of AI agents, software and tools with businesses ready to buy.</p>
+  <div class="mkt-grid">
+    <div class="mkt-card lift spot-card fade-up" onclick="toggleMkt(this)"><div class="spot-glow"></div><h4>🚀 List in One Click</h4><p>Publish your AI agent, software or tool directly from the Studio. No technical setup — just add a description and pricing.</p></div>
+    <div class="mkt-card lift spot-card fade-up fade-up-d1" onclick="toggleMkt(this)"><div class="spot-glow"></div><h4>💳 Built-in Payments</h4><p>Accept one-time purchases, subscriptions or usage-based billing. AUD payments processed automatically.</p></div>
+    <div class="mkt-card lift spot-card fade-up fade-up-d2" onclick="toggleMkt(this)"><div class="spot-glow"></div><h4>🔐 IP Protection Built In</h4><p>Every listing comes with built-in licensing. You control who can use your creation, how, and for how long.</p></div>
+    <div class="mkt-card lift spot-card fade-up fade-up-d3" onclick="toggleMkt(this)"><div class="spot-glow"></div><h4>📊 Earnings Dashboard</h4><p>Track sales, revenue and buyer analytics in real time. See what's selling and optimise your listings.</p></div>
+    <div class="mkt-card lift spot-card fade-up fade-up-d4" onclick="toggleMkt(this)"><div class="spot-glow"></div><h4>🌍 Global Reach</h4><p>Your listings are visible to businesses and developers worldwide. Multi-currency support with AUD as the base.</p></div>
+    <div class="mkt-card lift spot-card fade-up fade-up-d5" onclick="toggleMkt(this)"><div class="spot-glow"></div><h4>⚡ 80% Revenue Share</h4><p>Keep 80% of every sale in your first year. We're incentivised to grow with you, not against you.</p></div>
+  </div>
+  <div class="mkt-how fade-up">
+    <div class="mkt-step"><div class="mkt-n">01</div><h5>Build in the Studio</h5><p>Create your AI agent, software or tool. You own every line of code and every output produced.</p></div>
+    <div class="mkt-step"><div class="mkt-n">02</div><h5>List on the Marketplace</h5><p>Publish with one click. Set your price — one-time, subscription or usage-based.</p></div>
+    <div class="mkt-step"><div class="mkt-n">03</div><h5>Earn while you sleep</h5><p>Buyers find and purchase your work. Revenue lands in your account automatically.</p></div>
+  </div>
+</div>
+</div>
+
+<!-- HR -->
+<div class="section-wrap" style="padding-top:0.5rem" id="hr">
+<div class="section-inner">
+  <div class="eyebrow fade-up">AI-Powered HR</div>
+  <h2 class="s-title fade-up fade-up-d1">Your AI HR department. Use ours, use templates, or build your own.</h2>
+  <p class="s-sub fade-up fade-up-d2">An intelligent alternative to traditional HR. Deploy ready-made agents or build custom workflows. You stay in control.</p>
+  <div class="hr-cards">
+    <div class="hr-card lift fade-up"><div class="hr-top"></div><div class="hr-n">01</div><h4>Use Our HR Agents</h4><p>Deploy pre-built AI HR agents instantly. Hiring, onboarding, compliance, performance reviews — out of the box, zero configuration required.</p></div>
+    <div class="hr-card lift fade-up fade-up-d1"><div class="hr-top"></div><div class="hr-n">02</div><h4>Use Our Templates</h4><p>Start from battle-tested HR workflow templates and customise for your team size, industry and culture.</p></div>
+    <div class="hr-card lift fade-up fade-up-d2"><div class="hr-top"></div><div class="hr-n">03</div><h4>Build Your Own</h4><p>Describe your HR processes and we build a fully custom AI agent stack tailored to your company's unique needs.</p></div>
+  </div>
+  <p style="font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:0.8rem" class="fade-up">Covers every aspect of HR</p>
+  <div class="hr-feats">
+    <div class="hr-f fade-up">Hiring &amp; candidate screening</div><div class="hr-f fade-up fade-up-d1">Onboarding automation</div>
+    <div class="hr-f fade-up fade-up-d2">Performance tracking</div><div class="hr-f fade-up fade-up-d3">Policy &amp; compliance</div>
+    <div class="hr-f fade-up fade-up-d4">Payroll workflow agents</div><div class="hr-f fade-up fade-up-d5">Team analytics &amp; insights</div>
+    <div class="hr-f fade-up">Leave &amp; absence management</div><div class="hr-f fade-up fade-up-d1">Benefits administration</div>
+    <div class="hr-f fade-up fade-up-d2">Employee communications</div>
+  </div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div class="section-wrap" style="background:linear-gradient(180deg,#E8F5EE,#FFFFFF)" id="pricing">
+<div class="section-inner">
+  <div class="eyebrow fade-up">Pricing (AUD)</div>
+  <h2 class="s-title fade-up fade-up-d1"><span class="s-title-grad">Simple, transparent pricing.</span></h2>
+  <p class="s-sub fade-up fade-up-d2">All plans include full IP ownership on everything you build. Priced in Australian Dollars.</p>
+  <div class="price-grid">
+    <div class="p-card fade-up"><div class="p-top"></div><h4>Explorer</h4><div class="p-price">Free</div><div class="p-cycle">No card required · forever free</div><div class="p-div"></div><ul><li>3 AI agent builds / month</li><li>Basic Studio access</li><li>1 Marketplace listing</li><li>Full IP ownership</li><li>Community support</li></ul><a href="https://app.totallywild.ai/" class="p-btn outline">Start for Free</a></div>
+    <div class="p-card fade-up fade-up-d1"><div class="p-top"></div><h4>Creator</h4><div class="p-price">A$39</div><div class="p-cycle">per month · cancel anytime</div><div class="p-div"></div><ul><li>10 AI agent builds / month</li><li>Full Studio access</li><li>5 Marketplace listings</li><li>Full IP ownership</li><li>Email support</li></ul><a href="https://app.totallywild.ai/" class="p-btn outline">Get Started</a></div>
+    <div class="p-card feat fade-up fade-up-d2"><div class="p-top"></div><div class="p-badge">Most Popular</div><h4>Pro</h4><div class="p-price">A$79</div><div class="p-cycle">per month · cancel anytime</div><div class="p-div"></div><ul><li>Unlimited Studio builds</li><li>Unlimited AI agent usage</li><li>80% Marketplace revenue share, yr 1</li><li>Priority Marketplace placement</li><li>HR agent templates included</li><li>Advanced analytics</li><li>Priority support</li></ul><a href="https://app.totallywild.ai/" class="p-btn fill">Get Started <span class="btn-arrow">→</span></a></div>
+    <div class="p-card fade-up fade-up-d3"><div class="p-top"></div><h4>Enterprise</h4><div class="p-price">Custom</div><div class="p-cycle">AUD · contact us for a quote</div><div class="p-div"></div><ul><li>Custom AI agent development</li><li>Full HR agent stack</li><li>Private Marketplace storefront</li><li>Dedicated account manager</li><li>SLA &amp; compliance support</li><li>Custom integrations</li><li>On-premise deployment option</li></ul><a href="https://www.totallywild.ai/contact" class="p-btn outline">Talk to Sales</a></div>
+  </div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="section-wrap" id="faq" style="display:none">
+<div class="section-inner">
+  <div class="eyebrow fade-up">FAQ</div>
+  <h2 class="s-title fade-up fade-up-d1">Common questions</h2>
+  <div class="faq-grid" style="margin-top:2rem">
+    <div>
+      <div class="accord-item fade-up"><div class="accord-head"><h4>Do I really own the IP?</h4><span class="accord-icon">+</span></div><div class="accord-body"><div class="accord-body-inner"><p>Yes — 100%. Every agent, piece of software or content you build on TotallyWild.ai belongs to you. We have no claim over your output, ever.</p></div></div></div>
+      <div class="accord-item fade-up fade-up-d1"><div class="accord-head"><h4>How does the 80% revenue share work?</h4><span class="accord-icon">+</span></div><div class="accord-body"><div class="accord-body-inner"><p>In your first year on the Pro plan, you keep 80 cents of every dollar earned on the Marketplace. After year one it steps down slightly — but you always keep the majority.</p></div></div></div>
+      <div class="accord-item fade-up fade-up-d2"><div class="accord-head"><h4>Can I use my own AI models?</h4><span class="accord-icon">+</span></div><div class="accord-body"><div class="accord-body-inner"><p>Absolutely. You can bring your own models, fine-tune ours, or use our default stack — all within the Studio builder.</p></div></div></div>
+    </div>
+    <div>
+      <div class="accord-item fade-up fade-up-d1"><div class="accord-head"><h4>Is there a free plan?</h4><span class="accord-icon">+</span></div><div class="accord-body"><div class="accord-body-inner"><p>Yes — the Explorer plan is forever free with 3 AI agent builds per month and 1 Marketplace listing. The Creator plan starts at A$39/month with more builds and listings. The Pro plan at A$79/month gives you unlimited everything plus 80% revenue share.</p></div></div></div>
+      <div class="accord-item fade-up fade-up-d2"><div class="accord-head"><h4>What industries do you support?</h4><span class="accord-icon">+</span></div><div class="accord-body"><div class="accord-body-inner"><p>We support 12+ industries including healthcare, finance, legal, real estate, education, construction and more.</p></div></div></div>
+      <div class="accord-item fade-up fade-up-d3"><div class="accord-head"><h4>How does the HR agent work?</h4><span class="accord-icon">+</span></div><div class="accord-body"><div class="accord-body-inner"><p>Use our pre-built HR agents, start from templates, or describe your HR processes and we'll build a fully custom stack — covering hiring, onboarding, compliance and more.</p></div></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="section-wrap" style="display:none" id="contact">
+<div class="section-inner">
+  <div class="eyebrow fade-up">Contact</div>
+  <h2 class="s-title fade-up fade-up-d1">Get in touch</h2>
+  <p class="s-sub fade-up fade-up-d2">Ready to start building, or have a question? We'd love to hear from you.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start" class="fade-up fade-up-d3">
+    <div>
+      <div class="float-wrap"><input class="float-input" id="fn" type="text" placeholder=" "><label class="float-label" for="fn">Your name</label></div>
+      <div class="float-wrap"><input class="float-input" id="fe" type="email" placeholder=" "><label class="float-label" for="fe">Work email</label></div>
+      <div class="float-wrap"><input class="float-input" id="fc" type="text" placeholder=" "><label class="float-label" for="fc">Company</label></div>
+      <div class="float-wrap"><input class="float-input" id="fm" type="text" placeholder=" " style="padding-bottom:40px"><label class="float-label" for="fm">Message</label></div>
+      <a href="#" class="btn-fill" style="display:inline-block">Send Message <span class="btn-arrow">→</span></a>
+    </div>
+    <div style="padding-top:0.5rem">
+      <p style="font-size:0.82rem;color:var(--text2);line-height:1.8;margin-bottom:1.5rem">Whether you're a creator looking to build and earn, a business needing custom AI agents, or an enterprise exploring HR automation — we're here to help.</p>
+      <div style="display:flex;flex-direction:column;gap:0.8rem">
+        <div style="font-size:0.84rem;color:var(--text2)">📧 hello@totallywild.ai</div>
+        <div style="font-size:0.84rem;color:var(--text2)">🌍 totallywild.ai</div>
+        <div style="font-size:0.84rem;color:var(--text2)">🇦🇺 Based in Australia</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-box fade-up" style="margin:0">
+    <h2><span class="cta-h2-dark">Ready to build</span><br><span class="cta-h2-green">something wild?</span></h2>
+    
+    <div class="cta-btns">
+      <a href="https://app.totallywild.ai/" class="btn-fill">Start Building Free <span class="btn-arrow">→</span></a>
+      <a href="https://www.totallywild.ai/contact" class="btn-ghost">Talk to Sales</a>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<footer>
+  <div class="foot-logo">Totally<em>Wild</em>.ai</div>
+  <nav>
+    <a href="/about">About</a><a href="/contact">Contact</a>
+    <a href="/terms">Terms</a><a href="/privacy">Privacy</a>
+    <a href="https://github.com/TotallyWildAi" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </nav>
+  <p>© 2026 Totally Wild AI · Brisbane, Australia · ABN 70 697 524 771</p>
+</footer>
+
+<script>
+(function(){
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+const twEl=document.getElementById('tw-text');
+if(twEl){
+  const phrases=['Own it. Earn from it.','Build with agents.','Keep your IP.','List it. Earn from it.','For every industry.'];
+  let pi=0,ci=0,del=false;
+  function tw(){const p=phrases[pi];if(!del){ci++;twEl.innerHTML=p.slice(0,ci)+'<span class="tw-cursor"></span>';if(ci===p.length){del=true;setTimeout(tw,1800);return;}}else{ci--;twEl.innerHTML=p.slice(0,ci)+'<span class="tw-cursor"></span>';if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tw,380);return;}}setTimeout(tw,del?42:75);}
+  tw();
+}
+
+function animCount(id,end,pre,suf,dur){
+  const el=document.getElementById(id);if(!el)return;
+  const ob=new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)return;ob.disconnect();let s=null;
+  function step(ts){if(!s)s=ts;const t=Math.min((ts-s)/dur,1);const ease=t<0.5?2*t*t:(4-2*t)*t-1;el.textContent=(pre||'')+Math.round(ease*end)+(suf||'');if(t<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);},{threshold:0.5});ob.observe(el);
+}
+animCount('stat1',80,'','%',1200);animCount('stat2',0,'A$','',800);animCount('stat3',100,'','%',1400);animCount('stat4',12,'','+',1000);
+
+
+
+document.querySelectorAll('.prog-fill').forEach(bar=>{
+  const ob2=new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)return;ob2.disconnect();const target=bar.dataset.val||'80';const vEl=document.getElementById(bar.id+'v');let s=null;
+  function step(ts){if(!s)s=ts;const t=Math.min((ts-s)/1200,1);const ease=t<0.5?2*t*t:(4-2*t)*t-1;const v=Math.round(ease*parseFloat(target));bar.style.width=v+'%';if(vEl)vEl.textContent=v+'%';if(t<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);},{threshold:0.4});ob2.observe(bar);
+});
+
+document.querySelectorAll('.accord-head').forEach(head=>{
+  head.addEventListener('click',()=>{const item=head.parentElement;const isOpen=item.classList.contains('open');document.querySelectorAll('.accord-item.open').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open');});
+});
+
+document.querySelectorAll('.spot-card').forEach(card=>{
+  const glow=card.querySelector('.spot-glow');if(!glow)return;
+  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();glow.style.left=(e.clientX-r.left)+'px';glow.style.top=(e.clientY-r.top)+'px';});
+  card.addEventListener('mouseleave',()=>glow.style.opacity='0');
+});
+
+var stepData=[
+  {title:'Share your idea or business need',desc:'Describe what you want the agent to do — no technical knowledge required.'},
+  {title:'Use our agents or build your own',desc:'Pick from our growing library or start fresh with a custom agent spec.'},
+  {title:'Select templates or start from scratch',desc:'Battle-tested templates for common use cases, or a blank canvas.'},
+  {title:'Agent builds, tests & delivers',desc:'Trained, tested and deployed — you review and own every output.'},
+  {title:'Deploy it, sell it, or keep it private',desc:'IP stays with you. List on Marketplace or deploy internally.'}
+];
+var stepCur=0;
+function buildStepProgress(){
+  var p=document.getElementById('stepper-progress');
+  if(!p)return;
+  p.innerHTML='';
+  stepData.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.className='stepper-dot'+(i<stepCur?' done':i===stepCur?' active':'');
+    d.textContent='0'+(i+1);
+    d.onclick=(function(idx){return function(){stepCur=idx;renderStep();}})(i);
+    p.appendChild(d);
+    if(i<stepData.length-1){
+      var l=document.createElement('div');
+      l.className='stepper-line'+(i<stepCur?' done':'');
+      p.appendChild(l);
+    }
+  });
+}
+function renderStep(){
+  var c=document.getElementById('stepper-card');
+  if(!c)return;
+  c.classList.add('fade');
+  setTimeout(function(){
+    document.getElementById('s-num').textContent='Step 0'+(stepCur+1)+' of 0'+stepData.length;
+    document.getElementById('s-title').textContent=stepData[stepCur].title;
+    document.getElementById('s-desc').textContent=stepData[stepCur].desc;
+    document.getElementById('stepper-count').textContent=(stepCur+1)+' / '+stepData.length;
+    document.getElementById('step-prev').disabled=stepCur===0;
+    document.getElementById('step-next').disabled=stepCur===stepData.length-1;
+    c.classList.remove('fade');
+    buildStepProgress();
+  },180);
+}
+function stepMove(dir){stepCur=Math.max(0,Math.min(stepData.length-1,stepCur+dir));renderStep();}
+renderStep();
+
+const heroEl=document.querySelector('.hero-trail');
+if(heroEl){
+  const dots=[];for(let i=0;i<14;i++){const d=document.createElement('div');d.className='trail-dot';heroEl.appendChild(d);dots.push({x:0,y:0,el:d});}
+  let mx=0,my=0;
+  heroEl.addEventListener('mousemove',e=>{const r=heroEl.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;});
+  function trailLoop(){let px=mx,py=my;dots.forEach((d,i)=>{d.el.style.left=px+'px';d.el.style.top=py+'px';d.el.style.opacity=(1-(i/dots.length))*0.45+'';const sz=Math.max(2,6-i*0.3);d.el.style.width=sz+'px';d.el.style.height=sz+'px';if(i<dots.length-1){px=px*0.65+dots[i+1].x*0.35;py=py*0.65+dots[i+1].y*0.35;}d.x=px;d.y=py;});requestAnimationFrame(trailLoop);}
+  trailLoop();
+}
+
+const heroBlob=document.querySelector('.blob-hero');
+if(heroBlob&&heroEl){
+  heroEl.addEventListener('mousemove',e=>{const r=heroEl.getBoundingClientRect();heroBlob.style.left=(e.clientX-r.left-140)+'px';heroBlob.style.top=(e.clientY-r.top-140)+'px';heroBlob.style.opacity='1';});
+  heroEl.addEventListener('mouseleave',()=>heroBlob.style.opacity='0');
+}
+
+document.querySelectorAll('.btn-fill,.btn-ghost,.p-btn').forEach(btn=>{
+  btn.style.position='relative';btn.style.overflow='hidden';
+  btn.addEventListener('click',e=>{const r=btn.getBoundingClientRect();const circle=document.createElement('span');const size=Math.max(r.width,r.height);circle.style.cssText='position:absolute;width:'+size+'px;height:'+size+'px;left:'+(e.clientX-r.left-size/2)+'px;top:'+(e.clientY-r.top-size/2)+'px;border-radius:50%;background:rgba(255,255,255,0.2);transform:scale(0);animation:rpl 0.55s ease-out forwards;pointer-events:none';btn.appendChild(circle);setTimeout(()=>circle.remove(),560);});
+});
+
+document.querySelectorAll('.btn-fill,.btn-ghost,.nav-btn').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-0.5;const y=(e.clientY-r.top)/r.height-0.5;btn.style.transform='perspective(300px) rotateX('+(-y*7)+'deg) rotateY('+(x*7)+'deg) translateY(-2px)';});
+  btn.addEventListener('mouseleave',()=>btn.style.transform='');
+});
+
+document.querySelectorAll('.btn-arrow').forEach(a=>{
+  const btn=a.closest('a,button');if(btn){btn.addEventListener('mouseenter',()=>a.style.transform='translateX(4px)');btn.addEventListener('mouseleave',()=>a.style.transform='');a.style.display='inline-block';a.style.transition='transform 0.2s ease';}
+});
+})();
+
+</script>
+<script>
+function toggleSC(id){
+  var item=document.getElementById(id);
+  var isOpen=item.classList.contains('sc-open');
+  document.querySelectorAll('.sc.sc-open').forEach(function(el){el.classList.remove('sc-open')});
+  if(!isOpen)item.classList.add('sc-open');
+}
+function toggleSC2(card){
+  var isOpen=card.classList.contains('sc-open');
+  document.querySelectorAll('.sc.sc-open').forEach(function(c){c.classList.remove('sc-open')});
+  if(!isOpen)card.classList.add('sc-open');
+}
+function toggleMkt(card){
+  var isOpen=card.classList.contains('open');
+  document.querySelectorAll('.mkt-card.open').forEach(function(c){c.classList.remove('open')});
+  if(!isOpen)card.classList.add('open');
+}
+function toggleUC(){
+  document.getElementById('uc-wrap').classList.toggle('uc-open');
+}
+function toggleMobileMenu(){
+  var m=document.getElementById('mobile-menu');
+  var t=document.getElementById('nav-toggle');
+  var open=m.classList.toggle('open');
+  if(t)t.setAttribute('aria-expanded',open?'true':'false');
+}
+function toggleStat(btn){
+  var hs=btn.parentElement;
+  var isOpen=hs.classList.contains('open');
+  document.querySelectorAll('.hs.open').forEach(function(el){el.classList.remove('open')});
+  if(!isOpen)hs.classList.add('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.hs'))document.querySelectorAll('.hs.open').forEach(function(el){el.classList.remove('open')});
+});
+</script>
+</body>
+</html>
