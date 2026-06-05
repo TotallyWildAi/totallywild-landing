@@ -435,9 +435,9 @@ footer nav a:hover{color:rgba(255,255,255,0.8)}
         <p id="s-desc"></p>
       </div>
       <div class="stepper-nav">
-        <button id="step-prev" onclick="stepMove(-1)">← Back</button>
+        <button id="step-prev">← Back</button>
         <span class="stepper-count" id="stepper-count"></span>
-        <button id="step-next" onclick="stepMove(1)">Next →</button>
+        <button id="step-next">Next →</button>
       </div>
     </div>
 
@@ -654,6 +654,10 @@ function renderStep(){
   },180);
 }
 function stepMove(dir){stepCur=Math.max(0,Math.min(stepData.length-1,stepCur+dir));renderStep();}
+var stepPrevBtn=document.getElementById('step-prev');
+var stepNextBtn=document.getElementById('step-next');
+if(stepPrevBtn)stepPrevBtn.addEventListener('click',function(){stepMove(-1);});
+if(stepNextBtn)stepNextBtn.addEventListener('click',function(){stepMove(1);});
 renderStep();
 
 const heroEl=document.querySelector('.hero-trail');
