@@ -107,7 +107,7 @@ export default function Terms() {
       </ScrollReveal>
 
       {/* Body */}
-      <article className="px-6 pb-24">
+      <article className="px-6 pb-16">
         <div
           className="max-w-3xl mx-auto"
           style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.65 }}
