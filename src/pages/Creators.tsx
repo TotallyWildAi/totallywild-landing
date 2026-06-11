@@ -1,6 +1,9 @@
-import '../paper.css'
+import { CSSProperties } from 'react'
 import ParticleCloud from '../components/ParticleCloud'
-import { useDocumentTheme, PARTICLE_THEMES } from '../paperTheme'
+import Button from '../components/Button'
+import Eyebrow from '../components/Eyebrow'
+import ScrollReveal from '../components/ScrollReveal'
+import SectionTitle, { GradientText } from '../components/SectionTitle'
 
 type Category = 'creator' | 'hero' | 'demo' | 'mark'
 type PreviewKind = 'particles' | 'mesh' | 'terminal' | 'orbit' | 'placeholder'
@@ -87,20 +90,35 @@ const templates: Template[] = [
   },
 ]
 
+// Category chip tints in the new palette (green / terracotta / sage / amber).
+const CATEGORY_COLORS: Record<Category, { bg: string; fg: string }> = {
+  creator: { bg: '#E8EFE6', fg: '#2C4F38' },
+  hero: { bg: '#FDE8DC', fg: '#A84E28' },
+  demo: { bg: '#E5F4ED', fg: '#1D5A45' },
+  mark: { bg: '#FAF0DC', fg: '#7A5C18' },
+}
+
 // ─── Card preview components ────────────────────────────────────────────
 // Each one renders a live mini-instance of the template, so the previews
-// stay accurate as the templates evolve. Theme-aware via the `theme` prop.
+// stay accurate as the templates evolve. The templates ship their own
+// (iris-era) palettes — they're showcased content, not site chrome.
 
-function ParticlesPreview({ theme }: { theme: 'day' | 'night' }) {
-  const p = PARTICLE_THEMES[theme]
+const PARTICLE_PALETTE = {
+  bgColor: '#fafaf7',
+  particleColor: '60, 52, 137',
+  linkColor: '110, 92, 204',
+  glowColor: '155, 142, 232',
+} as const
+
+function ParticlesPreview() {
   return (
     <ParticleCloud
       inline
       interactive={false}
-      bgColor={p.bgColor}
-      particleColor={p.particleColor}
-      linkColor={p.linkColor}
-      glowColor={p.glowColor}
+      bgColor={PARTICLE_PALETTE.bgColor}
+      particleColor={PARTICLE_PALETTE.particleColor}
+      linkColor={PARTICLE_PALETTE.linkColor}
+      glowColor={PARTICLE_PALETTE.glowColor}
       count={45}
       speed={0.22}
       linkRadius={55}
@@ -118,17 +136,8 @@ const MESH_DAY = [
   'radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.08) 0%, transparent 75%)',
 ].join(', ')
 
-const MESH_NIGHT = [
-  'radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.32) 0%, transparent 65%)',
-  'radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.22) 0%, transparent 65%)',
-  'radial-gradient(ellipse 70% 60% at 88% 82%, rgba(72, 56, 148, 0.35) 0%, transparent 70%)',
-  'radial-gradient(ellipse 65% 55% at 12% 85%, rgba(45, 33, 100, 0.40) 0%, transparent 70%)',
-  'radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.14) 0%, transparent 75%)',
-].join(', ')
-
-function MeshPreview({ theme }: { theme: 'day' | 'night' }) {
-  const isNight = theme === 'night'
-  const gridColor = isNight ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'
+function MeshPreview() {
+  const gridColor = 'rgba(0, 0, 0, 0.06)'
   const vignette =
     'radial-gradient(ellipse 80% 70% at 50% 45%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 55%, transparent 100%)'
   return (
@@ -136,8 +145,8 @@ function MeshPreview({ theme }: { theme: 'day' | 'night' }) {
       style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: isNight ? MESH_NIGHT : MESH_DAY,
-        backgroundColor: isNight ? '#0F0F0F' : '#FFFFFF',
+        backgroundImage: MESH_DAY,
+        backgroundColor: '#FFFFFF',
       }}
     >
       <div
@@ -157,15 +166,14 @@ function MeshPreview({ theme }: { theme: 'day' | 'night' }) {
   )
 }
 
-function TerminalPreview({ theme }: { theme: 'day' | 'night' }) {
-  const isNight = theme === 'night'
-  const bg = isNight ? '#1A1A1A' : '#F7F7F7'
-  const chrome = isNight ? '#2E2E2E' : '#F0F0F0'
-  const fg = isNight ? '#FFFFFF' : '#0F0F0F'
-  const dim = isNight ? '#A1A1A1' : '#8A8A8A'
-  const accent = isNight ? '#9B8EE8' : '#6E5CCC'
-  const success = isNight ? '#4ADE80' : '#16A34A'
-  const border = isNight ? 'rgba(255, 255, 255, 0.12)' : '#E2E2E2'
+function TerminalPreview() {
+  const bg = '#F7F7F7'
+  const chrome = '#F0F0F0'
+  const fg = '#0F0F0F'
+  const dim = '#8A8A8A'
+  const accent = '#6E5CCC'
+  const success = '#16A34A'
+  const border = '#E2E2E2'
   return (
     <div
       style={{
@@ -239,15 +247,11 @@ function TerminalPreview({ theme }: { theme: 'day' | 'night' }) {
   )
 }
 
-function OrbitPreview({ theme }: { theme: 'day' | 'night' }) {
-  // The mp4s render with their own solid background, so the surrounding
-  // box just needs to host the <video> at 16:9. Two <video> elements both
-  // mount and play; CSS shows/hides whichever matches the theme so the
-  // toggle is instant.
-  const src = theme === 'night' ? '/templates/orbit-night.mp4' : '/templates/orbit-day.mp4'
+function OrbitPreview() {
+  // The mp4 renders with its own solid background, so the surrounding box
+  // just needs to host the <video> at 16:9.
   return (
     <video
-      key={src}
       autoPlay
       muted
       loop
@@ -261,7 +265,7 @@ function OrbitPreview({ theme }: { theme: 'day' | 'night' }) {
         display: 'block',
       }}
     >
-      <source src={src} type="video/mp4" />
+      <source src="/templates/orbit-day.mp4" type="video/mp4" />
     </video>
   )
 }
@@ -277,7 +281,7 @@ function PlaceholderPreview() {
         fontSize: '10px',
         letterSpacing: '0.12em',
         textTransform: 'uppercase',
-        color: 'var(--warm-text-mute)',
+        color: 'var(--tw-text-tertiary)',
       }}
     >
       <span>preview soon</span>
@@ -285,68 +289,116 @@ function PlaceholderPreview() {
   )
 }
 
-function CardPreview({
-  kind,
-  theme,
-}: {
-  kind: PreviewKind
-  theme: 'day' | 'night'
-}) {
+function CardPreview({ kind }: { kind: PreviewKind }) {
   switch (kind) {
     case 'particles':
-      return <ParticlesPreview theme={theme} />
+      return <ParticlesPreview />
     case 'mesh':
-      return <MeshPreview theme={theme} />
+      return <MeshPreview />
     case 'terminal':
-      return <TerminalPreview theme={theme} />
+      return <TerminalPreview />
     case 'orbit':
-      return <OrbitPreview theme={theme} />
+      return <OrbitPreview />
     default:
       return <PlaceholderPreview />
   }
 }
 
-function TemplateCard({
-  t,
-  theme,
-}: {
-  t: Template
-  theme: 'day' | 'night'
-}) {
+const GHOST_BTN_SMALL: CSSProperties = {
+  padding: '0.55rem 1.1rem',
+  fontSize: '0.8rem',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 6,
+}
+
+function TemplateCard({ t }: { t: Template }) {
   const available = t.status === 'available'
+  const chip = CATEGORY_COLORS[t.category]
   return (
-    <article className="tw-card">
-      <div className="tw-card-preview">
-        <CardPreview kind={t.previewKind} theme={theme} />
+    <article className="sage-card lift" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="tpl-preview">
+        <CardPreview kind={t.previewKind} />
       </div>
-      <div className="tw-card-head">
-        <div className={`tw-card-icon ${t.category}`}>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: '0.7rem' }}>
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 8,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: chip.bg,
+            color: chip.fg,
+            fontSize: 17,
+          }}
+        >
           <i className={t.iconClass} aria-hidden="true" />
         </div>
-        <span className={`tw-card-tag ${t.category}`}>{t.categoryLabel}</span>
+        <span
+          style={{
+            fontSize: '0.68rem',
+            fontWeight: 600,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            padding: '0.2rem 0.6rem',
+            borderRadius: 100,
+            background: chip.bg,
+            color: chip.fg,
+          }}
+        >
+          {t.categoryLabel}
+        </span>
       </div>
 
-      <h2>{t.name}</h2>
-      <p className="tw-card-desc">{t.tagline}</p>
+      <h2
+        style={{
+          fontSize: '1.05rem',
+          fontWeight: 700,
+          color: 'var(--tw-text-primary)',
+          marginBottom: '0.35rem',
+          fontFamily: 'var(--tw-font-display)',
+        }}
+      >
+        {t.name}
+      </h2>
+      <p style={{ fontSize: '0.84rem', color: 'var(--tw-text-secondary)', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+        {t.tagline}
+      </p>
 
-      <div className="tw-features">
+      <div style={{ marginBottom: '1.1rem' }}>
         {t.features.map((f) => (
-          <div key={f}>
-            <i className="ti ti-check" aria-hidden="true" />
+          <div
+            key={f}
+            style={{
+              display: 'flex',
+              gap: '0.5rem',
+              fontSize: '0.8rem',
+              color: 'var(--tw-text-secondary)',
+              padding: '0.18rem 0',
+              lineHeight: 1.5,
+            }}
+          >
+            <span aria-hidden="true" style={{ color: 'var(--tw-text-accent)', fontWeight: 700, flexShrink: 0 }}>
+              ✓
+            </span>
             <span>{f}</span>
           </div>
         ))}
       </div>
 
-      <div className="tw-card-footer">
-        <div className="tw-actions">
+      <div style={{ marginTop: 'auto' }}>
+        <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '0.6rem' }}>
           {available && t.github ? (
             <>
               <a
                 href={t.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tw-btn tw-btn-primary"
+                className="btn-ghost"
+                style={GHOST_BTN_SMALL}
               >
                 <i className="ti ti-brand-github" aria-hidden="true" />
                 View on GitHub
@@ -356,86 +408,81 @@ function TemplateCard({
                   href={t.preview}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tw-btn tw-btn-secondary"
+                  className="btn-ghost"
+                  style={GHOST_BTN_SMALL}
                 >
                   Preview
                 </a>
               )}
             </>
           ) : (
-            <button
-              className="tw-btn tw-btn-secondary"
-              disabled
-              aria-disabled="true"
-              style={{ flex: 1 }}
-            >
+            <button className="btn-ghost" disabled aria-disabled="true" style={{ ...GHOST_BTN_SMALL, opacity: 0.5 }}>
               Coming soon
             </button>
           )}
         </div>
-        {available ? (
-          <p className="tw-price-note">Free · MIT-friendly · no dependencies</p>
-        ) : (
-          <p className="tw-price-note">In the queue · drops here when ready</p>
-        )}
+        <p style={{ fontSize: '0.72rem', color: 'var(--tw-text-tertiary)', margin: 0 }}>
+          {available ? 'Free · MIT-friendly · no dependencies' : 'In the queue · drops here when ready'}
+        </p>
       </div>
     </article>
   )
 }
 
 export default function Creators() {
-  const theme = useDocumentTheme()
-  const p = PARTICLE_THEMES[theme]
   return (
-    <div className="paper-page">
-      {/* Live particle cloud as the page background — showcase of the template.
-          Colours swap when the nav theme toggle flips data-theme on <html>. */}
-      <ParticleCloud
-        bgColor={p.bgColor}
-        particleColor={p.particleColor}
-        linkColor={p.linkColor}
-        glowColor={p.glowColor}
-        count={250}
-        speed={0.32}
-        linkRadius={130}
-        cursorPull={0.04}
-        cursorRadius={170}
-      />
-      <div className="paper-shell">
-        {/* Hero */}
-        <header className="paper-hero">
-          <div className="paper-eyebrow">
-            <i className="ti ti-sparkles" aria-hidden="true" />
-            For Creators
-          </div>
-          <h1>Templates and building blocks</h1>
-          <p>
+    <>
+      {/* Hero */}
+      <div className="hero-wrap">
+        <div style={{ padding: '4rem 6vw 3rem', maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          <Eyebrow>For Creators</Eyebrow>
+          <h1
+            className="hero-h1-dark"
+            style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', marginBottom: '0.4em' }}
+          >
+            Templates and building blocks
+          </h1>
+          <p className="hero-sub" style={{ marginBottom: 0, maxWidth: 560 }}>
             Small, drop-in components we use to build our own product surface.
             Take one, fork it, ship it.
           </p>
-        </header>
-
-        {/* Template grid */}
-        <section className="paper-grid">
-          {templates.map((t) => (
-            <TemplateCard key={t.name} t={t} theme={theme} />
-          ))}
-        </section>
-
-        {/* Friendly call-out */}
-        <div className="paper-callout">
-          <div className="paper-callout-text">
-            <i className="ti ti-info-circle" aria-hidden="true" />
-            <span>Have a template idea? Tell us what you need next.</span>
-          </div>
-          <a href="/contact" className="tw-btn tw-btn-secondary">Request a template</a>
         </div>
-
-        {/* Footer note */}
-        <p className="paper-note">
-          More templates land here as we extract them from our own work.
-        </p>
       </div>
-    </div>
+
+      {/* Template grid */}
+      <section className="section-wrap section-g">
+        <div className="section-inner">
+          <ScrollReveal>
+            <SectionTitle>
+              <GradientText>Take one, fork it, ship it.</GradientText>
+            </SectionTitle>
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="sage-grid-2">
+              {templates.map((t) => (
+                <TemplateCard key={t.name} t={t} />
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Friendly call-out */}
+      <section className="section-wrap" style={{ paddingTop: '0.5rem' }}>
+        <div className="section-inner">
+          <ScrollReveal>
+            <div className="callout" style={{ marginBottom: '0.5rem' }}>
+              <div>
+                <h3>Have a template idea?</h3>
+                <p>Tell us what you need next. More templates land here as we extract them from our own work.</p>
+              </div>
+              <Button variant="ghost" to="/contact">
+                Request a template
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+    </>
   )
 }

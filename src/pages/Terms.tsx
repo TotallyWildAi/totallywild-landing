@@ -32,7 +32,7 @@ export default function Terms() {
         <div className="max-w-4xl mx-auto text-center">
           <h1
             className="text-4xl md:text-5xl font-bold mb-6 headline-gradient"
-            style={{ letterSpacing: '-1px', lineHeight: 1.15, paddingBottom: '0.1em' }}
+            style={{ letterSpacing: '-1px', lineHeight: 1.15, paddingBottom: '0.1em', fontFamily: 'var(--tw-font-display)' }}
           >
             Terms of Service
           </h1>

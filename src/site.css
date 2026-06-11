@@ -936,6 +936,34 @@ textarea.float-input ~ .float-label { top: 18px; transform: none; }
 .spot-card:hover .spot-glow { opacity: 1; }
 .spot-card > *:not(.spot-glow) { position: relative; z-index: 1; }
 
+/* ── SAGE CARDS (generic ombré tiles: About agents/team, Creators templates) ── */
+.sage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+.sage-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+.sage-card {
+  border: 0.5px solid var(--tw-border-primary);
+  border-radius: 12px;
+  padding: 1.6rem;
+  transition: border-color 0.2s;
+}
+.sage-card:nth-child(6n + 1) { background: linear-gradient(145deg, #E8F5EE, #FFFFFF); }
+.sage-card:nth-child(6n + 2) { background: linear-gradient(145deg, #DFF2E5, #F6FAF7); }
+.sage-card:nth-child(6n + 3) { background: linear-gradient(145deg, #D4E8DA, #EDF5EF); }
+.sage-card:nth-child(6n + 4) { background: linear-gradient(145deg, #CCE4D3, #E8F5EE); }
+.sage-card:nth-child(6n + 5) { background: linear-gradient(145deg, #C2DECC, #DDF0E3); }
+.sage-card:nth-child(6n) { background: linear-gradient(145deg, #BDD9C5, #D4E8DA); }
+.sage-card:hover { border-color: var(--tw-text-accent); }
+@media (max-width: 960px) {
+  .sage-grid, .sage-grid-2 { grid-template-columns: 1fr; }
+}
+
 /* ── TEMPLATE PREVIEW BOX (Creators page live previews) ── */
 .tpl-preview {
   position: relative;
