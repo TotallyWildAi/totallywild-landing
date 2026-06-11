@@ -3,7 +3,6 @@ import ParticleCloud from '../components/ParticleCloud'
 import Button from '../components/Button'
 import Eyebrow from '../components/Eyebrow'
 import ScrollReveal from '../components/ScrollReveal'
-import SectionTitle, { GradientText } from '../components/SectionTitle'
 
 type Category = 'creator' | 'hero' | 'demo' | 'mark'
 type PreviewKind = 'particles' | 'mesh' | 'terminal' | 'orbit' | 'placeholder'
@@ -452,11 +451,6 @@ export default function Creators() {
       {/* Template grid */}
       <section className="section-wrap section-g">
         <div className="section-inner">
-          <ScrollReveal>
-            <SectionTitle>
-              <GradientText>Take one, fork it, ship it.</GradientText>
-            </SectionTitle>
-          </ScrollReveal>
           <ScrollReveal>
             <div className="sage-grid-2">
               {templates.map((t) => (
