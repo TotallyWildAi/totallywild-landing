@@ -2,46 +2,46 @@
  * ============================================================
  * TOTALLY WILD AI — Design Tokens
  * ============================================================
- * 
+ *
  * Usage:
  *   @import url('./tokens.css');
- * 
- * Day mode is the default. Night mode activates via:
- *   - data-theme="night" on <html> or any ancestor
- *   - prefers-color-scheme: dark media query
- * 
+ *
+ * Single light theme. Warm off-white neutrals, forest/sage
+ * green accent family, terracotta for primary CTAs.
+ * Source design: public/vision/index.html (/vision page).
+ *
  * ============================================================
  */
 
 /* ----------------------------------------------------------
-   GRAY SCALE
-   Neutral ramp shared across both modes.
+   RAW PALETTE
    ---------------------------------------------------------- */
 :root {
-  --tw-black:    #0F0F0F;
-  --tw-gray-900: #1A1A1A;
-  --tw-gray-800: #2E2E2E;
-  --tw-gray-600: #6B6B6B;
-  --tw-gray-500: #8A8A8A;
-  --tw-gray-400: #A1A1A1;
-  --tw-gray-300: #C4C4C4;
-  --tw-gray-200: #E2E2E2;
-  --tw-gray-100: #F0F0F0;
-  --tw-gray-50:  #F7F7F7;
-  --tw-white:    #FFFFFF;
-}
+  /* Warm neutrals */
+  --tw-paper-0: #FAFAF8;
+  --tw-paper-1: #F5F5F2;
+  --tw-paper-2: #EEECEA;
+  --tw-white:   #FFFFFF;
 
-/* ----------------------------------------------------------
-   BRAND COLORS
-   Iris is the single accent color.
-   ---------------------------------------------------------- */
-:root {
-  --tw-iris:          #6E5CCC;
-  --tw-iris-bright:   #9B8EE8;
-  --tw-iris-light:    #F3F1FC;
-  --tw-iris-mid:      #DDD8F7;
-  --tw-iris-border:   rgba(110, 92, 204, 0.15);
-  --tw-iris-subtle:   rgba(110, 92, 204, 0.08);
+  /* Hairlines */
+  --tw-line:        #E2E0DC;
+  --tw-line-strong: #D0CEC8;
+
+  /* Greens */
+  --tw-ink:       #1E2B1A; /* near-black green — primary text */
+  --tw-pine:      #2C4F38; /* deep green — gradients, active states */
+  --tw-fern:      #4A7C59; /* mid green — gradients, hovers */
+  --tw-moss:      #4A6741; /* accent — eyebrows, links, checks */
+  --tw-sage:      #7FAF8A; /* light green — gradient ends */
+  --tw-sage-tint: #E8EFE6; /* pale green wash — accent surfaces */
+
+  /* Terracotta — primary CTA only */
+  --tw-terra:      #C1693A;
+  --tw-terra-deep: #A84E28;
+
+  /* Footer deep greens */
+  --tw-deep-1: #0C2E2A;
+  --tw-deep-2: #144E46;
 }
 
 /* ----------------------------------------------------------
@@ -49,167 +49,81 @@
    Use sparingly — only for success/error/warning states.
    ---------------------------------------------------------- */
 :root {
-  /* Green tuned to match --warm-check on the paper-aesthetic pages so the
-     check icons on Home cards read identically to the ones on Creators. */
-  --tw-green-day:   #1D9E75;
-  --tw-green-night: #4ADE80;
-  --tw-red-day:     #DC2626;
-  --tw-red-night:   #F87171;
-  --tw-amber-day:   #D97706;
-  --tw-amber-night: #FBBF24;
+  --tw-green: #1D9E75;
+  --tw-red:   #DC2626;
+  --tw-amber: #D97706;
 }
 
 /* ----------------------------------------------------------
-   DAY MODE (default)
+   SEMANTIC TOKENS
    ---------------------------------------------------------- */
-:root,
-[data-theme="day"] {
+:root {
   /* Surfaces */
-  --tw-bg-primary:    var(--tw-white);
-  --tw-bg-secondary:  var(--tw-gray-50);
-  --tw-bg-tertiary:   var(--tw-gray-100);
-  --tw-bg-code:       var(--tw-gray-50);
-  --tw-bg-accent:     var(--tw-iris-light);
+  --tw-bg-primary:   var(--tw-paper-0);
+  --tw-bg-secondary: var(--tw-paper-1);
+  --tw-bg-tertiary:  var(--tw-paper-2);
+  --tw-bg-code:      var(--tw-paper-1);
+  --tw-bg-accent:    var(--tw-sage-tint);
 
-  /* Text — secondary uses gray-800 in day so body text on Home matches the
-     near-black body text on the warm-paper pages (Creators / About / Contact
-     use --warm-text-soft = #2C2C2A which is visually identical to gray-800
-     #2E2E2E). Tertiary follows one step lighter. */
-  --tw-text-primary:   var(--tw-black);
-  --tw-text-secondary: var(--tw-gray-800);
-  --tw-text-tertiary:  var(--tw-gray-600);
-  --tw-text-accent:    var(--tw-iris);
+  /* Text */
+  --tw-text-primary:   var(--tw-ink);
+  --tw-text-secondary: #4A5244;
+  --tw-text-tertiary:  #8A9082;
+  --tw-text-accent:    var(--tw-moss);
   --tw-text-inverse:   var(--tw-white);
 
-  /* Borders */
-  --tw-border-primary:   var(--tw-gray-200);
-  --tw-border-secondary: var(--tw-gray-100);
-  --tw-border-accent:    var(--tw-iris-border);
+  /* Borders — intentionally 0.5px when drawn */
+  --tw-border-primary:   var(--tw-line);
+  --tw-border-secondary: var(--tw-paper-2);
+  --tw-border-strong:    var(--tw-line-strong);
+  --tw-border-accent:    rgba(74, 124, 89, 0.25);
 
   /* Interactive */
-  --tw-btn-primary-bg:   var(--tw-black);
+  --tw-btn-primary-bg:   var(--tw-terra);
   --tw-btn-primary-text: var(--tw-white);
   --tw-btn-ghost-bg:     transparent;
-  --tw-btn-ghost-text:   var(--tw-gray-600);
-  --tw-btn-ghost-border: var(--tw-gray-200);
-  --tw-focus-ring:       rgba(110, 92, 204, 0.4);
-
-  /* Logo */
-  --tw-mark-ring:  var(--tw-gray-300);
-  --tw-mark-core:  var(--tw-iris);
-
-  /* Status */
-  --tw-green: var(--tw-green-day);
-  --tw-red:   var(--tw-red-day);
-  --tw-amber: var(--tw-amber-day);
-
-  /* Grid mesh for hero background */
-  --tw-grid-color: rgba(0, 0, 0, 0.06);
-
-  /* Hero mesh gradient — soft, professional, iris-tonal (day) */
-  --tw-hero-mesh:
-    radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.18) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 60% at 88% 82%, rgba(221, 216, 247, 0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 65% 55% at 12% 85%, rgba(243, 241, 252, 0.70) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.08) 0%, transparent 75%);
+  --tw-btn-ghost-text:   var(--tw-text-secondary);
+  --tw-btn-ghost-border: var(--tw-line-strong);
+  --tw-focus-ring:       rgba(74, 124, 89, 0.4);
 }
 
 /* ----------------------------------------------------------
-   NIGHT MODE
+   GRADIENTS
+   The ombré treatments are the core of the design language.
    ---------------------------------------------------------- */
-[data-theme="night"] {
+:root {
+  /* Hero band: sage → cream sweep */
+  --tw-hero-ombre: linear-gradient(135deg, #E2F2EE 0%, #EFF7F5 50%, #FDF5F0 100%);
+
+  /* Text gradients (use with background-clip: text) */
+  --tw-grad-heading: linear-gradient(90deg, #1F2E24, #3D6B4F);
+  --tw-grad-green:   linear-gradient(90deg, #3D6B4F, #4A7C59, #7FAF8A);
+  --tw-grad-dark:    linear-gradient(90deg, #0C2E2A, #144E46);
+
   /* Surfaces */
-  --tw-bg-primary:    var(--tw-black);
-  --tw-bg-secondary:  var(--tw-gray-900);
-  --tw-bg-tertiary:   var(--tw-gray-800);
-  --tw-bg-code:       var(--tw-gray-900);
-  --tw-bg-accent:     rgba(110, 92, 204, 0.12);
+  --tw-grad-cta:     linear-gradient(135deg, #A84E28, #C1693A);
+  --tw-grad-band:    linear-gradient(180deg, #F0F6F1, #FFFFFF);
+  --tw-grad-callout: linear-gradient(135deg, #E2F2EE, #FDF5F0);
+  --tw-grad-footer:  linear-gradient(135deg, #0C2E2A, #144E46);
 
-  /* Text — HIGH CONTRAST: minimum 7:1 for primary, 4.5:1 for secondary */
-  --tw-text-primary:   var(--tw-white);
-  --tw-text-secondary: var(--tw-gray-300);  /* #C4C4C4 — 9.3:1 on #0F0F0F */
-  --tw-text-tertiary:  var(--tw-gray-400);  /* #A1A1A1 — 6.3:1 on #0F0F0F */
-  --tw-text-accent:    var(--tw-iris-bright); /* #9B8EE8 — 6.1:1 on #0F0F0F */
-  --tw-text-inverse:   var(--tw-black);
-
-  /* Borders */
-  --tw-border-primary:   rgba(255, 255, 255, 0.12);
-  --tw-border-secondary: rgba(255, 255, 255, 0.06);
-  --tw-border-accent:    rgba(155, 142, 232, 0.25);
-
-  /* Interactive */
-  --tw-btn-primary-bg:   var(--tw-white);
-  --tw-btn-primary-text: var(--tw-black);
-  --tw-btn-ghost-bg:     transparent;
-  --tw-btn-ghost-text:   var(--tw-gray-200);
-  --tw-btn-ghost-border: rgba(255, 255, 255, 0.15);
-  --tw-focus-ring:       rgba(155, 142, 232, 0.5);
-
-  /* Logo */
-  --tw-mark-ring:  rgba(255, 255, 255, 0.3);
-  --tw-mark-core:  var(--tw-iris-bright);
-
-  /* Status */
-  --tw-green: var(--tw-green-night);
-  --tw-red:   var(--tw-red-night);
-  --tw-amber: var(--tw-amber-night);
-
-  /* Grid mesh for hero background */
-  --tw-grid-color: rgba(255, 255, 255, 0.06);
-
-  /* Hero mesh gradient — deep iris glow on near-black (night) */
-  --tw-hero-mesh:
-    radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.32) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 60% at 88% 82%, rgba(72, 56, 148, 0.35) 0%, transparent 70%),
-    radial-gradient(ellipse 65% 55% at 12% 85%, rgba(45, 33, 100, 0.40) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.14) 0%, transparent 75%);
+  /* Logo wordmark gradient */
+  --tw-grad-logo: linear-gradient(90deg, #1F2E24, #4A7C59);
 }
 
-/* System preference fallback */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="day"]) {
-    --tw-bg-primary:    var(--tw-black);
-    --tw-bg-secondary:  var(--tw-gray-900);
-    --tw-bg-tertiary:   var(--tw-gray-800);
-    --tw-bg-code:       var(--tw-gray-900);
-    --tw-bg-accent:     rgba(110, 92, 204, 0.12);
-    --tw-text-primary:   var(--tw-white);
-    --tw-text-secondary: var(--tw-gray-300);
-    --tw-text-tertiary:  var(--tw-gray-400);
-    --tw-text-accent:    var(--tw-iris-bright);
-    --tw-text-inverse:   var(--tw-black);
-    --tw-border-primary:   rgba(255, 255, 255, 0.12);
-    --tw-border-secondary: rgba(255, 255, 255, 0.06);
-    --tw-border-accent:    rgba(155, 142, 232, 0.25);
-    --tw-btn-primary-bg:   var(--tw-white);
-    --tw-btn-primary-text: var(--tw-black);
-    --tw-btn-ghost-bg:     transparent;
-    --tw-btn-ghost-text:   var(--tw-gray-200);
-    --tw-btn-ghost-border: rgba(255, 255, 255, 0.15);
-    --tw-focus-ring:       rgba(155, 142, 232, 0.5);
-    --tw-mark-ring:  rgba(255, 255, 255, 0.3);
-    --tw-mark-core:  var(--tw-iris-bright);
-    --tw-green: var(--tw-green-night);
-    --tw-red:   var(--tw-red-night);
-    --tw-amber: var(--tw-amber-night);
-    --tw-grid-color: rgba(255, 255, 255, 0.06);
-    --tw-hero-mesh:
-      radial-gradient(ellipse 60% 55% at 18% 22%, rgba(110, 92, 204, 0.32) 0%, transparent 65%),
-      radial-gradient(ellipse 55% 50% at 82% 18%, rgba(155, 142, 232, 0.22) 0%, transparent 65%),
-      radial-gradient(ellipse 70% 60% at 88% 82%, rgba(72, 56, 148, 0.35) 0%, transparent 70%),
-      radial-gradient(ellipse 65% 55% at 12% 85%, rgba(45, 33, 100, 0.40) 0%, transparent 70%),
-      radial-gradient(ellipse 80% 65% at 50% 50%, rgba(110, 92, 204, 0.14) 0%, transparent 75%);
-  }
+/* ----------------------------------------------------------
+   TRANSITIONAL ALIASES — remove once no src/ references remain
+   ---------------------------------------------------------- */
+:root {
+  --tw-iris:        var(--tw-text-accent);
+  --tw-iris-subtle: var(--tw-bg-accent);
 }
 
 /* ----------------------------------------------------------
    TYPOGRAPHY
    ---------------------------------------------------------- */
 :root {
-  --tw-font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --tw-font-body:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --tw-font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --tw-font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --tw-font-mono:    'Geist Mono', 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
 
   /* Scale */
@@ -241,17 +155,6 @@
 }
 
 /* Headline gradient effect */
-:root,
-[data-theme="day"] {
-  --headline-gradient: linear-gradient(180deg, #0F0F0F 30%, #8A8A8A 100%);
-}
-
-[data-theme="night"] {
-  --headline-gradient: linear-gradient(180deg, #FFFFFF 30%, #C4C4C4 100%);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="day"]) {
-    --headline-gradient: linear-gradient(180deg, #FFFFFF 30%, #C4C4C4 100%);
-  }
+:root {
+  --headline-gradient: var(--tw-grad-heading);
 }

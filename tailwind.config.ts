@@ -6,27 +6,30 @@ export default {
     extend: {
       colors: {
         brand: {
-          DEFAULT: 'var(--tw-iris)',
-          bright: 'var(--tw-iris-bright)',
-          light: 'var(--tw-iris-light)',
-          mid: 'var(--tw-iris-mid)'
+          DEFAULT: 'var(--tw-moss)',
+          pine: 'var(--tw-pine)',
+          fern: 'var(--tw-fern)',
+          sage: 'var(--tw-sage)',
+          tint: 'var(--tw-sage-tint)',
+          terra: 'var(--tw-terra)'
         },
         surface: {
-          DEFAULT: '#FFFFFF',
-          secondary: '#F7F7F7',
-          tertiary: '#F0F0F0'
+          DEFAULT: '#FAFAF8',
+          secondary: '#F5F5F2',
+          tertiary: '#EEECEA'
         },
         text: {
-          DEFAULT: '#0F0F0F',
-          secondary: '#8A8A8A',
-          tertiary: '#A1A1A1'
+          DEFAULT: '#1E2B1A',
+          secondary: '#4A5244',
+          tertiary: '#8A9082'
         },
         border: {
-          DEFAULT: '#E2E2E2'
+          DEFAULT: '#E2E0DC'
         }
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
         mono: ['Geist Mono', 'SF Mono', 'Fira Code', 'Fira Mono', 'monospace']
       }
     }
