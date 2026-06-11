@@ -17,7 +17,7 @@ There are **no test, lint, or format scripts**. Typechecking happens only as par
 **Stack:** React 19 + TypeScript 5 + Vite 6 + Tailwind v4 + React Router 7. Deployed to **Vercel** (despite the README mentioning Cloudflare Pages — the live setup is Vercel because of the serverless function and `vercel.json`).
 
 **Rendering: prerendered SSG + client hydration.** This is not a plain client-rendered SPA. At build time `scripts/prerender.mjs` imports the SSR bundle's `render(url)` (`src/entry-server.tsx`, `renderToString` under `<StaticRouter>`) and writes static HTML for each route into the `<!--app-html-->` placeholder in `dist/index.html`, emitting `dist/<route>/index.html`. At runtime `src/main.tsx` calls `hydrateRoot` (not `createRoot`) under `<BrowserRouter>` to attach to that prerendered markup. Consequences:
-- **Components must be SSR-safe.** Code runs once under Node during prerender with no DOM. Touch `window`/`document` only inside `useEffect` (see `ScrollReveal.tsx`, `paperTheme.ts`) and assume `data-theme` is `"day"` during prerender.
+- **Components must be SSR-safe.** Code runs once under Node during prerender with no DOM. Touch `window`/`document` only inside `useEffect` or event handlers (see `ScrollReveal.tsx`, `Typewriter.tsx`, `HeroEffects.tsx`), and make sure the initial render matches the first client render (no `Date`/random in render).
 - **The `ROUTES` array in `scripts/prerender.mjs` must stay in sync with `App.tsx`.** A route added to `App.tsx` but not to `ROUTES` won't get a prerendered HTML file (it still works via the SPA fallback, but loses SSG/SEO benefit).
 - **The `<!--app-html-->` comment in `index.html` is load-bearing** — prerender throws if it's missing.
 
@@ -25,11 +25,13 @@ There are **no test, lint, or format scripts**. Typechecking happens only as par
 
 **"Get Started" CTA goes off-site.** The primary CTA buttons in `Navigation.tsx` and `Home.tsx` link to `https://app.totallywild.ai/` (the product app), **not** the in-site `/contact` page. Don't "fix" these to internal links — the contact form is a separate path for inbound enquiries; the CTA is for product signup.
 
-**Layout shell.** `src/components/Layout.tsx` renders `<Navigation>` (sticky top), `<Outlet />`, and a glass-blur footer. The footer is `position: fixed` on `md+` and inline on mobile, so page sections need `md:pb-12`-style bottom padding to clear it.
+**Layout shell.** `src/components/Layout.tsx` renders `<Navigation>` (sticky top, blurred), `<Outlet />`, and a normal-flow footer — a dark-green gradient band (`--tw-grad-footer`) with the white lockup, link row, and legal line. The footer is **not** fixed; pages don't need clearance padding.
 
-**Theming.** All colors, spacing, typography are driven by CSS custom properties in `src/tokens.css` (e.g. `var(--tw-bg-primary)`, `var(--tw-text-secondary)`, `var(--tw-iris)`). Day mode is the default; night mode activates when `data-theme="night"` is set on `<html>`. The toggle in `Navigation.tsx` stores theme in **local React state only** and writes `data-theme` to `<html>`; it's not persisted, so a full page reload resets to day mode. The README's "persists across navigation" refers to in-session SPA navigation (Layout doesn't unmount), not reloads. Canvas/particle components don't see React state — they read the theme via the `useDocumentTheme()` hook in `src/paperTheme.ts` (a `MutationObserver` on `<html data-theme>`), which also exports `PARTICLE_THEMES` for the warm-paper pages.
+**Theming.** Single light theme — there is **no night mode**, no `data-theme` attribute, no theme toggle. All colors, spacing, typography are driven by CSS custom properties in `src/tokens.css` (e.g. `var(--tw-bg-primary)`, `var(--tw-text-accent)`, the `--tw-grad-*` gradient tokens). The design language (warm paper neutrals, green accent family, terracotta CTAs, Playfair Display display face, ombré gradients) comes from the `/vision` page; reusable class rules live in `src/site.css` (`.eyebrow`, `.s-title`, `.btn-fill`/`.btn-ghost`, `.sage-card`, `.fade-up`, etc.) — reach for those classes before writing new styles.
 
-**Tailwind v4 quirks.** `src/index.css` uses the v4 `@import 'tailwindcss'` syntax (not the legacy `@tailwind base/components/utilities` directives). `tailwind.config.ts` defines `brand`/`surface`/`text`/`border` color scales and the `Plus Jakarta Sans` / `Geist Mono` fonts, but most components apply colors via inline `style={{ color: 'var(--tw-...)' }}` rather than utility classes — follow that pattern when editing or adding UI so day/night mode keeps working.
+**The `/vision` page is static and standalone.** `public/vision/index.html` is a self-contained HTML file copied verbatim into `dist/` — it does not use the React app, tokens.css, or site.css. Don't refactor it to share code with the app.
+
+**Tailwind v4 quirks.** `src/index.css` uses the v4 `@import 'tailwindcss'` syntax (not the legacy `@tailwind base/components/utilities` directives). `tailwind.config.ts` defines `brand`/`surface`/`text`/`border` color scales and the `Inter` / `Playfair Display` / `Geist Mono` fonts, but most components apply colors via inline `style={{ color: 'var(--tw-...)' }}` or the shared classes in `site.css` rather than utility classes — follow that pattern when editing or adding UI.
 
 **Two tokens.css files.** `branding/tokens.css` is the brand-kit source artifact; `src/tokens.css` is the copy actually loaded by the app (imported from `src/index.css`). When changing tokens, update `src/tokens.css` (and ideally keep `branding/` in sync). `branding/BRAND_GUIDE.md` is the authoritative voice/visual reference — read it before generating new UI or copy.
 
@@ -45,6 +47,8 @@ Optional: `EMAIL_API_URL` (defaults to the worker URL hardcoded in `send.js`), `
 From `branding/BRAND_GUIDE.md` and `branding/README.md` — apply these any time you touch copy or UI:
 
 - Voice: precise, confident, minimal. Short declarative sentences. **Never use exclamation marks.** Lowercase energy — don't capitalize for emphasis.
-- Colors: only one accent (Iris `#6E5CCC` day / `#9B8EE8` night). Use CSS variables from `tokens.css`; never hardcode colors.
+- Colors: green accent family (moss `#4A6741` is the working accent); terracotta `#C1693A` is reserved for primary CTAs only. Use CSS variables from `tokens.css`; never hardcode colors (the gradient ramps in `site.css` are the tokenized exception).
+- Typography: Inter for everything; Playfair Display only for display headings (hero lines, `.s-title`, page titles); Geist Mono for terminal/code.
 - Borders are intentionally `0.5px`, thinner than browser default.
-- Wordmark reads "Totally Wild" (no "AI" in the lockup).
+- The lockup reads "TotallyWild.ai" with the robot mark — render it via `LogoLockup`, don't redraw it.
+- Every animation must no-op under `prefers-reduced-motion`.
