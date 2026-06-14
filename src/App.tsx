@@ -4,7 +4,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Creators from './pages/Creators'
+import Showcase from './pages/Showcase'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 
@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="creators" element={<Creators />} />
+          <Route path="showcase" element={<Showcase />} />
           <Route path="contact" element={<Contact />} />
           <Route path="terms" element={<Terms />} />
           <Route path="privacy" element={<Privacy />} />

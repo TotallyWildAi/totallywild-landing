@@ -151,9 +151,9 @@ export default function Contact() {
 
               <div style={{ paddingTop: '0.5rem' }}>
                 <p style={{ fontSize: '0.86rem', color: 'var(--tw-text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-                  Whether you're a creator looking to build and earn, a business
-                  needing custom AI agents, or an enterprise exploring automation —
-                  we're here to help.
+                  Whether you need a custom AI agent, a complete application built
+                  end to end, or an enterprise automation partner — we're here to
+                  help.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', fontSize: '0.84rem', color: 'var(--tw-text-secondary)' }}>
                   <div>

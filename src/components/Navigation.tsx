@@ -5,7 +5,7 @@ import LogoLockup from './LogoLockup'
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
-  { to: '/creators', label: 'For Creators' },
+  { to: '/showcase', label: 'Showcase' },
   { to: '/contact', label: 'Contact' },
 ]
 

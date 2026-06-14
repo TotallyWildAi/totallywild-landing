@@ -21,7 +21,7 @@ There are **no test, lint, or format scripts**. Typechecking happens only as par
 - **The `ROUTES` array in `scripts/prerender.mjs` must stay in sync with `App.tsx`.** A route added to `App.tsx` but not to `ROUTES` won't get a prerendered HTML file (it still works via the SPA fallback, but loses SSG/SEO benefit).
 - **The `<!--app-html-->` comment in `index.html` is load-bearing** — prerender throws if it's missing.
 
-**Routing.** `src/App.tsx` declares six routes nested under `<Layout />`: `/` (Home), `/about`, `/creators`, `/contact`, `/terms`, `/privacy`. SPA fallback routing is handled by the rewrite in `vercel.json` — any non-asset path serves `index.html`.
+**Routing.** `src/App.tsx` declares six routes nested under `<Layout />`: `/` (Home), `/about`, `/showcase`, `/contact`, `/terms`, `/privacy`. SPA fallback routing is handled by the rewrite in `vercel.json` — any non-asset path serves `index.html`.
 
 **"Get Started" CTA goes off-site.** The primary CTA buttons in `Navigation.tsx` and `Home.tsx` link to `https://app.totallywild.ai/` (the product app), **not** the in-site `/contact` page. Don't "fix" these to internal links — the contact form is a separate path for inbound enquiries; the CTA is for product signup.
 
