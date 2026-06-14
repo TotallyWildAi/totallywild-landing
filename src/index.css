@@ -1,59 +1,13 @@
 @import url('./tokens.css');
+@import url('./site.css');
 @import 'tailwindcss';
 
 /* Hero headline gradient effect */
 .headline-gradient {
-  background: linear-gradient(180deg, var(--tw-text-primary) 0%, var(--tw-text-secondary) 100%);
+  background: var(--headline-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-/* Subtle rotation animation for 3D cubes */
-@keyframes float-rotate {
-  0%, 100% { transform: translateY(0) rotateY(0deg); }
-  50% { transform: translateY(-10px) rotateY(5deg); }
-}
-
-.cube-animation {
-  animation: float-rotate 8s ease-in-out infinite;
-}
-
-/* Continuously scrolling marquee — content is doubled in markup so a
-   -50% transform produces a seamless loop. */
-@keyframes tape-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.tape-track {
-  animation: tape-scroll 42s linear infinite;
-}
-
-/* Blinking caret for the rotating hero headline. Only rendered client-side
-   (after hydration), so it never appears in the prerendered static markup. */
-@keyframes caret-blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
-}
-
-.tw-caret {
-  display: inline-block;
-  width: 3px;
-  height: 0.85em;
-  margin-left: 4px;
-  vertical-align: baseline;
-  background: var(--tw-text-accent);
-  animation: caret-blink 0.85s steps(1) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tape-track {
-    animation: none;
-  }
-  .tw-caret {
-    animation: none;
-  }
 }
 
 html {
@@ -61,6 +15,7 @@ html {
   font-family: var(--tw-font-body);
   background: var(--tw-bg-primary);
   color: var(--tw-text-primary);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -73,4 +28,3 @@ body {
 * {
   box-sizing: border-box;
 }
-
