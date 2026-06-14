@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Collapse from '../components/Collapse'
 import Eyebrow from '../components/Eyebrow'
@@ -13,10 +12,10 @@ import Typewriter from '../components/Typewriter'
 const APP_URL = 'https://app.totallywild.ai/'
 
 const TYPEWRITER_PHRASES = [
-  'Own it. Earn from it.',
-  'Build with agents.',
-  'Keep your IP.',
-  'List it. Earn from it.',
+  'Ship complete apps.',
+  'Built by agents.',
+  'Tested and deployed.',
+  'Own every line.',
   'For every industry.',
 ]
 
@@ -27,7 +26,7 @@ const STUDIO_CARDS = [
     items: [
       'Custom agents for your workflows',
       'Use our library or build your own',
-      'Deploy, sell or license your agent',
+      'Deploy them wherever you work',
       'Full IP ownership on every output',
     ],
   },
@@ -35,30 +34,30 @@ const STUDIO_CARDS = [
     icon: '💻',
     title: 'Software for Industries',
     items: [
-      'Industry-specific AI applications',
-      'Rapid build with AI assistance',
+      'Industry-specific applications',
+      'Built end to end by AI',
       'Source code fully yours',
-      'Ready to sell on Marketplace',
+      'Tested and ready to deploy',
     ],
   },
   {
-    icon: '🛒',
-    title: 'Marketplace',
+    icon: '🏭',
+    title: 'Autonomous Build Factory',
     items: [
-      'List your creation in one click',
-      'Built-in payments & licensing',
-      'Reach global buyers instantly',
-      'Recurring & one-time pricing',
+      'Agents plan, write and review code',
+      'Parallel engineers build in tandem',
+      'Automated tests on every build',
+      'Shipped and deployed for you',
     ],
   },
   {
-    icon: '📈',
-    title: 'Creator Economics',
+    icon: '🔒',
+    title: 'You Own Everything',
     items: [
-      '80% revenue share, year one',
-      'No upfront listing costs',
-      'Earnings & analytics dashboard',
-      'AUD payments, global reach',
+      'Full IP on every line of code',
+      'No lock-in, no licensing games',
+      'Keep it private or take it public',
+      'Handed off with complete source',
     ],
   },
 ]
@@ -96,22 +95,7 @@ const AGENT_STEPS = [
   { title: 'Use our agents or build your own', desc: 'Pick from our growing library or start fresh with a custom agent spec.' },
   { title: 'Select templates or start from scratch', desc: 'Battle-tested templates for common use cases, or a blank canvas.' },
   { title: 'Agent builds, tests & delivers', desc: 'Trained, tested and deployed — you review and own every output.' },
-  { title: 'Deploy it, sell it, or keep it private', desc: 'IP stays with you. List on Marketplace or deploy internally.' },
-]
-
-const MKT_CARDS = [
-  { title: '🚀 List in One Click', desc: 'Publish your AI agent, software or tool directly from the Studio. No technical setup — just add a description and pricing.' },
-  { title: '💳 Built-in Payments', desc: 'Accept one-time purchases, subscriptions or usage-based billing. AUD payments processed automatically.' },
-  { title: '🔐 IP Protection Built In', desc: 'Every listing comes with built-in licensing. You control who can use your creation, how, and for how long.' },
-  { title: '📊 Earnings Dashboard', desc: "Track sales, revenue and buyer analytics in real time. See what's selling and optimise your listings." },
-  { title: '🌍 Global Reach', desc: 'Your listings are visible to businesses and developers worldwide. Multi-currency support with AUD as the base.' },
-  { title: '⚡ 80% Revenue Share', desc: "Keep 80% of every sale in your first year. We're incentivised to grow with you, not against you." },
-]
-
-const MKT_HOW = [
-  { n: '01', title: 'Build in the Studio', desc: 'Create your AI agent, software or tool. You own every line of code and every output produced.' },
-  { n: '02', title: 'List on the Marketplace', desc: 'Publish with one click. Set your price — one-time, subscription or usage-based.' },
-  { n: '03', title: 'Earn while you sleep', desc: 'Buyers find and purchase your work. Revenue lands in your account automatically.' },
+  { title: 'Deploy it or keep it private', desc: 'IP stays with you. Deploy it publicly or run it internally — your call.' },
 ]
 
 const HR_CARDS = [
@@ -130,57 +114,6 @@ const HR_FEATURES = [
   'Leave & absence management',
   'Benefits administration',
   'Employee communications',
-]
-
-const TIERS = [
-  {
-    name: 'Explorer',
-    price: 'Free',
-    cycle: 'No card required · forever free',
-    features: ['3 AI agent builds / month', 'Basic Studio access', '1 Marketplace listing', 'Full IP ownership', 'Community support'],
-    cta: 'Start for Free',
-    featured: false,
-  },
-  {
-    name: 'Creator',
-    price: 'A$39',
-    cycle: 'per month · cancel anytime',
-    features: ['10 AI agent builds / month', 'Full Studio access', '5 Marketplace listings', 'Full IP ownership', 'Email support'],
-    cta: 'Get Started',
-    featured: false,
-  },
-  {
-    name: 'Pro',
-    price: 'A$79',
-    cycle: 'per month · cancel anytime',
-    features: [
-      'Unlimited Studio builds',
-      'Unlimited AI agent usage',
-      '80% Marketplace revenue share, yr 1',
-      'Priority Marketplace placement',
-      'HR agent templates included',
-      'Advanced analytics',
-      'Priority support',
-    ],
-    cta: 'Get Started',
-    featured: true,
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    cycle: 'AUD · contact us for a quote',
-    features: [
-      'Custom AI agent development',
-      'Full HR agent stack',
-      'Private Marketplace storefront',
-      'Dedicated account manager',
-      'SLA & compliance support',
-      'Custom integrations',
-      'On-premise deployment option',
-    ],
-    cta: 'Talk to Sales',
-    featured: false,
-  },
 ]
 
 const UPPER_LABEL_STYLE = {
@@ -229,7 +162,6 @@ function UseCaseExplorer() {
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
   const [studioOpen, setStudioOpen] = useState<number | null>(null)
-  const [mktOpen, setMktOpen] = useState<number | null>(null)
 
   return (
     <>
@@ -242,7 +174,7 @@ export default function Home() {
               <span className="hero-h1-dark">Build with AI.</span>
               <Typewriter phrases={TYPEWRITER_PHRASES} className="hero-h1-green" />
             </h1>
-            <p className="hero-sub">Build it. Own it. Sell it.</p>
+            <p className="hero-sub">An autonomous code-building factory.</p>
             <div className="hero-btns">
               <Button variant="fill" href="#studio" arrow>
                 Explore the Studio
@@ -255,12 +187,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Studio + Marketplace */}
+      {/* Studio */}
       <section className="section-wrap section-g" id="studio">
         <div className="section-inner">
           <ScrollReveal>
-            <Eyebrow>Studio + Marketplace</Eyebrow>
-            <SectionTitle sub="You keep the intellectual property on everything you create. Build it, brand it, sell it globally.">
+            <Eyebrow>The Studio</Eyebrow>
+            <SectionTitle sub="Describe what you need and autonomous agents design, write, test and ship it. You keep the intellectual property on everything the factory builds.">
               <GradientText>Build AI agents and software for any industry.</GradientText> Own what you make.
             </SectionTitle>
           </ScrollReveal>
@@ -321,47 +253,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marketplace */}
-      <section className="section-wrap" style={{ background: 'var(--tw-grad-band)' }} id="marketplace">
-        <div className="section-inner">
-          <ScrollReveal>
-            <Eyebrow>Marketplace</Eyebrow>
-            <SectionTitle sub="The TotallyWild Marketplace connects creators of AI agents, software and tools with businesses ready to buy.">
-              <GradientText>List your AI creations.</GradientText> Reach buyers worldwide. Keep most of what you earn.
-            </SectionTitle>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <div className="mkt-grid">
-              {MKT_CARDS.map((card, i) => (
-                <SpotCard
-                  key={card.title}
-                  className={`mkt-card lift${mktOpen === i ? ' open' : ''}`}
-                  onClick={() => setMktOpen(mktOpen === i ? null : i)}
-                >
-                  <h4>{card.title}</h4>
-                  <Collapse open={mktOpen === i}>
-                    <p style={{ paddingTop: '0.5rem' }}>{card.desc}</p>
-                  </Collapse>
-                </SpotCard>
-              ))}
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <div className="mkt-how">
-              {MKT_HOW.map((step) => (
-                <div className="mkt-step" key={step.n}>
-                  <div className="mkt-n">{step.n}</div>
-                  <h5>{step.title}</h5>
-                  <p>{step.desc}</p>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* AI-Powered HR */}
       <section className="section-wrap" style={{ paddingTop: '2rem' }} id="hr">
         <div className="section-inner">
@@ -393,57 +284,6 @@ export default function Home() {
               {HR_FEATURES.map((feature) => (
                 <div className="hr-f" key={feature}>
                   {feature}
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section
-        className="section-wrap"
-        style={{ background: 'linear-gradient(180deg, #E8F5EE, #FFFFFF)' }}
-        id="pricing"
-      >
-        <div className="section-inner">
-          <ScrollReveal>
-            <Eyebrow>Pricing (AUD)</Eyebrow>
-            <SectionTitle sub="All plans include full IP ownership on everything you build. Priced in Australian Dollars.">
-              <GradientText>Simple, transparent pricing.</GradientText>
-            </SectionTitle>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <div className="price-grid">
-              {TIERS.map((tier) => (
-                <div className={`p-card${tier.featured ? ' feat' : ''}`} key={tier.name}>
-                  <div className="p-top" />
-                  {tier.featured && <div className="p-badge">Most Popular</div>}
-                  <h4>{tier.name}</h4>
-                  <div className="p-price">{tier.price}</div>
-                  <div className="p-cycle">{tier.cycle}</div>
-                  <div className="p-div" />
-                  <ul>
-                    {tier.features.map((feature) => (
-                      <li key={feature}>{feature}</li>
-                    ))}
-                  </ul>
-                  {tier.name === 'Enterprise' ? (
-                    <Link to="/contact" className="p-btn outline">
-                      {tier.cta}
-                    </Link>
-                  ) : (
-                    <a href={APP_URL} className={`p-btn ${tier.featured ? 'fill' : 'outline'}`}>
-                      {tier.cta}
-                      {tier.featured && (
-                        <>
-                          {' '}
-                          <span className="btn-arrow">→</span>
-                        </>
-                      )}
-                    </a>
-                  )}
                 </div>
               ))}
             </div>

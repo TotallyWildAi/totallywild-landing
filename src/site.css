@@ -936,7 +936,7 @@ textarea.float-input ~ .float-label { top: 18px; transform: none; }
 .spot-card:hover .spot-glow { opacity: 1; }
 .spot-card > *:not(.spot-glow) { position: relative; z-index: 1; }
 
-/* ── SAGE CARDS (generic ombré tiles: About agents/team, Creators templates) ── */
+/* ── SAGE CARDS (generic ombré tiles: About agents/team, Showcase apps) ── */
 .sage-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -964,7 +964,7 @@ textarea.float-input ~ .float-label { top: 18px; transform: none; }
   .sage-grid, .sage-grid-2 { grid-template-columns: 1fr; }
 }
 
-/* ── TEMPLATE PREVIEW BOX (Creators page live previews) ── */
+/* ── PREVIEW BOX (Showcase app screenshots, 16:9) ── */
 .tpl-preview {
   position: relative;
   width: 100%;

@@ -1,7 +1,7 @@
 # Totally Wild AI — Brand & Style Guide
 
-> **Studio + Marketplace for AI agents and software**
-> "Build with AI. Own it. Sell it."
+> **An autonomous code-building factory for AI agents and software**
+> "Build with AI. Own it."
 
 This document defines the visual identity, design tokens, and implementation rules for Totally Wild AI. Follow it precisely to ensure consistency across all surfaces. The reference implementation of this language is the live site (`src/site.css`, `src/tokens.css`) and the `/vision` page it was distilled from.
 
@@ -9,7 +9,7 @@ This document defines the visual identity, design tokens, and implementation rul
 
 ## 1. Brand overview
 
-Totally Wild AI is a Studio and Marketplace for building AI agents and software. The brand communicates warmth, craft, and ownership — natural greens on warm paper neutrals, a serif display face for headlines, and a single terracotta call-to-action color that stands apart from everything else on the page.
+Totally Wild AI is an autonomous code-building factory for AI agents and software — describe what you need and AI agents design, build, test and ship it, with full IP ownership handed to you. The brand communicates warmth, craft, and ownership — natural greens on warm paper neutrals, a serif display face for headlines, and a single terracotta call-to-action color that stands apart from everything else on the page.
 
 **Brand voice:** Precise · Confident · Minimal · Warm
 
