@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Collapse from '../components/Collapse'
 import Eyebrow from '../components/Eyebrow'
@@ -8,20 +9,15 @@ import SectionTitle, { GradientText } from '../components/SectionTitle'
 import SpotCard from '../components/SpotCard'
 import Stepper from '../components/Stepper'
 import Typewriter from '../components/Typewriter'
+import { apps } from '../data/apps'
 
 const APP_URL = 'https://app.totallywild.ai/'
 
-const TYPEWRITER_PHRASES = [
-  'Ship complete apps.',
-  'Built by agents.',
-  'Tested and deployed.',
-  'Own every line.',
-  'For every industry.',
-]
+const TYPEWRITER_PHRASES = ['built by AI.', 'shipped in days.', 'owned by you.', 'tested and live.']
 
 const STUDIO_CARDS = [
   {
-    icon: '⚙️',
+    icon: 'ti-robot',
     title: 'AI Agents for Business',
     items: [
       'Custom agents for your workflows',
@@ -31,7 +27,7 @@ const STUDIO_CARDS = [
     ],
   },
   {
-    icon: '💻',
+    icon: 'ti-app-window',
     title: 'Software for Industries',
     items: [
       'Industry-specific applications',
@@ -41,7 +37,7 @@ const STUDIO_CARDS = [
     ],
   },
   {
-    icon: '🏭',
+    icon: 'ti-building-factory-2',
     title: 'Autonomous Build Factory',
     items: [
       'Agents plan, write and review code',
@@ -51,7 +47,7 @@ const STUDIO_CARDS = [
     ],
   },
   {
-    icon: '🔒',
+    icon: 'ti-lock',
     title: 'You Own Everything',
     items: [
       'Full IP on every line of code',
@@ -171,21 +167,147 @@ export default function Home() {
           <HeroEffects containerRef={heroRef} />
           <div className="hero-content">
             <h1 style={{ margin: 0 }}>
-              <span className="hero-h1-dark">Build with AI.</span>
+              <span className="hero-h1-dark">Your software,</span>
               <Typewriter phrases={TYPEWRITER_PHRASES} className="hero-h1-green" />
             </h1>
-            <p className="hero-sub">An autonomous code-building factory.</p>
+            <p className="hero-sub">
+              An autonomous build factory. Describe the app or agent you need — our AI engineers design it,
+              build it, test it and ship it, then hand you every line. No engineering team required.
+            </p>
             <div className="hero-btns">
-              <Button variant="fill" href="#studio" arrow>
-                Explore the Studio
+              <Button variant="fill" href={APP_URL} arrow>
+                Get started free
               </Button>
-              <Button variant="ghost" href="#agents">
-                Build Your Agent
+              <Button variant="ghost" to="/contact">
+                Book a build
               </Button>
             </div>
+            <Link
+              to="/showcase"
+              style={{
+                display: 'inline-block',
+                marginTop: '0.9rem',
+                fontSize: '0.85rem',
+                color: 'var(--tw-text-tertiary)',
+                textDecoration: 'none',
+              }}
+            >
+              see what we've built →
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* Proof band */}
+      <section className="section-wrap section-g">
+        <div className="section-inner">
+          <ScrollReveal>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '1.6rem',
+              }}
+            >
+              {[
+                { big: '80%', caption: 'faster to ship — buyer-outreach platform for a business broker' },
+                { big: 'Hours, not days', caption: 'to a working loan-document review prototype for a mortgage broker' },
+                { big: '4', caption: 'production apps shipped and live' },
+                { big: '100%', caption: 'source and IP ownership — every line is yours' },
+              ].map((stat) => (
+                <div key={stat.caption}>
+                  <div
+                    style={{
+                      fontFamily: 'var(--tw-font-display)',
+                      color: 'var(--tw-text-accent)',
+                      fontSize: 'clamp(1.6rem, 3vw, 2rem)',
+                      lineHeight: 1.1,
+                      marginBottom: '0.5rem',
+                    }}
+                  >
+                    {stat.big}
+                  </div>
+                  <p
+                    style={{
+                      fontSize: '0.82rem',
+                      color: 'var(--tw-text-secondary)',
+                      lineHeight: 1.5,
+                      margin: 0,
+                    }}
+                  >
+                    {stat.caption}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Built by the factory */}
+      <section className="section-wrap">
+        <div className="section-inner">
+          <ScrollReveal>
+            <Eyebrow>Proof</Eyebrow>
+            <SectionTitle sub="A few of the production applications the factory has designed, built and shipped.">
+              Real apps. Shipped and live.
+            </SectionTitle>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="sage-grid-2">
+              {apps.map((app) => (
+                <article className="sage-card lift" key={app.name}>
+                  <div className="tpl-preview">
+                    <img
+                      src={app.image}
+                      alt={`${app.name} interface`}
+                      loading="lazy"
+                      decoding="async"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'top',
+                        display: 'block',
+                      }}
+                    />
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--tw-font-display)',
+                      fontSize: '1rem',
+                      color: 'var(--tw-text-primary)',
+                      margin: '0 0 0.35rem',
+                    }}
+                  >
+                    {app.name}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: '0.84rem',
+                      color: 'var(--tw-text-secondary)',
+                      margin: 0,
+                    }}
+                  >
+                    {app.tagline}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <Button variant="ghost" to="/showcase">
+                Explore the showcase
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* Studio */}
       <section className="section-wrap section-g" id="studio">
@@ -206,7 +328,7 @@ export default function Home() {
                   onClick={() => setStudioOpen(studioOpen === i ? null : i)}
                 >
                   <div className="sc-head">
-                    <span className="sc-ico" aria-hidden="true">{card.icon}</span>
+                    <i className={`sc-ico ti ${card.icon}`} aria-hidden="true" />
                     <h4>{card.title}</h4>
                   </div>
                   <Collapse open={studioOpen === i}>
