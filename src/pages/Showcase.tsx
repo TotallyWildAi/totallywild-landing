@@ -14,6 +14,8 @@ interface App {
   liveUrl?: string
   /** Public source repository, if one is available. */
   source?: string
+  /** No live demo yet — show a "Coming soon" badge in place of the live link. */
+  comingSoon?: boolean
 }
 
 // Applications the build factory has produced. Append new entries here —
@@ -48,6 +50,16 @@ const apps: App[] = [
     tags: ['Knowledge graph', 'Neo4j', 'Auditable'],
     liveUrl: 'https://graphagent.eqr.vc/',
     source: 'https://github.com/TotallyWildAi/graph-query-agent',
+  },
+  {
+    name: 'Whiteout Haul',
+    tagline: 'A 3D idle mining game in the browser.',
+    description:
+      'A Three.js idle game — haul gold and silver by truck, survive hazards like bear raids and avalanches, automate the grind with a bot, and ride live commodity-price economics.',
+    image: '/showcase/whiteout-haul.png',
+    tags: ['3D / Three.js', 'Game', 'Idle'],
+    comingSoon: true,
+    source: 'https://github.com/nick-totallywild/whiteout-haul',
   },
 ]
 
@@ -117,7 +129,7 @@ function AppCard({ app }: { app: App }) {
         {app.description}
       </p>
 
-      <div style={{ marginTop: 'auto', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+      <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
         {app.liveUrl && (
           <a
             href={app.liveUrl}
@@ -129,6 +141,22 @@ function AppCard({ app }: { app: App }) {
             Visit live
             <span className="btn-arrow">→</span>
           </a>
+        )}
+        {app.comingSoon && (
+          <span
+            style={{
+              ...GHOST_BTN_SMALL,
+              borderRadius: 100,
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              background: 'var(--tw-bg-tertiary)',
+              color: 'var(--tw-text-tertiary)',
+              border: '0.5px solid var(--tw-border-primary)',
+            }}
+          >
+            <i className="ti ti-clock" aria-hidden="true" />
+            Live demo coming soon
+          </span>
         )}
         {app.source && (
           <a
