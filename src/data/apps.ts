@@ -24,7 +24,6 @@ export const apps: App[] = [
     image: '/showcase/buyer-outreach.png',
     tags: ['M&A', 'Outreach', 'Human-in-the-loop'],
     liveUrl: 'https://buyer-outreach.eqr.vc/',
-    source: 'https://github.com/TotallyWildAi/buyer-outreach',
   },
   {
     name: 'xBullRadar',
@@ -34,7 +33,6 @@ export const apps: App[] = [
     image: '/showcase/xbullradar.png',
     tags: ['FinTech', 'Analytics', 'AI co-pilot'],
     liveUrl: 'https://app.xbullradar.com',
-    source: 'https://github.com/TotallyWildAi/xbullradar',
   },
   {
     name: 'Graph Query Agent',
