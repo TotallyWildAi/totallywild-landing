@@ -49,7 +49,7 @@ export const apps: App[] = [
     tagline: 'A 3D idle mining game in the browser.',
     description:
       'A Three.js idle game — haul gold and silver by truck, survive hazards like bear raids and avalanches, automate the grind with a bot, and ride live commodity-price economics.',
-    image: '/showcase/whiteout-haul.png',
+    image: '/showcase/whiteout-haul.jpg',
     tags: ['3D / Three.js', 'Game', 'Idle'],
     comingSoon: true,
     source: 'https://github.com/nick-totallywild/whiteout-haul',
