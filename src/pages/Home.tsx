@@ -15,7 +15,7 @@ const APP_URL = 'https://app.totallywild.ai/'
 
 const TYPEWRITER_PHRASES = ['built by AI.', 'shipped in days.', 'owned by you.', 'tested and live.']
 
-const STUDIO_CARDS = [
+const FACTORY_CARDS = [
   {
     icon: 'ti-robot',
     title: 'AI Agents for Business',
@@ -38,7 +38,7 @@ const STUDIO_CARDS = [
   },
   {
     icon: 'ti-building-factory-2',
-    title: 'Autonomous Build Factory',
+    title: 'The Build Pipeline',
     items: [
       'Agents plan, write and review code',
       'Parallel engineers build in tandem',
@@ -157,7 +157,7 @@ function UseCaseExplorer() {
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
-  const [studioOpen, setStudioOpen] = useState<number | null>(null)
+  const [factoryOpen, setFactoryOpen] = useState<number | null>(null)
 
   return (
     <>
@@ -309,11 +309,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Studio */}
-      <section className="section-wrap section-g" id="studio">
+      {/* The Factory */}
+      <section className="section-wrap section-g" id="factory">
         <div className="section-inner">
           <ScrollReveal>
-            <Eyebrow>The Studio</Eyebrow>
+            <Eyebrow>The Factory</Eyebrow>
             <SectionTitle sub="Describe what you need and autonomous agents design, write, test and ship it. You keep the intellectual property on everything the factory builds.">
               <GradientText>Build AI agents and software for any industry.</GradientText> Own what you make.
             </SectionTitle>
@@ -321,17 +321,17 @@ export default function Home() {
 
           <ScrollReveal>
             <div className="s-cards">
-              {STUDIO_CARDS.map((card, i) => (
+              {FACTORY_CARDS.map((card, i) => (
                 <SpotCard
                   key={card.title}
                   className="sc"
-                  onClick={() => setStudioOpen(studioOpen === i ? null : i)}
+                  onClick={() => setFactoryOpen(factoryOpen === i ? null : i)}
                 >
                   <div className="sc-head">
                     <i className={`sc-ico ti ${card.icon}`} aria-hidden="true" />
                     <h4>{card.title}</h4>
                   </div>
-                  <Collapse open={studioOpen === i}>
+                  <Collapse open={factoryOpen === i}>
                     <ul>
                       {card.items.map((item) => (
                         <li key={item}>{item}</li>
