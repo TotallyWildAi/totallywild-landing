@@ -90,7 +90,7 @@ const SHOWCASE_APPS = [
     description: 'A Three.js 3D idle mining game — haul gold and silver by truck, survive hazards, automate with a bot, and ride live commodity-price economics.',
     applicationCategory: 'GameApplication',
     url: 'https://github.com/nick-totallywild/whiteout-haul',
-    screenshot: '/showcase/whiteout-haul.png',
+    screenshot: '/showcase/whiteout-haul.jpg',
   }),
 ]
 
