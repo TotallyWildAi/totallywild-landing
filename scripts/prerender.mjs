@@ -105,8 +105,8 @@ function breadcrumb(name, url) {
 
 const ROUTE_META = {
   '/': {
-    title: 'Totally Wild AI — Autonomous code-building factory',
-    description: 'We build complete, production-ready apps and AI agents end to end — designed, written, tested and shipped by AI, and you own every line. Brisbane, AU.',
+    title: 'Totally Wild AI — Custom software, built and shipped by AI',
+    description: 'We build complete, production apps and AI agents end to end — designed, built, tested and shipped by AI. You own every line, no engineering team required.',
     canonical: 'https://totallywild.ai/',
     jsonld: [ORGANIZATION, WEBSITE],
   },
