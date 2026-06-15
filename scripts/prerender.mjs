@@ -17,7 +17,11 @@ const ssrEntry = join(ssrDir, 'entry-server.js')
 
 const SITE = 'https://totallywild.ai'
 
-const ROUTES = ['/', '/about', '/showcase', '/contact', '/terms', '/privacy']
+const ROUTES = [
+  '/', '/about', '/showcase',
+  '/case-studies', '/case-studies/loan-submission', '/case-studies/buyer-outreach',
+  '/contact', '/terms', '/privacy',
+]
 
 // --- JSON-LD object definitions -------------------------------------------
 
@@ -101,6 +105,32 @@ function breadcrumb(name, url) {
   }
 }
 
+function caseBreadcrumb(name, url) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://totallywild.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Case studies', item: 'https://totallywild.ai/case-studies' },
+      { '@type': 'ListItem', position: 3, name, item: url },
+    ],
+  }
+}
+
+function article({ headline, description, canonical }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline,
+    description,
+    author: { '@id': 'https://totallywild.ai/#organization' },
+    publisher: { '@id': 'https://totallywild.ai/#organization' },
+    isPartOf: { '@id': 'https://totallywild.ai/#website' },
+    mainEntityOfPage: canonical,
+    inLanguage: 'en',
+  }
+}
+
 // --- Per-route meta --------------------------------------------------------
 
 const ROUTE_META = {
@@ -121,6 +151,38 @@ const ROUTE_META = {
     description: 'Real, live applications our autonomous build factory shipped — from M&A buyer outreach to a fintech terminal and an auditable graph query agent.',
     canonical: 'https://totallywild.ai/showcase',
     jsonld: [...SHOWCASE_APPS, breadcrumb('Showcase', 'https://totallywild.ai/showcase')],
+  },
+  '/case-studies': {
+    title: 'Case studies — Totally Wild AI',
+    description: 'How Totally Wild AI ships production software and AI agents for regulated industries — from loan submission automation to M&A buyer outreach.',
+    canonical: 'https://totallywild.ai/case-studies',
+    jsonld: [breadcrumb('Case studies', 'https://totallywild.ai/case-studies')],
+  },
+  '/case-studies/loan-submission': {
+    title: 'Loan submission automation case study — Totally Wild AI',
+    description: 'How an AI agent pipeline cut loan submission prep from four hours to under 30 minutes for a national mortgage broking group, with full broker sign-off.',
+    canonical: 'https://totallywild.ai/case-studies/loan-submission',
+    jsonld: [
+      article({
+        headline: 'Cutting loan submission prep from four hours to under thirty minutes',
+        description: 'An AI agent pipeline cut a national mortgage broking group\'s loan submission prep from about four hours to under 30 minutes — 320 broker-hours a month down to under 40 — with the broker signing off every file.',
+        canonical: 'https://totallywild.ai/case-studies/loan-submission',
+      }),
+      caseBreadcrumb('Loan submission', 'https://totallywild.ai/case-studies/loan-submission'),
+    ],
+  },
+  '/case-studies/buyer-outreach': {
+    title: 'M&A buyer-outreach platform case study — Totally Wild AI',
+    description: 'How we built a sell-side M&A buyer-outreach platform — enrichment, sequenced outreach, NDAs and pipeline tracking — with the advisor approving every send.',
+    canonical: 'https://totallywild.ai/case-studies/buyer-outreach',
+    jsonld: [
+      article({
+        headline: 'A buyer-outreach platform for a sell-side M&A advisory',
+        description: 'We designed, built and shipped a buyer-outreach platform for a business broker around 80% faster than a traditional build — enrichment, sequenced outreach, NDAs and pipeline, with the advisor approving every send.',
+        canonical: 'https://totallywild.ai/case-studies/buyer-outreach',
+      }),
+      caseBreadcrumb('Buyer outreach', 'https://totallywild.ai/case-studies/buyer-outreach'),
+    ],
   },
   '/contact': {
     title: 'Contact — Totally Wild AI',
