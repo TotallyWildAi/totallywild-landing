@@ -165,7 +165,6 @@ export const caseStudies: CaseStudy[] = [
       { value: 'HITL', label: 'the advisor approves every outbound email and client-facing decision' },
     ],
     liveUrl: 'https://buyer-outreach.eqr.vc/',
-    source: 'https://github.com/TotallyWildAi/buyer-outreach',
     problem: {
       heading: 'Buyer outreach is mostly repetitive work around a few judgement calls',
       body: [
