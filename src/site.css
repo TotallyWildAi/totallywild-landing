@@ -960,6 +960,31 @@ textarea.float-input ~ .float-label { top: 18px; transform: none; }
 .sage-card:nth-child(6n + 5) { background: linear-gradient(145deg, #C2DECC, #DDF0E3); }
 .sage-card:nth-child(6n) { background: linear-gradient(145deg, #BDD9C5, #D4E8DA); }
 .sage-card:hover { border-color: var(--tw-text-accent); }
+/* Clickable header for the collapsible showcase cards on the home page. */
+.app-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+.app-card-arr {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  font-size: 0.6rem;
+  color: var(--tw-text-tertiary);
+  transition: transform 0.25s;
+}
+.app-card-head[aria-expanded='true'] .app-card-arr { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .app-card-arr { transition: none; }
+}
 @media (max-width: 960px) {
   .sage-grid, .sage-grid-2 { grid-template-columns: 1fr; }
 }

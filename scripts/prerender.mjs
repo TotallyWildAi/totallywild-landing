@@ -85,13 +85,6 @@ const SHOWCASE_APPS = [
     url: 'https://graphagent.eqr.vc/',
     screenshot: '/showcase/graph-query-agent.png',
   }),
-  softwareApplication({
-    name: 'Whiteout Haul',
-    description: 'A Three.js 3D idle mining game — haul gold and silver by truck, survive hazards, automate with a bot, and ride live commodity-price economics.',
-    applicationCategory: 'GameApplication',
-    url: 'https://github.com/nick-totallywild/whiteout-haul',
-    screenshot: '/showcase/whiteout-haul.jpg',
-  }),
 ]
 
 function breadcrumb(name, url) {

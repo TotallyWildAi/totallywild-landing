@@ -158,6 +158,15 @@ function UseCaseExplorer() {
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
   const [factoryOpen, setFactoryOpen] = useState<number | null>(null)
+  const [openApps, setOpenApps] = useState<Set<number>>(new Set())
+
+  const toggleApp = (i: number) =>
+    setOpenApps((prev) => {
+      const next = new Set(prev)
+      if (next.has(i)) next.delete(i)
+      else next.add(i)
+      return next
+    })
 
   return (
     <>
@@ -256,46 +265,67 @@ export default function Home() {
 
           <ScrollReveal>
             <div className="sage-grid-2">
-              {apps.map((app) => (
-                <article className="sage-card lift" key={app.name}>
-                  <div className="tpl-preview">
-                    <img
-                      src={app.image}
-                      alt={`${app.name} interface`}
-                      loading="lazy"
-                      decoding="async"
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'top',
-                        display: 'block',
-                      }}
-                    />
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--tw-font-display)',
-                      fontSize: '1rem',
-                      color: 'var(--tw-text-primary)',
-                      margin: '0 0 0.35rem',
-                    }}
-                  >
-                    {app.name}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: '0.84rem',
-                      color: 'var(--tw-text-secondary)',
-                      margin: 0,
-                    }}
-                  >
-                    {app.tagline}
-                  </p>
-                </article>
-              ))}
+              {apps.map((app, i) => {
+                const isOpen = openApps.has(i)
+                return (
+                  <article className="sage-card" key={app.name}>
+                    <button
+                      type="button"
+                      className="app-card-head"
+                      onClick={() => toggleApp(i)}
+                      aria-expanded={isOpen}
+                    >
+                      <span>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontFamily: 'var(--tw-font-display)',
+                            fontSize: '1rem',
+                            color: 'var(--tw-text-primary)',
+                            marginBottom: '0.35rem',
+                          }}
+                        >
+                          {app.name}
+                        </span>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: '0.84rem',
+                            color: 'var(--tw-text-secondary)',
+                          }}
+                        >
+                          {app.tagline}
+                        </span>
+                      </span>
+                      <span className="app-card-arr" aria-hidden="true">
+                        ▼
+                      </span>
+                    </button>
+                    <Collapse open={isOpen}>
+                      <div
+                        className="tpl-preview"
+                        style={{ marginTop: '1rem', marginBottom: 0 }}
+                      >
+                        <img
+                          src={app.image}
+                          alt={`${app.name} interface`}
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'top',
+                            display: 'block',
+                          }}
+                        />
+                      </div>
+                    </Collapse>
+                  </article>
+                )
+              })}
             </div>
           </ScrollReveal>
 
