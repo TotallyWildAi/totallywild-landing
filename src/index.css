@@ -92,24 +92,25 @@ html[data-theme="night"] {
 }
 
 /* Hero robot — rises from behind the headline, then waves. */
-.hero-robot-stage { position: relative; display: inline-block; }
 .hero-headline { position: relative; z-index: 1; }
+/* Zero-width anchor sitting where the final period was. */
+.hero-dot { position: relative; display: inline-block; width: 0; vertical-align: baseline; }
 .hero-robot {
   position: absolute;
-  left: 50%;
-  bottom: 100%;
-  z-index: 0;                  /* behind the headline */
-  width: clamp(108px, 15vw, 172px);
+  left: 0;             /* end of "...it" — where the period was */
+  bottom: -0.05em;     /* the headline baseline */
+  z-index: -1;         /* behind the headline glyphs */
+  width: 1.75em;       /* em → tracks the responsive headline size */
   height: auto;
-  margin-bottom: -26px;        /* overlap the headline's top edge a touch */
   color: var(--tw-text-primary);
-  transform: translateX(-50%) translateY(100%); /* start tucked behind the text */
+  transform: translate(-42%, 52%); /* sit over the line end; start tucked down, ~half behind the text */
   opacity: 0;
   animation: robot-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s forwards;
   pointer-events: none;
+  overflow: visible;
 }
 @keyframes robot-rise {
-  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+  to { transform: translate(-42%, 0); opacity: 1; }
 }
 .hero-robot .rb-body { fill: var(--tw-bg-secondary); stroke: currentColor; stroke-width: 3.5; }
 .hero-robot .rb-limb { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
@@ -127,7 +128,7 @@ html[data-theme="night"] {
   50%      { transform: rotate(-24deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-robot { animation: none; transform: translateX(-50%) translateY(0); opacity: 1; }
+  .hero-robot { animation: none; transform: translate(-42%, 0); opacity: 1; }
   .hero-robot .wave-arm { animation: none; }
 }
 

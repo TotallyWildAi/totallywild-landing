@@ -58,19 +58,20 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div className="hero-robot-stage">
-            <HeroRobot className="hero-robot" />
-            <h1
-              className="hero-headline text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
-              style={{
-                letterSpacing: '-1.5px',
-                lineHeight: 1.08,
-                color: 'var(--tw-text-primary)',
-              }}
-            >
-              Build it. Ship it.
-            </h1>
-          </div>
+          <h1
+            className="hero-headline text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+            style={{
+              letterSpacing: '-1.5px',
+              lineHeight: 1.08,
+              color: 'var(--tw-text-primary)',
+            }}
+          >
+            {/* The final period turns into the robot: it rises from behind the
+                end of "Ship it" (where the "." was) and waves. */}
+            Build it. Ship it<span className="hero-dot">
+              <HeroRobot className="hero-robot" />
+            </span>
+          </h1>
 
           <p
             className="inline-block text-lg md:text-xl max-w-3xl mt-6"
