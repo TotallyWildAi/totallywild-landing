@@ -145,7 +145,7 @@ html[data-theme="night"] {
   /* Stripes scroll continuously; the bar width fills then loops. */
   animation:
     tw-stripes 0.7s linear infinite,
-    tw-progress 2.4s cubic-bezier(0.4, 0.1, 0.2, 1) infinite;
+    tw-progress 5s cubic-bezier(0.4, 0.1, 0.2, 1) infinite;
 }
 @keyframes tw-stripes {
   from { background-position: 12px 0; }
