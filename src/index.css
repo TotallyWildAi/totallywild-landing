@@ -81,6 +81,8 @@ html[data-theme="night"] {
 }
 .logo-tape::before { top: 0; }
 .logo-tape::after { bottom: 0; }
+/* Pause the scroll while hovering so the logos are easy to click. */
+.logo-tape:hover .tape-track { animation-play-state: paused; }
 
 /* Gradient accent text for hero emphasis (vision .grad). */
 .tw-grad {
