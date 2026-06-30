@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import TerminalDemo from '../components/TerminalDemo'
 import ScrollReveal from '../components/ScrollReveal'
+import LogoTape from '../components/LogoTape'
 
 // The specialist agents that make up the build factory (see
 // C:\code\swarm-of-agents). Each role spins up on demand and hands its
@@ -98,6 +99,10 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* Logo tape — the stack the factory runs on. Transparent band with
+          visible top/bottom borders, scrolling just below the hero. */}
+      <LogoTape />
 
       {/* The Factory — the specialist agents behind every build. Replaces the
           old Business / Creators two-path split: a single, software-focused
