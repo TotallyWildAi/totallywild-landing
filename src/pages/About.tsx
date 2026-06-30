@@ -100,11 +100,11 @@ export default function About() {
           <h1>Software should build itself.</h1>
           <p>
             We built the factory that makes it happen. An orchestrated swarm of AI
-            agents handles every stage of delivery — from understanding requirements
+            agents handles every stage of delivery - from understanding requirements
             to shipping production code.
           </p>
 
-          {/* Running terminal tape — restored from the previous About design.
+          {/* Running terminal tape - restored from the previous About design.
               Sits under the lede as a kinetic tagline. */}
           <div style={{ marginTop: '2rem' }}>
             <MarqueeTape />
@@ -127,7 +127,7 @@ export default function About() {
           <p>
             We use a multi-agent orchestration approach where specialised AI agents
             collaborate on every aspect of software delivery. Each agent is trained
-            for a specific role and communicates over a shared substrate — Postgres
+            for a specific role and communicates over a shared substrate - Postgres
             for state, Neo4j for the task graph, and Anthropic Claude with prompt
             caching for the language model layer.
           </p>
@@ -183,7 +183,7 @@ export default function About() {
           <h2>Why we built this</h2>
           <p>
             Software is too slow. Most teams ship a fraction of what their customers
-            need, because each step in delivery is a human bottleneck — requirements
+            need, because each step in delivery is a human bottleneck - requirements
             sit in a queue, architecture waits on a meeting, code reviews stall on
             availability. We rebuilt the pipeline as software.
           </p>

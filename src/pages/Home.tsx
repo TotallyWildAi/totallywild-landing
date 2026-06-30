@@ -6,7 +6,7 @@ import HeroRobot from '../components/HeroRobot'
 
 // The specialist agents that make up the build factory (see
 // C:\code\swarm-of-agents). Each role spins up on demand and hands its
-// work to the next — BA clarifies, Architect plans, Engineers build in
+// work to the next - BA clarifies, Architect plans, Engineers build in
 // parallel, the Reviewer gates every diff, with Research and Docs in support.
 const FACTORY_AGENTS = [
   {
@@ -17,7 +17,7 @@ const FACTORY_AGENTS = [
   {
     icon: 'ti-sitemap',
     name: 'Architect',
-    desc: 'Breaks the work into a task graph — files, layers and acceptance criteria.',
+    desc: 'Breaks the work into a task graph - files, layers and acceptance criteria.',
   },
   {
     icon: 'ti-code',
@@ -44,7 +44,7 @@ const FACTORY_AGENTS = [
 export default function Home() {
   return (
     <>
-      {/* Hero — static copy on a soft iris wash (the particle canvas was
+      {/* Hero - static copy on a soft iris wash (the particle canvas was
           removed). The wash mirrors the How It Works / Terminal sections so
           the page reads as one continuous surface. */}
       <section className="relative px-6 py-20 md:py-28 overflow-hidden">
@@ -82,16 +82,16 @@ export default function Home() {
             }}
           >
             Direct a team of AI agents to design, build, test and ship
-            production software — and deploy it inside your business.
+            production software - and deploy it inside your business.
           </p>
         </div>
       </section>
 
-      {/* Logo tape — the stack the factory runs on. Transparent band with
+      {/* Logo tape - the stack the factory runs on. Transparent band with
           visible top/bottom borders, scrolling just below the hero. */}
       <LogoTape />
 
-      {/* The Factory — the specialist agents behind every build. Replaces the
+      {/* The Factory - the specialist agents behind every build. Replaces the
           old Business / Creators two-path split: a single, software-focused
           story about the agent team, with a product CTA and a sales path. */}
       <ScrollReveal>
@@ -110,7 +110,7 @@ export default function Home() {
               >
                 Every build spins up a team of specialist agents. Each one owns a
                 role, hands its work to the next, and an orchestrator keeps the
-                whole pipeline moving — from first requirement to deployed code.
+                whole pipeline moving - from first requirement to deployed code.
               </p>
             </div>
 
@@ -149,7 +149,7 @@ export default function Home() {
               ))}
             </div>
 
-            {/* CTA row — primary product signup (off-site) plus a sales path
+            {/* CTA row - primary product signup (off-site) plus a sales path
                 into the contact form. */}
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
@@ -178,7 +178,7 @@ export default function Home() {
         </section>
       </ScrollReveal>
 
-      {/* How It Works — restyled to match Two Paths / About cards.
+      {/* How It Works - restyled to match Two Paths / About cards.
           Iris chip eyebrow, sentence-case h2, 4-card grid with small iris
           number badges replacing the 64x64 gradient blocks. Sits on
           bg-primary with a soft iris wash for rhythm (mirroring the
@@ -189,7 +189,7 @@ export default function Home() {
           id="how-it-works"
           className="relative py-16 md:py-20 px-6 overflow-hidden"
         >
-          {/* Soft iris wash — fades at top/bottom so it blends with the
+          {/* Soft iris wash - fades at top/bottom so it blends with the
               flanking white sections rather than cutting a hard band. */}
           <div
             aria-hidden="true"
@@ -316,7 +316,7 @@ export default function Home() {
                 className="text-base max-w-xl mx-auto"
                 style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}
               >
-                A real run, end to end — from requirements to a deployed URL.
+                A real run, end to end - from requirements to a deployed URL.
               </p>
             </div>
             <TerminalDemo />

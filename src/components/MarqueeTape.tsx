@@ -1,5 +1,5 @@
-// Continuously scrolling marquee styled as a macOS terminal — same chrome
-// (red/yellow/green dots, "tw@totallywild — zsh" label) as TerminalDemo
+// Continuously scrolling marquee styled as a macOS terminal - same chrome
+// (red/yellow/green dots, "tw@totallywild - zsh" label) as TerminalDemo
 // on the home page.
 
 const phrases: { icon: string; text: string }[] = [
@@ -33,7 +33,7 @@ export default function MarqueeTape() {
         background: 'var(--tw-bg-code)',
       }}
     >
-      {/* macOS window chrome — matches TerminalDemo */}
+      {/* macOS window chrome - matches TerminalDemo */}
       <div
         className="px-4 py-3 flex items-center gap-2"
         style={{
@@ -48,11 +48,11 @@ export default function MarqueeTape() {
           className="ml-3 text-[11px] font-mono"
           style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
         >
-          tw@totallywild — zsh
+          tw@totallywild - zsh
         </span>
       </div>
 
-      {/* Marquee track — phrases doubled for a seamless -50% loop */}
+      {/* Marquee track - phrases doubled for a seamless -50% loop */}
       <div
         className="overflow-hidden py-5 font-mono text-sm md:text-base"
         style={{ color: 'var(--tw-text-primary)' }}

@@ -3,7 +3,7 @@ import ScrollReveal from '../components/ScrollReveal'
 // ============================================================
 // Privacy Policy
 //
-// IMPORTANT — TEMPLATE STATUS:
+// IMPORTANT - TEMPLATE STATUS:
 // This document is a working draft prepared from research on the
 // Australian Privacy Act 1988 (APPs), the NZ Privacy Act 2020 (IPPs),
 // the EU GDPR, the Spam Act 2003 (Cth), the NZ UEMA 2007, the OAIC's
@@ -70,7 +70,7 @@ export default function Privacy() {
                 style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}
               >
                 <li>
-                  <strong style={titleColorInline}>We collect what we need to provide the platform —</strong>{' '}
+                  <strong style={titleColorInline}>We collect what we need to provide the platform -</strong>{' '}
                   account info, session data, technical signals, and the content you upload.
                 </li>
                 <li>
@@ -208,13 +208,13 @@ export default function Privacy() {
                 upload content, contact us, or interact with our website;
               </li>
               <li>
-                <strong style={titleColorInline}>Automatically</strong> when you use the Service —
+                <strong style={titleColorInline}>Automatically</strong> when you use the Service -
                 via cookies and local storage (session and refresh tokens, theme preference),
                 server logs, Cloudflare edge logs, Vercel Analytics, and Cloudflare Turnstile on
                 form submission;
               </li>
               <li>
-                <strong style={titleColorInline}>From third parties</strong> — our payment
+                <strong style={titleColorInline}>From third parties</strong> - our payment
                 processor (when you pay), any single-sign-on identity provider you choose to use
                 in future, and content uploaded by our customers that contains personal
                 information about third parties. For information collected indirectly through a
@@ -236,11 +236,11 @@ export default function Privacy() {
             <ul className="list-disc pl-6 space-y-1">
               <li>
                 Creating and authenticating your Account, and providing the Service{' '}
-                <em>(Art. 6(1)(b) — contract)</em>.
+                <em>(Art. 6(1)(b) - contract)</em>.
               </li>
               <li>
                 Processing customer-uploaded content through LLMs to produce architecture documents,
-                code and project plans <em>(Art. 6(1)(b) — contract; we act as processor for
+                code and project plans <em>(Art. 6(1)(b) - contract; we act as processor for
                 third-party personal information embedded in content)</em>.
               </li>
               <li>
@@ -249,7 +249,7 @@ export default function Privacy() {
               </li>
               <li>
                 Security, fraud prevention, abuse detection, and Turnstile bot scoring{' '}
-                <em>(Art. 6(1)(f) — legitimate interests in protecting the Service and our
+                <em>(Art. 6(1)(f) - legitimate interests in protecting the Service and our
                 customers)</em>.
               </li>
               <li>
@@ -262,7 +262,7 @@ export default function Privacy() {
               </li>
               <li>
                 Marketing about similar products to existing business customers, with an opt-out
-                <em> (Art. 6(1)(f) and APP 7 — consistent with reasonable expectations)</em>.
+                <em> (Art. 6(1)(f) and APP 7 - consistent with reasonable expectations)</em>.
               </li>
               <li>
                 Compliance with Australian, NZ, EU, UK or other law, including the Notifiable Data
@@ -285,8 +285,8 @@ export default function Privacy() {
             <ul className="list-disc pl-6 space-y-1">
               <li>authenticate sessions via refresh tokens stored in Cloudflare D1;</li>
               <li>send service-critical email (password reset, security alerts, billing) via a Cloudflare Worker calling our email provider;</li>
-              <li>send a new-signup notification to admin@totallywild.ai including your email address, IP and user-agent — this is internal operational use, not marketing;</li>
-              <li>forward your prompt content to our LLM providers (currently Anthropic and OpenAI; possibly others as we evolve the Service) for output generation — see Section 8;</li>
+              <li>send a new-signup notification to admin@totallywild.ai including your email address, IP and user-agent - this is internal operational use, not marketing;</li>
+              <li>forward your prompt content to our LLM providers (currently Anthropic and OpenAI; possibly others as we evolve the Service) for output generation - see Section 8;</li>
               <li>store prompt and response logs for your audit and abuse-prevention purposes per the retention schedule in Section 11.</li>
             </ul>
           </Section>
@@ -334,7 +334,7 @@ export default function Privacy() {
           <Section number="7" title="Cross-border transfers">
             <p>
               Application data is primarily hosted in AWS ap-southeast-2 (Sydney). Some
-              processing — particularly LLM inference — happens in the United States or other
+              processing - particularly LLM inference - happens in the United States or other
               regions where our sub-processors operate. We are accountable under APP 8 for the
               way overseas recipients handle personal information disclosed to them and require
               each sub-processor by contract to handle personal information to a standard at
@@ -460,7 +460,7 @@ export default function Privacy() {
               <li>
                 <strong style={titleColorInline}>Account data:</strong> while your Account is
                 active and for thirty (30) days afterwards (to support restoration), then deleted
-                or de-identified — except where retained for legal, audit or tax reasons.
+                or de-identified - except where retained for legal, audit or tax reasons.
               </li>
               <li>
                 <strong style={titleColorInline}>Refresh tokens / sessions:</strong> rotated
@@ -478,7 +478,7 @@ export default function Privacy() {
               </li>
               <li>
                 <strong style={titleColorInline}>LLM-provider abuse-monitoring:</strong> as set by
-                the provider — typically up to 30 days at OpenAI without zero-retention; per
+                the provider - typically up to 30 days at OpenAI without zero-retention; per
                 Anthropic's published retention policy.
               </li>
               <li>
@@ -529,7 +529,7 @@ export default function Privacy() {
               <li>data portability for processing based on consent or contract (Art. 20);</li>
               <li>objection to processing based on legitimate interests or direct marketing (Art. 21);</li>
               <li>withdrawing consent at any time, without affecting the lawfulness of prior processing (Art. 7(3));</li>
-              <li>not being subject to fully automated decisions producing legal or similarly significant effects (Art. 22) — see Section 4.</li>
+              <li>not being subject to fully automated decisions producing legal or similarly significant effects (Art. 22) - see Section 4.</li>
             </ul>
             <p>
               We will respond within one month and may extend by up to two further months for
@@ -606,20 +606,20 @@ export default function Privacy() {
             <p>If you remain dissatisfied, you may complain to:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>
-                <strong style={titleColorInline}>Australia</strong> — Office of the Australian
+                <strong style={titleColorInline}>Australia</strong> - Office of the Australian
                 Information Commissioner (OAIC), <em>oaic.gov.au</em>, 1300 363 992.
               </li>
               <li>
-                <strong style={titleColorInline}>New Zealand</strong> — Office of the Privacy
+                <strong style={titleColorInline}>New Zealand</strong> - Office of the Privacy
                 Commissioner, <em>privacy.org.nz</em>, 0800 803 909.
               </li>
               <li>
-                <strong style={titleColorInline}>EU / EEA</strong> — the supervisory authority
+                <strong style={titleColorInline}>EU / EEA</strong> - the supervisory authority
                 of your habitual residence, place of work, or place of the alleged infringement
                 (a directory is at <em>edpb.europa.eu</em>).
               </li>
               <li>
-                <strong style={titleColorInline}>UK</strong> — Information Commissioner's Office
+                <strong style={titleColorInline}>UK</strong> - Information Commissioner's Office
                 (ICO), <em>ico.org.uk</em>.
               </li>
             </ul>

@@ -76,7 +76,7 @@ export default function TerminalDemo() {
           className="ml-3 text-[11px] font-mono"
           style={{ color: 'var(--tw-text-tertiary)', letterSpacing: '0.02em' }}
         >
-          tw@totallywild — zsh
+          tw@totallywild - zsh
         </span>
       </div>
       {/* Terminal content */}

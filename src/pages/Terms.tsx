@@ -3,7 +3,7 @@ import ScrollReveal from '../components/ScrollReveal'
 // ============================================================
 // Terms of Service
 //
-// IMPORTANT — TEMPLATE STATUS:
+// IMPORTANT - TEMPLATE STATUS:
 // This document is a working draft prepared from research on the AU
 // Australian Consumer Law (Sch 2 to the Competition and Consumer Act
 // 2010 (Cth)), the NZ Consumer Guarantees Act 1993 + Fair Trading Act
@@ -236,7 +236,7 @@ export default function Terms() {
               <li>break the law, or infringe anyone's intellectual property, privacy or other rights;</li>
               <li>create content that is defamatory, harassing, child sexual-abuse material, or designed to facilitate violence;</li>
               <li>
-                make consequential decisions about people without a qualified human reviewer in the loop —
+                make consequential decisions about people without a qualified human reviewer in the loop -
                 including decisions about credit, housing, employment, insurance, government benefits,
                 medical diagnosis or treatment, autonomous control of safety-critical systems, or autonomous
                 weapons;
@@ -338,23 +338,23 @@ export default function Terms() {
               We use the standard industry framework for software-services contracts:
               Background IP, Foreground IP (Customer Outputs), Residuals, and Publicity.
             </p>
-            <h3 className="text-lg font-semibold mt-6 mb-2" style={titleColor}>(a) Background IP — the Totally Wild AI Platform</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-2" style={titleColor}>(a) Background IP - the Totally Wild AI Platform</h3>
             <p>
-              All right, title and interest in the Service — including the agent scaffolding, prompt
+              All right, title and interest in the Service - including the agent scaffolding, prompt
               libraries and system messages, orchestration layer, evaluation harnesses, patterns
               library, base templates, internal tooling, fine-tuned components, documentation, and
-              any aggregated or de-identified analytics derived from operating the Service — is and
+              any aggregated or de-identified analytics derived from operating the Service - is and
               remains our property and that of our licensors (the <em>Background IP</em>). We grant
               you a perpetual, worldwide, non-exclusive, royalty-free licence to use Background IP
               solely as embedded in your Outputs. Nothing else in these Terms transfers any
               Background IP to you. We may freely use Background IP for other customers and
               purposes.
             </p>
-            <h3 className="text-lg font-semibold mt-6 mb-2" style={titleColor}>(b) Foreground IP — your Customer Outputs</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-2" style={titleColor}>(b) Foreground IP - your Customer Outputs</h3>
             <p>
-              The specific Outputs the Service generates from your Inputs — including architecture
+              The specific Outputs the Service generates from your Inputs - including architecture
               documents, generated code, configuration, project plans and diagrams (the{' '}
-              <em>Customer Outputs</em>) — are assigned to you on payment of all applicable fees
+              <em>Customer Outputs</em>) - are assigned to you on payment of all applicable fees
               for the relevant subscription period. Until that payment is made, your licence to use
               Customer Outputs is conditional on your compliance with these Terms. You are
               responsible for clearing any third-party rights that may attach to Outputs (including
@@ -363,16 +363,16 @@ export default function Terms() {
             <h3 className="text-lg font-semibold mt-6 mb-2" style={titleColor}>(c) Residuals</h3>
             <p>
               Each party may use the general knowledge, skills, and experience its personnel acquire
-              during the engagement — including ideas, concepts, techniques, and know-how retained
-              in unaided memory — provided this does not include the other party's Confidential
+              during the engagement - including ideas, concepts, techniques, and know-how retained
+              in unaided memory - provided this does not include the other party's Confidential
               Information or, in our case, your Customer Outputs. "Unaided memory" means information
               retained without intentional aid such as notes, copies, recordings, or prompts.
             </p>
             <h3 className="text-lg font-semibold mt-6 mb-2" style={titleColor}>(d) Publicity</h3>
             <p>
               You grant us the right to refer to the engagement in marketing materials in
-              anonymised form — describing the architectural shape of the problem, the kind of
-              outcome delivered, and patterns we used — provided the description does not identify
+              anonymised form - describing the architectural shape of the problem, the kind of
+              outcome delivered, and patterns we used - provided the description does not identify
               you and does not disclose your Confidential Information or Customer Outputs. Use of
               your name, logo, direct quotations or any reasonably-identifying detail requires your
               prior written consent (email is sufficient). You may withdraw that consent on written
@@ -403,7 +403,7 @@ export default function Terms() {
             <ul className="list-disc pl-6 space-y-1">
               <li>
                 you hold and will maintain throughout the term all licences, registrations and
-                authorisations required for your business — including (as applicable) an AFSL under
+                authorisations required for your business - including (as applicable) an AFSL under
                 the <em>Corporations Act 2001</em> (Cth), an Australian Credit Licence under the{' '}
                 <em>National Consumer Credit Protection Act 2009</em> (Cth), APRA authorisation,
                 FMA licensing under the <em>Financial Markets Conduct Act 2013</em> (NZ), and
@@ -443,9 +443,9 @@ export default function Terms() {
               , which is incorporated into these Terms by reference.
             </p>
             <p>
-              We use Sub-processors to deliver the Service. The current list — including each
+              We use Sub-processors to deliver the Service. The current list - including each
               Sub-processor's role, the categories of data shared, and the country of processing
-              — is published at <em>totallywild.ai/subprocessors</em>. We will use commercially
+              - is published at <em>totallywild.ai/subprocessors</em>. We will use commercially
               reasonable efforts to give thirty (30) days' advance notice of new Sub-processors via
               that page or a notification mailing list. If you reasonably object to a new
               Sub-processor on data-protection grounds, we will work with you in good faith to
@@ -599,7 +599,7 @@ export default function Terms() {
               Section 13 and the carve-outs below, we will defend you against, and pay any amount
               finally awarded against you (or agreed in settlement) on, a third-party claim that
               the Service (excluding Outputs and Inputs) directly infringes that third party's
-              Australian or New Zealand patent, registered trade mark, copyright or trade secret —
+              Australian or New Zealand patent, registered trade mark, copyright or trade secret -
               provided you used the Service in accordance with these Terms.
             </p>
             <p>
@@ -672,7 +672,7 @@ export default function Terms() {
           <Section number="16" title="Variation">
             <p>
               We may vary these Terms from time to time. We will give you at least thirty (30)
-              days' prior notice of any material change — by email to your Account email address
+              days' prior notice of any material change - by email to your Account email address
               and/or by in-product notice. A change is "material" if it adversely affects your
               rights or increases your obligations in a material respect.
             </p>

@@ -1,4 +1,4 @@
-// Continuously scrolling logo tape — the stack the build factory runs on.
+// Continuously scrolling logo tape - the stack the build factory runs on.
 // Transparent background with visible top/bottom borders; reuses the shared
 // `.tape-track` animation (42s linear loop, no-ops under prefers-reduced-motion).
 //
@@ -129,7 +129,7 @@ function LogoTapeItem({ logo, decorative }: { logo: Logo; decorative?: boolean }
       rel="noopener noreferrer"
       className={`inline-flex items-center mx-7 shrink-0 transition-opacity duration-200 ${opacity}`}
       style={isMono ? { color: 'var(--tw-text-primary)' } : undefined}
-      aria-label={decorative ? undefined : `${logo.name} — opens in a new tab`}
+      aria-label={decorative ? undefined : `${logo.name} - opens in a new tab`}
       title={decorative ? undefined : logo.name}
       aria-hidden={decorative || undefined}
       tabIndex={decorative ? -1 : undefined}
@@ -188,7 +188,7 @@ const HALF_REPEATS = 3
 export default function LogoTape() {
   // One half = HALF_REPEATS passes of the list; the full track is two identical
   // halves so the -50% transform wraps seamlessly. Only the first pass carries
-  // real links — every repeat (and the whole second half) is decorative
+  // real links - every repeat (and the whole second half) is decorative
   // (aria-hidden, untabbable) so assistive tech and crawlers see one clean set.
   const half = Array.from({ length: HALF_REPEATS }, (_, pass) =>
     LOGOS.map((logo, i) => ({ logo, real: pass === 0, key: `${pass}-${i}` })),
