@@ -17,38 +17,37 @@
  */
 
 .paper-page {
-  /* ── Day palette (default) ──────────────────────── */
-  --warm-bg-outer:     #fafaf7;
-  --warm-bg-page:      #FAF9F5;
-  --warm-bg-card:      #FFFFFF;
-  --warm-bg-muted:     #e8e6df;
-  --warm-border:       #d4d2c8;
-  --warm-border-soft:  #b5b3a9;
-  --warm-text:         #3C3C3B;
-  --warm-text-strong:  #141413;
-  --warm-text-soft:    #2C2C2A;
-  --warm-text-mute:    #73726c;
-  --warm-check:        #1D9E75;
-  --warm-shadow:       0 1px 0 rgba(0, 0, 0, 0.02), 0 12px 40px rgba(60, 52, 137, 0.08);
+  /* ── Day palette (vision template) ─────────────── */
+  --warm-bg-outer:     #f6f8fa;
+  --warm-bg-page:      #ffffff;
+  --warm-bg-card:      #f6f8fa;
+  --warm-bg-muted:     #edf0f4;
+  --warm-border:       #e2e6ec;
+  --warm-border-soft:  #c3c9d2;
+  --warm-text:         #5b626e;
+  --warm-text-strong:  #0b0d10;
+  --warm-text-soft:    #5b626e;
+  --warm-text-mute:    #7b828e;
+  --warm-check:        #16a34a;
+  --warm-shadow:       0 1px 0 rgba(11, 13, 16, 0.02), 0 24px 60px -20px rgba(11, 13, 16, 0.12);
 
-  /* Category accents — purple / coral / sage */
-  --cat-creator-bg:   #EEEDFE;
-  --cat-creator-fg:   #3C3489;
-  --cat-hero-bg:      #FAECE7;
-  --cat-hero-fg:      #712B13;
-  --cat-demo-bg:      #E5F4ED;
-  --cat-demo-fg:      #1D5A45;
-  --cat-mark-bg:      #FAF0DC;   /* warm amber — distinct from the other three */
-  --cat-mark-fg:      #7A5C18;
+  /* Accents — single blue, with green reserved for success states */
+  --cat-creator-bg:   #eef3fd;
+  --cat-creator-fg:   #2f6be0;
+  --cat-hero-bg:      #eef3fd;
+  --cat-hero-fg:      #2f6be0;
+  --cat-demo-bg:      rgba(22, 163, 74, 0.12);
+  --cat-demo-fg:      #16a34a;
+  --cat-mark-bg:      #eef3fd;
+  --cat-mark-fg:      #2f6be0;
 
   /* Primary button (overridden in night) */
-  --btn-primary-bg:   #141413;
-  --btn-primary-fg:   #FFFFFF;
+  --btn-primary-bg:   #0b0d10;
+  --btn-primary-fg:   #ffffff;
 
-  /* No background fill — the ParticleCloud canvas (position:fixed, z-index:0)
-     paints the warm cream surface itself, so the canvas sits behind a
-     transparent flex container and the centered shell floats on top. */
-  background: transparent;
+  /* The fixed ParticleCloud canvas was removed, so the page paints its own
+     surface; the centered shell card floats on top. */
+  background: var(--warm-bg-outer);
   padding: 32px 16px 80px;
   display: flex;
   justify-content: center;
@@ -61,32 +60,32 @@
    Activates when <html data-theme="night">. Inherits all layout rules from
    .paper-page above; only the colour tokens flip. */
 [data-theme="night"] .paper-page {
-  --warm-bg-outer:     #161513;   /* warm near-black */
-  --warm-bg-page:      #1F1D1B;   /* lifted page card */
-  --warm-bg-card:      #26231F;   /* template cards */
-  --warm-bg-muted:     #2E2B27;   /* chips, callout strip */
-  --warm-border:       rgba(255, 255, 255, 0.08);
-  --warm-border-soft:  rgba(255, 255, 255, 0.18);
-  --warm-text:         #C4C4C4;
-  --warm-text-strong:  #FFFFFF;
-  --warm-text-soft:    #B5B3A9;
-  --warm-text-mute:    #8A8A8A;
-  --warm-check:        #4ADE80;   /* matches TW night green from tokens.css */
-  --warm-shadow:       0 1px 0 rgba(0, 0, 0, 0.4), 0 12px 40px rgba(155, 142, 232, 0.12);
+  --warm-bg-outer:     #0b0d10;
+  --warm-bg-page:      #14171c;
+  --warm-bg-card:      #1b1f26;
+  --warm-bg-muted:     #1b1f26;
+  --warm-border:       #262b33;
+  --warm-border-soft:  #3a414c;
+  --warm-text:         #9aa3b2;
+  --warm-text-strong:  #f2f4f7;
+  --warm-text-soft:    #c3c9d2;
+  --warm-text-mute:    #6b7280;
+  --warm-check:        #22c55e;
+  --warm-shadow:       0 1px 0 rgba(0, 0, 0, 0.4), 0 24px 60px -20px rgba(0, 0, 0, 0.7);
 
-  /* Category chips: muted iris-bright / coral / mint on dark warm */
-  --cat-creator-bg:   rgba(155, 142, 232, 0.16);
-  --cat-creator-fg:   #C5BBF5;
-  --cat-hero-bg:      rgba(244, 167, 136, 0.16);
-  --cat-hero-fg:      #F4A788;
-  --cat-demo-bg:      rgba(74, 222, 128, 0.14);
-  --cat-demo-fg:      #86E5A8;
-  --cat-mark-bg:      rgba(244, 196, 102, 0.16);
-  --cat-mark-fg:      #F4C466;
+  /* Accents — single blue, with green reserved for success states */
+  --cat-creator-bg:   rgba(91, 141, 239, 0.16);
+  --cat-creator-fg:   #5b8def;
+  --cat-hero-bg:      rgba(91, 141, 239, 0.16);
+  --cat-hero-fg:      #5b8def;
+  --cat-demo-bg:      rgba(34, 197, 94, 0.16);
+  --cat-demo-fg:      #4ade80;
+  --cat-mark-bg:      rgba(91, 141, 239, 0.16);
+  --cat-mark-fg:      #5b8def;
 
   /* Inverted primary — matches TW pattern (--tw-btn-primary-bg flips in night) */
-  --btn-primary-bg:   #FFFFFF;
-  --btn-primary-fg:   #141413;
+  --btn-primary-bg:   #ffffff;
+  --btn-primary-fg:   #0b0d10;
 }
 
 .paper-shell {
@@ -115,21 +114,22 @@
 .paper-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: var(--warm-bg-muted);
+  gap: 8px;
+  font-family: var(--tw-font-mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: var(--warm-bg-card);
+  border: 0.5px solid var(--warm-border);
   color: var(--warm-text);
   margin-bottom: 16px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 .paper-eyebrow i { font-size: 15px; }
 .paper-hero h1 {
-  font-size: 30px;
-  font-weight: 500;
+  font-size: clamp(1.9rem, 4vw, 2.4rem);
+  font-weight: 650;
   margin: 0 0 10px;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -383,13 +383,13 @@
 .paper-field input:focus,
 .paper-field textarea:focus {
   outline: none;
-  border-color: var(--cat-creator-fg); /* iris-toned focus */
-  box-shadow: 0 0 0 3px rgba(110, 92, 204, 0.12);
+  border-color: var(--cat-creator-fg); /* accent-toned focus */
+  box-shadow: 0 0 0 3px rgba(47, 107, 224, 0.16);
 }
 [data-theme="night"] .paper-field input:focus,
 [data-theme="night"] .paper-field textarea:focus {
   border-color: var(--cat-creator-fg);
-  box-shadow: 0 0 0 3px rgba(155, 142, 232, 0.20);
+  box-shadow: 0 0 0 3px rgba(91, 141, 239, 0.25);
 }
 .paper-field input::placeholder,
 .paper-field textarea::placeholder {
@@ -464,7 +464,7 @@
   border-radius: 50%;
   margin-bottom: 14px;
   overflow: hidden;
-  background: linear-gradient(135deg, #6E5CCC 0%, #9B8EE8 100%);
+  background: linear-gradient(135deg, #2f6be0 0%, #5b8def 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -509,10 +509,10 @@
 .paper-section { margin-top: 36px; }
 .paper-section h2 {
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 650;
   margin: 0 0 16px;
   color: var(--warm-text-strong);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 .paper-section p {
   font-size: 14px;

@@ -1,14 +1,9 @@
 import { useState, FormEvent } from 'react'
 import '../paper.css'
-import ParticleCloud from '../components/ParticleCloud'
-import { useDocumentTheme, PARTICLE_THEMES } from '../paperTheme'
 
 type SubmitState = 'idle' | 'sending' | 'success' | 'error'
 
 export default function Contact() {
-  const theme = useDocumentTheme()
-  const p = PARTICLE_THEMES[theme]
-
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -55,17 +50,6 @@ export default function Contact() {
 
   return (
     <div className="paper-page">
-      <ParticleCloud
-        bgColor={p.bgColor}
-        particleColor={p.particleColor}
-        linkColor={p.linkColor}
-        glowColor={p.glowColor}
-        count={250}
-        speed={0.32}
-        linkRadius={130}
-        cursorPull={0.04}
-        cursorRadius={170}
-      />
       <div className="paper-shell" style={{ maxWidth: '640px' }}>
         {/* Hero */}
         <header className="paper-hero">

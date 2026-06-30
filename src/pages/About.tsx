@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import '../paper.css'
-import ParticleCloud from '../components/ParticleCloud'
 import MarqueeTape from '../components/MarqueeTape'
-import { useDocumentTheme, PARTICLE_THEMES } from '../paperTheme'
 
 interface TeamMember {
   name: string
@@ -84,9 +82,6 @@ function TeamCard({ member }: { member: TeamMember }) {
 }
 
 export default function About() {
-  const theme = useDocumentTheme()
-  const p = PARTICLE_THEMES[theme]
-
   // SSR-safe shuffle: start with default order, shuffle after mount
   const [shuffledTeam, setShuffledTeam] = useState<TeamMember[]>(teamMembers)
   useEffect(() => {
@@ -95,17 +90,6 @@ export default function About() {
 
   return (
     <div className="paper-page">
-      <ParticleCloud
-        bgColor={p.bgColor}
-        particleColor={p.particleColor}
-        linkColor={p.linkColor}
-        glowColor={p.glowColor}
-        count={250}
-        speed={0.32}
-        linkRadius={130}
-        cursorPull={0.04}
-        cursorRadius={170}
-      />
       <div className="paper-shell">
         {/* Hero */}
         <header className="paper-hero">
