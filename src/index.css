@@ -91,6 +91,46 @@ html[data-theme="night"] {
   color: transparent;
 }
 
+/* Hero robot — rises from behind the headline, then waves. */
+.hero-robot-stage { position: relative; display: inline-block; }
+.hero-headline { position: relative; z-index: 1; }
+.hero-robot {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  z-index: 0;                  /* behind the headline */
+  width: clamp(108px, 15vw, 172px);
+  height: auto;
+  margin-bottom: -26px;        /* overlap the headline's top edge a touch */
+  color: var(--tw-text-primary);
+  transform: translateX(-50%) translateY(100%); /* start tucked behind the text */
+  opacity: 0;
+  animation: robot-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s forwards;
+  pointer-events: none;
+}
+@keyframes robot-rise {
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+.hero-robot .rb-body { fill: var(--tw-bg-secondary); stroke: currentColor; stroke-width: 3.5; }
+.hero-robot .rb-limb { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
+.hero-robot .rb-limb-thin { stroke-width: 5; }
+.hero-robot .rb-thin { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.hero-robot .rb-accent { fill: var(--tw-text-accent); }
+.hero-robot .rb-shine { fill: var(--tw-bg-primary); }
+.hero-robot .wave-arm {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;   /* shoulder = bounding-box bottom-left */
+  animation: robot-wave 0.55s ease-in-out 1.5s 4;
+}
+@keyframes robot-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-24deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-robot { animation: none; transform: translateX(-50%) translateY(0); opacity: 1; }
+  .hero-robot .wave-arm { animation: none; }
+}
+
 /* Hero "live build" status — a flashing green light next to a progress bar
    that fills left-to-right on a continuous loop. */
 .tw-status {

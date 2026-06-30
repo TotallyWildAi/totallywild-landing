@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import TerminalDemo from '../components/TerminalDemo'
 import ScrollReveal from '../components/ScrollReveal'
 import LogoTape from '../components/LogoTape'
+import HeroRobot from '../components/HeroRobot'
 
 // The specialist agents that make up the build factory (see
 // C:\code\swarm-of-agents). Each role spins up on demand and hands its
@@ -57,16 +58,19 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h1
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
-            style={{
-              letterSpacing: '-1.5px',
-              lineHeight: 1.08,
-              color: 'var(--tw-text-primary)',
-            }}
-          >
-            Build it. Ship it.
-          </h1>
+          <div className="hero-robot-stage">
+            <HeroRobot className="hero-robot" />
+            <h1
+              className="hero-headline text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+              style={{
+                letterSpacing: '-1.5px',
+                lineHeight: 1.08,
+                color: 'var(--tw-text-primary)',
+              }}
+            >
+              Build it. Ship it.
+            </h1>
+          </div>
 
           <p
             className="inline-block text-lg md:text-xl max-w-3xl mt-6"
