@@ -103,14 +103,14 @@ html[data-theme="night"] {
   width: 1.75em;       /* em → tracks the responsive headline size */
   height: auto;
   color: var(--tw-text-primary);
-  transform: translate(-60%, 52%); /* sit back over the final "t" (behind the glyph); start tucked down */
+  transform: translate(-15%, 52%); /* sit just past the line end so it only touches "it"; start tucked down */
   opacity: 0;
   animation: robot-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s forwards;
   pointer-events: none;
   overflow: visible;
 }
 @keyframes robot-rise {
-  to { transform: translate(-60%, 0); opacity: 1; }
+  to { transform: translate(-15%, 0); opacity: 1; }
 }
 .hero-robot .rb-body { fill: var(--tw-bg-secondary); stroke: currentColor; stroke-width: 3.5; }
 .hero-robot .rb-limb { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
@@ -128,7 +128,7 @@ html[data-theme="night"] {
   50%      { transform: rotate(-24deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-robot { animation: none; transform: translate(-60%, 0); opacity: 1; }
+  .hero-robot { animation: none; transform: translate(-15%, 0); opacity: 1; }
   .hero-robot .wave-arm { animation: none; }
 }
 
