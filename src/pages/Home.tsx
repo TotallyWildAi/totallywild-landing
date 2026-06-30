@@ -57,9 +57,11 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div className="tw-eyebrow mb-6">
-            <i className="ti ti-sparkles" style={{ fontSize: 15 }} aria-hidden="true" />
-            Agentic creation platform
+          <div className="tw-status mb-6" role="img" aria-label="Live — building">
+            <span className="tw-status-dot" aria-hidden="true" />
+            <span className="tw-status-bar" aria-hidden="true">
+              <span className="tw-status-fill" />
+            </span>
           </div>
 
           <h1
@@ -98,10 +100,6 @@ export default function Home() {
         <section className="py-16 md:py-20 px-6" style={{ background: 'var(--tw-bg-primary)' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <div className="tw-eyebrow mb-5">
-                <i className="ti ti-robot" style={{ fontSize: 15 }} aria-hidden="true" />
-                The factory
-              </div>
               <h2
                 className="text-3xl md:text-4xl font-bold mb-3"
                 style={{ color: 'var(--tw-text-primary)', letterSpacing: '-1px' }}
