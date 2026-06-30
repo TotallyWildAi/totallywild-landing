@@ -43,6 +43,166 @@ html {
   color: var(--tw-text-primary);
 }
 
+html[data-theme="night"] {
+  color-scheme: dark;
+}
+
+/* Vision eyebrow — mono pill, muted, with an optional leading icon. Replaces
+   the old uppercase accent chip across the reskinned pages. */
+.tw-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--tw-font-mono);
+  font-size: 0.8rem;
+  color: var(--tw-text-secondary);
+  background: var(--tw-bg-secondary);
+  border: 0.5px solid var(--tw-border-primary);
+  border-radius: 999px;
+  padding: 5px 13px;
+  letter-spacing: 0.01em;
+}
+
+/* Logo-tape edge-faded hairlines — a thin line that's strongest at the centre
+   and fades to transparent toward the left/right edges, replacing the solid
+   top/bottom borders. */
+.logo-tape {
+  position: relative;
+}
+.logo-tape::before,
+.logo-tape::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent 34%, var(--tw-border-primary) 50%, transparent 66%);
+}
+.logo-tape::before { top: 0; }
+.logo-tape::after { bottom: 0; }
+/* Pause the scroll while hovering so the logos are easy to click. */
+.logo-tape:hover .tape-track { animation-play-state: paused; }
+
+/* Gradient accent text for hero emphasis (vision .grad). */
+.tw-grad {
+  background: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Hero robot — rises from behind the headline, then waves. */
+.hero-headline { position: relative; z-index: 1; }
+/* Zero-width anchor sitting where the final period was. */
+.hero-dot { position: relative; display: inline-block; width: 0; vertical-align: baseline; }
+.hero-robot {
+  position: absolute;
+  left: 0;             /* end of "...it" — where the period was */
+  bottom: -0.05em;     /* the headline baseline */
+  z-index: -1;         /* behind the headline glyphs */
+  width: 1.75em;       /* em → tracks the responsive headline size */
+  height: auto;
+  color: var(--tw-text-primary);
+  transform: translate(-15%, 52%); /* sit just past the line end so it only touches "it"; start tucked down */
+  opacity: 0;
+  animation: robot-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s forwards;
+  pointer-events: none;
+  overflow: visible;
+}
+@keyframes robot-rise {
+  to { transform: translate(-15%, 0); opacity: 1; }
+}
+.hero-robot .rb-body { fill: var(--tw-bg-secondary); stroke: currentColor; stroke-width: 3.5; }
+.hero-robot .rb-limb { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
+.hero-robot .rb-limb-thin { stroke-width: 5; }
+.hero-robot .rb-thin { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.hero-robot .rb-accent { fill: var(--tw-text-accent); }
+.hero-robot .rb-shine { fill: var(--tw-bg-primary); }
+.hero-robot .wave-arm {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;   /* shoulder = bounding-box bottom-left */
+  animation: robot-wave 0.55s ease-in-out 1.5s 4;
+}
+@keyframes robot-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-24deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-robot { animation: none; transform: translate(-15%, 0); opacity: 1; }
+  .hero-robot .wave-arm { animation: none; }
+}
+
+/* Hero "live build" status — a flashing green light next to a progress bar
+   that fills left-to-right on a continuous loop. */
+.tw-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: var(--tw-bg-secondary);
+  border: 0.5px solid var(--tw-border-primary);
+}
+.tw-status-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--tw-green);
+  animation: tw-blink 1.3s ease-in-out infinite;
+}
+@keyframes tw-blink {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45); }
+  50%      { opacity: 0.3; box-shadow: 0 0 0 5px rgba(22, 163, 74, 0); }
+}
+.tw-status-bar {
+  position: relative;
+  width: 150px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--tw-bg-tertiary);
+  overflow: hidden;
+}
+.tw-status-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: 999px;
+  background-color: var(--tw-green);
+  /* Diagonal barber-pole stripes layered over the green fill. */
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.28) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.28) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 12px 12px;
+  /* Stripes scroll continuously; the bar width fills then loops. */
+  animation:
+    tw-stripes 0.7s linear infinite,
+    tw-progress 5s cubic-bezier(0.4, 0.1, 0.2, 1) infinite;
+}
+@keyframes tw-stripes {
+  from { background-position: 12px 0; }
+  to   { background-position: 0 0; }
+}
+@keyframes tw-progress {
+  0%        { width: 0%; }
+  90%, 100% { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tw-status-dot { animation: none; }
+  .tw-status-fill { animation: none; width: 100%; }
+}
+
 body {
   margin: 0;
   padding: 0;

@@ -1,4 +1,4 @@
-// Continuously scrolling logo tape — the stack the build factory runs on.
+// Continuously scrolling logo tape - the stack the build factory runs on.
 // Transparent background with visible top/bottom borders; reuses the shared
 // `.tape-track` animation (42s linear loop, no-ops under prefers-reduced-motion).
 //
@@ -129,7 +129,7 @@ function LogoTapeItem({ logo, decorative }: { logo: Logo; decorative?: boolean }
       rel="noopener noreferrer"
       className={`inline-flex items-center mx-7 shrink-0 transition-opacity duration-200 ${opacity}`}
       style={isMono ? { color: 'var(--tw-text-primary)' } : undefined}
-      aria-label={decorative ? undefined : `${logo.name} — opens in a new tab`}
+      aria-label={decorative ? undefined : `${logo.name} - opens in a new tab`}
       title={decorative ? undefined : logo.name}
       aria-hidden={decorative || undefined}
       tabIndex={decorative ? -1 : undefined}
@@ -188,7 +188,7 @@ const HALF_REPEATS = 3
 export default function LogoTape() {
   // One half = HALF_REPEATS passes of the list; the full track is two identical
   // halves so the -50% transform wraps seamlessly. Only the first pass carries
-  // real links — every repeat (and the whole second half) is decorative
+  // real links - every repeat (and the whole second half) is decorative
   // (aria-hidden, untabbable) so assistive tech and crawlers see one clean set.
   const half = Array.from({ length: HALF_REPEATS }, (_, pass) =>
     LOGOS.map((logo, i) => ({ logo, real: pass === 0, key: `${pass}-${i}` })),
@@ -197,15 +197,10 @@ export default function LogoTape() {
   return (
     <section aria-label="Technologies the build factory runs on" className="px-6">
       {/* Constrained to the same max-w-6xl box as the factory cards below, so
-          the tape's clipped ends and borders align with the outer edges of the
-          Business Analyst (left) and Engineer (right) cards. */}
-      <div
-        className="max-w-6xl mx-auto overflow-hidden"
-        style={{
-          borderTop: '0.5px solid var(--tw-border-primary)',
-          borderBottom: '0.5px solid var(--tw-border-primary)',
-        }}
-      >
+          the tape's clipped ends align with the outer edges of the Business
+          Analyst (left) and Engineer (right) cards. The .logo-tape hairlines
+          (centre-weighted, fading to the edges) replace solid borders. */}
+      <div className="logo-tape max-w-6xl mx-auto overflow-hidden">
         <div className="tape-track flex w-max items-center py-6">
           {half.map(({ logo, real, key }) => (
             <LogoTapeItem key={`a-${key}`} logo={logo} decorative={!real} />

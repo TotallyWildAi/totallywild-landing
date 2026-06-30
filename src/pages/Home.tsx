@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom'
 import TerminalDemo from '../components/TerminalDemo'
 import ScrollReveal from '../components/ScrollReveal'
 import LogoTape from '../components/LogoTape'
+import HeroRobot from '../components/HeroRobot'
 
 // The specialist agents that make up the build factory (see
 // C:\code\swarm-of-agents). Each role spins up on demand and hands its
-// work to the next — BA clarifies, Architect plans, Engineers build in
+// work to the next - BA clarifies, Architect plans, Engineers build in
 // parallel, the Reviewer gates every diff, with Research and Docs in support.
 const FACTORY_AGENTS = [
   {
@@ -16,7 +17,7 @@ const FACTORY_AGENTS = [
   {
     icon: 'ti-sitemap',
     name: 'Architect',
-    desc: 'Breaks the work into a task graph — files, layers and acceptance criteria.',
+    desc: 'Breaks the work into a task graph - files, layers and acceptance criteria.',
   },
   {
     icon: 'ti-code',
@@ -43,7 +44,7 @@ const FACTORY_AGENTS = [
 export default function Home() {
   return (
     <>
-      {/* Hero — static copy on a soft iris wash (the particle canvas was
+      {/* Hero - static copy on a soft iris wash (the particle canvas was
           removed). The wash mirrors the How It Works / Terminal sections so
           the page reads as one continuous surface. */}
       <section className="relative px-6 py-20 md:py-28 overflow-hidden">
@@ -57,33 +58,19 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div
-            className="inline-flex items-center mb-6"
-            style={{
-              background: 'var(--tw-bg-accent)',
-              color: 'var(--tw-text-accent)',
-              padding: '4px 10px',
-              borderRadius: '8px',
-              fontSize: '12px',
-              fontWeight: 500,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              gap: '6px',
-            }}
-          >
-            <i className="ti ti-sparkles" style={{ fontSize: 15 }} aria-hidden="true" />
-            Agentic creation platform
-          </div>
-
           <h1
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+            className="hero-headline text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
             style={{
               letterSpacing: '-1.5px',
               lineHeight: 1.08,
               color: 'var(--tw-text-primary)',
             }}
           >
-            Build it. Ship it.
+            {/* The final period turns into the robot: it rises from behind the
+                end of "Ship it" (where the "." was) and waves. */}
+            Build it. Ship it<span className="hero-dot">
+              <HeroRobot className="hero-robot" />
+            </span>
           </h1>
 
           <p
@@ -95,39 +82,22 @@ export default function Home() {
             }}
           >
             Direct a team of AI agents to design, build, test and ship
-            production software — and deploy it inside your business.
+            production software - and deploy it inside your business.
           </p>
         </div>
       </section>
 
-      {/* Logo tape — the stack the factory runs on. Transparent band with
+      {/* Logo tape - the stack the factory runs on. Transparent band with
           visible top/bottom borders, scrolling just below the hero. */}
       <LogoTape />
 
-      {/* The Factory — the specialist agents behind every build. Replaces the
+      {/* The Factory - the specialist agents behind every build. Replaces the
           old Business / Creators two-path split: a single, software-focused
           story about the agent team, with a product CTA and a sales path. */}
       <ScrollReveal>
         <section className="py-16 md:py-20 px-6" style={{ background: 'var(--tw-bg-primary)' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
-                <i className="ti ti-robot" style={{ fontSize: 15 }} aria-hidden="true" />
-                The factory
-              </div>
               <h2
                 className="text-3xl md:text-4xl font-bold mb-3"
                 style={{ color: 'var(--tw-text-primary)', letterSpacing: '-1px' }}
@@ -140,7 +110,7 @@ export default function Home() {
               >
                 Every build spins up a team of specialist agents. Each one owns a
                 role, hands its work to the next, and an orchestrator keeps the
-                whole pipeline moving — from first requirement to deployed code.
+                whole pipeline moving - from first requirement to deployed code.
               </p>
             </div>
 
@@ -179,7 +149,7 @@ export default function Home() {
               ))}
             </div>
 
-            {/* CTA row — primary product signup (off-site) plus a sales path
+            {/* CTA row - primary product signup (off-site) plus a sales path
                 into the contact form. */}
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
@@ -208,7 +178,7 @@ export default function Home() {
         </section>
       </ScrollReveal>
 
-      {/* How It Works — restyled to match Two Paths / About cards.
+      {/* How It Works - restyled to match Two Paths / About cards.
           Iris chip eyebrow, sentence-case h2, 4-card grid with small iris
           number badges replacing the 64x64 gradient blocks. Sits on
           bg-primary with a soft iris wash for rhythm (mirroring the
@@ -219,7 +189,7 @@ export default function Home() {
           id="how-it-works"
           className="relative py-16 md:py-20 px-6 overflow-hidden"
         >
-          {/* Soft iris wash — fades at top/bottom so it blends with the
+          {/* Soft iris wash - fades at top/bottom so it blends with the
               flanking white sections rather than cutting a hard band. */}
           <div
             aria-hidden="true"
@@ -236,20 +206,7 @@ export default function Home() {
 
           <div className="relative max-w-6xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
+              <div className="tw-eyebrow mb-5">
                 <i className="ti ti-list-numbers" style={{ fontSize: 15 }} aria-hidden="true" />
                 Process
               </div>
@@ -345,20 +302,7 @@ export default function Home() {
 
           <div className="relative max-w-5xl mx-auto">
             <div className="text-center mb-8 md:mb-10">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
+              <div className="tw-eyebrow mb-5">
                 <i className="ti ti-broadcast" style={{ fontSize: 15 }} aria-hidden="true" />
                 Live Demo
               </div>
@@ -372,7 +316,7 @@ export default function Home() {
                 className="text-base max-w-xl mx-auto"
                 style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}
               >
-                A real run, end to end — from requirements to a deployed URL.
+                A real run, end to end - from requirements to a deployed URL.
               </p>
             </div>
             <TerminalDemo />
