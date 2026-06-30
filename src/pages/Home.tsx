@@ -1,73 +1,58 @@
-import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import TerminalDemo from '../components/TerminalDemo'
 import ScrollReveal from '../components/ScrollReveal'
-import ParticleCloud from '../components/ParticleCloud'
-import { useDocumentTheme } from '../paperTheme'
 
-// Tracks viewport width across the md breakpoint (768px). Used to thin the
-// hero particle cloud on phones — fewer particles + faster motion feels
-// alive without crowding the small screen.
-function useIsMobile(breakpoint = 768): boolean {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < breakpoint)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [breakpoint])
-  return isMobile
-}
-
-// Home-tuned particle palette — same iris colours as /creators et al, but
-// the canvas paints over bg-primary (white in day, near-black in night)
-// instead of the warm cream/dark-warm-grey of the paper-aesthetic pages.
-const HOME_PARTICLE_THEMES = {
-  day: {
-    bgColor: '#FFFFFF',
-    particleColor: '60, 52, 137',
-    linkColor: '110, 92, 204',
-    glowColor: '155, 142, 232',
+// The specialist agents that make up the build factory (see
+// C:\code\swarm-of-agents). Each role spins up on demand and hands its
+// work to the next — BA clarifies, Architect plans, Engineers build in
+// parallel, the Reviewer gates every diff, with Research and Docs in support.
+const FACTORY_AGENTS = [
+  {
+    icon: 'ti-clipboard-text',
+    name: 'Business Analyst',
+    desc: 'Clarifies what you need and turns it into a precise, testable spec.',
   },
-  night: {
-    bgColor: '#0F0F0F',
-    particleColor: '255, 255, 255',
-    linkColor: '155, 142, 232',
-    glowColor: '110, 92, 204',
+  {
+    icon: 'ti-sitemap',
+    name: 'Architect',
+    desc: 'Breaks the work into a task graph — files, layers and acceptance criteria.',
   },
-} as const
+  {
+    icon: 'ti-code',
+    name: 'Engineer',
+    desc: 'Writes the code in an investigate, solve, verify loop. Many run in parallel.',
+  },
+  {
+    icon: 'ti-eye-check',
+    name: 'Reviewer',
+    desc: 'Reviews every diff against the spec before it lands. Nothing ships unchecked.',
+  },
+  {
+    icon: 'ti-search',
+    name: 'Researcher',
+    desc: 'Searches and investigates whenever the work needs outside knowledge.',
+  },
+  {
+    icon: 'ti-file-text',
+    name: 'Documentation',
+    desc: 'Writes the docs and diagrams so you own a codebase you can maintain.',
+  },
+]
 
 export default function Home() {
-  const theme = useDocumentTheme()
-  const p = HOME_PARTICLE_THEMES[theme]
-  const isMobile = useIsMobile()
-  // The subtitle gets passed to ParticleCloud as a repel zone so particles
-  // flow around its bounding rect instead of drifting over the copy.
-  const subtitleRef = useRef<HTMLParagraphElement>(null)
-
   return (
     <>
-      {/* Hero — v6 copy on a ParticleCloud background.
-          ParticleCloud is `inline` so it positions absolute within this
-          section (not fixed to viewport), and `interactive={false}` so it
-          doesn't capture clicks or react to cursor — the hero is primarily
-          for reading. */}
+      {/* Hero — static copy on a soft iris wash (the particle canvas was
+          removed). The wash mirrors the How It Works / Terminal sections so
+          the page reads as one continuous surface. */}
       <section className="relative px-6 py-20 md:py-28 overflow-hidden">
-        <ParticleCloud
-          inline
-          interactive={false}
-          bgColor={p.bgColor}
-          particleColor={p.particleColor}
-          linkColor={p.linkColor}
-          glowColor={p.glowColor}
-          count={isMobile ? 150 : 250}
-          speed={isMobile ? 0.6 : 0.32}
-          linkRadius={130}
-          cursorPull={0}
-          cursorRadius={0}
-          repelRefs={[subtitleRef]}
-          repelHalo={48}
-          repelStrength={0.5}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 60% at 50% 30%, var(--tw-bg-accent) 0%, transparent 72%)',
+          }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -97,11 +82,10 @@ export default function Home() {
               color: 'var(--tw-text-primary)',
             }}
           >
-            Build it. Ship it. Sell it.
+            Build it. Ship it.
           </h1>
 
           <p
-            ref={subtitleRef}
             className="inline-block text-lg md:text-xl max-w-3xl mt-6"
             style={{
               color: 'var(--tw-text-primary)',
@@ -109,23 +93,21 @@ export default function Home() {
               fontWeight: 500,
             }}
           >
-            Direct AI agents to build software, games and content. Publish to
-            the marketplace or deploy inside your business.
+            Direct a team of AI agents to design, build, test and ship
+            production software — and deploy it inside your business.
           </p>
         </div>
       </section>
 
-      {/* Two Paths — adapted from C:\code\twai-landing-new\tw_ai_access_page_v6.html.
-          Two product cards (Workshop for business, then Studio + Marketplace
-          for creators) followed by a quiz/contact strip for undecided visitors.
-          On bg-primary so it flows from the hero; How It Works below sits on
-          bg-secondary, giving the page its alternating panel rhythm. */}
+      {/* The Factory — the specialist agents behind every build. Replaces the
+          old Business / Creators two-path split: a single, software-focused
+          story about the agent team, with a product CTA and a sales path. */}
       <ScrollReveal>
         <section className="py-16 md:py-20 px-6" style={{ background: 'var(--tw-bg-primary)' }}>
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
               <div
-                className="inline-flex items-center"
+                className="inline-flex items-center mb-5"
                 style={{
                   background: 'var(--tw-bg-accent)',
                   color: 'var(--tw-text-accent)',
@@ -138,262 +120,83 @@ export default function Home() {
                   gap: '6px',
                 }}
               >
-                <i className="ti ti-route" style={{ fontSize: 15 }} aria-hidden="true" />
-                Choose your path
+                <i className="ti ti-robot" style={{ fontSize: 15 }} aria-hidden="true" />
+                The factory
               </div>
+              <h2
+                className="text-3xl md:text-4xl font-bold mb-3"
+                style={{ color: 'var(--tw-text-primary)', letterSpacing: '-1px' }}
+              >
+                A full software team, run by agents
+              </h2>
+              <p
+                className="text-base max-w-2xl mx-auto"
+                style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}
+              >
+                Every build spins up a team of specialist agents. Each one owns a
+                role, hands its work to the next, and an orchestrator keeps the
+                whole pipeline moving — from first requirement to deployed code.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Business card */}
-              <article
-                className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                style={{
-                  background: 'var(--tw-bg-primary)',
-                  border: '0.5px solid var(--tw-border-primary)',
-                }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{
-                      background: 'var(--tw-bg-tertiary)',
-                      color: 'var(--tw-text-primary)',
-                    }}
-                  >
-                    <i className="ti ti-building" style={{ fontSize: 18 }} aria-hidden="true" />
-                  </div>
-                  <span
-                    className="text-[11px] px-2 py-1 rounded-md font-semibold uppercase"
-                    style={{
-                      background: 'var(--tw-bg-tertiary)',
-                      color: 'var(--tw-text-primary)',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    For Business
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-semibold mb-2"
-                  style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {FACTORY_AGENTS.map((agent) => (
+                <article
+                  key={agent.name}
+                  className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                  style={{
+                    background: 'var(--tw-bg-primary)',
+                    border: '0.5px solid var(--tw-border-primary)',
+                  }}
                 >
-                  Workshop
-                </h3>
-                <p className="text-sm mb-5" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
-                  Your tenant. Your data. Build internal tools and software, or let
-                  TW AI run it for you.
-                </p>
-
-                <ul className="flex flex-col gap-2 mb-6 flex-1 list-none p-0 m-0">
-                  {[
-                    'SSO, audit logs, private templates',
-                    'Managed services tier optional',
-                    'Dedicated VPC available',
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-2"
-                      style={{
-                        color: 'var(--tw-text-secondary)',
-                        fontSize: '13px',
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      <i
-                        className="ti ti-check"
-                        style={{
-                          fontSize: 15,
-                          color: 'var(--tw-green)',
-                          marginTop: 1,
-                          flexShrink: 0,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex gap-2 mb-3">
-                  <a
-                    href="https://app.totallywild.ai/"
-                    className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'var(--tw-btn-primary-bg)',
-                      color: 'var(--tw-btn-primary-text)',
-                    }}
-                  >
-                    Start free
-                  </a>
-                  <Link
-                    to="/contact"
-                    className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--tw-text-primary)',
-                      border: '0.5px solid var(--tw-border-primary)',
-                    }}
-                  >
-                    See pricing
-                  </Link>
-                </div>
-                <p
-                  className="text-xs text-center"
-                  style={{ color: 'var(--tw-text-tertiary)' }}
-                >
-                  Self-serve · Managed · Enterprise
-                </p>
-              </article>
-
-              {/* Creator card */}
-              <article
-                className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                style={{
-                  background: 'var(--tw-bg-primary)',
-                  border: '0.5px solid var(--tw-border-primary)',
-                }}
-              >
-                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
+                    className="w-9 h-9 mb-4 rounded-lg flex items-center justify-center"
                     style={{ background: 'var(--tw-iris-subtle)', color: 'var(--tw-text-accent)' }}
                   >
-                    <i className="ti ti-wand" style={{ fontSize: 18 }} aria-hidden="true" />
+                    <i className={`ti ${agent.icon}`} style={{ fontSize: 18 }} aria-hidden="true" />
                   </div>
-                  <span
-                    className="text-[11px] px-2 py-1 rounded-md font-semibold uppercase"
+                  <h3
+                    className="text-lg font-semibold mb-2"
+                    style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
+                  >
+                    {agent.name}
+                  </h3>
+                  <p
                     style={{
-                      background: 'var(--tw-iris-subtle)',
-                      color: 'var(--tw-text-accent)',
-                      letterSpacing: '0.05em',
+                      color: 'var(--tw-text-secondary)',
+                      fontSize: '13px',
+                      lineHeight: 1.55,
                     }}
                   >
-                    For Creators
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-semibold mb-2"
-                  style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
-                >
-                  Studio + Marketplace
-                </h3>
-                <p className="text-sm mb-5" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
-                  Build software, games and content with agents. Own what you make.
-                  List it for sale.
-                </p>
-
-                <ul className="flex flex-col gap-2 mb-6 flex-1 list-none p-0 m-0">
-                  {[
-                    'Software, gaming, content design',
-                    'You own the output and IP',
-                    '80% revenue share, first year',
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-2"
-                      style={{
-                        color: 'var(--tw-text-secondary)',
-                        fontSize: '13px',
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      <i
-                        className="ti ti-check"
-                        style={{
-                          fontSize: 15,
-                          color: 'var(--tw-green)',
-                          marginTop: 1,
-                          flexShrink: 0,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex gap-2 mb-3">
-                  <Link
-                    to="/contact"
-                    className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'var(--tw-btn-primary-bg)',
-                      color: 'var(--tw-btn-primary-text)',
-                    }}
-                  >
-                    Book demo
-                  </Link>
-                  <Link
-                    to="/creators"
-                    className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--tw-text-primary)',
-                      border: '0.5px solid var(--tw-border-primary)',
-                    }}
-                  >
-                    Browse templates
-                  </Link>
-                </div>
-                <p
-                  className="text-xs text-center"
-                  style={{ color: 'var(--tw-text-tertiary)' }}
-                >
-                  Coming soon
-                </p>
-              </article>
+                    {agent.desc}
+                  </p>
+                </article>
+              ))}
             </div>
 
-            {/* Quiz / talk-to-us strip — matches the .paper-callout pattern
-                on /creators ("Have a template idea?"). Uses TW iris tokens
-                that visually approximate the warm tokens used over there. */}
-            <div
-              className="mt-6 flex flex-col sm:flex-row items-center justify-between"
-              style={{
-                background: 'var(--tw-bg-tertiary)',
-                padding: '14px 18px',
-                borderRadius: '8px',
-                gap: '16px',
-              }}
-            >
-              <div
-                className="flex items-center"
+            {/* CTA row — primary product signup (off-site) plus a sales path
+                into the contact form. */}
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href="https://app.totallywild.ai/"
+                className="px-5 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
                 style={{
-                  color: 'var(--tw-text-secondary)',
-                  fontSize: '13px',
-                  gap: '10px',
+                  background: 'var(--tw-btn-primary-bg)',
+                  color: 'var(--tw-btn-primary-text)',
                 }}
               >
-                <i
-                  className="ti ti-info-circle"
-                  style={{ fontSize: 18, color: 'var(--tw-text-secondary)' }}
-                  aria-hidden="true"
-                />
-                <span>Not sure which fits? Tell us about your project.</span>
-              </div>
+                Start free
+              </a>
               <Link
                 to="/contact"
-                className="hover:opacity-90 whitespace-nowrap"
+                className="px-5 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px',
                   background: 'transparent',
                   color: 'var(--tw-text-primary)',
-                  border: '0.5px solid var(--tw-gray-300)',
-                  borderRadius: '8px',
-                  padding: '7px 12px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '-0.005em',
-                  textDecoration: 'none',
-                  transition: 'opacity 0.15s, transform 0.05s',
+                  border: '0.5px solid var(--tw-border-primary)',
                 }}
               >
-                Get in touch
+                Talk to sales
               </Link>
             </div>
           </div>
