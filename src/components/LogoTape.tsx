@@ -176,7 +176,22 @@ function LogoTapeItem({ logo, decorative }: { logo: Logo; decorative?: boolean }
   )
 }
 
+// Copies of the logo list per half-track. The shared `.tape-track` scroll
+// translates by -50% (one half), so the loop only stays gap-free if a single
+// half is at least as wide as the viewport. The list is ~900px wide, so we
+// repeat it enough that one half (~2.7k px) exceeds typical large displays
+// before the second half wraps in.
+const HALF_REPEATS = 3
+
 export default function LogoTape() {
+  // One half = HALF_REPEATS passes of the list; the full track is two identical
+  // halves so the -50% transform wraps seamlessly. Only the first pass carries
+  // real links — every repeat (and the whole second half) is decorative
+  // (aria-hidden, untabbable) so assistive tech and crawlers see one clean set.
+  const half = Array.from({ length: HALF_REPEATS }, (_, pass) =>
+    LOGOS.map((logo, i) => ({ logo, real: pass === 0, key: `${pass}-${i}` })),
+  ).flat()
+
   return (
     <section
       aria-label="Technologies the build factory runs on"
@@ -188,11 +203,11 @@ export default function LogoTape() {
       }}
     >
       <div className="tape-track flex w-max items-center py-6">
-        {LOGOS.map((logo) => (
-          <LogoTapeItem key={`a-${logo.name}`} logo={logo} />
+        {half.map(({ logo, real, key }) => (
+          <LogoTapeItem key={`a-${key}`} logo={logo} decorative={!real} />
         ))}
-        {LOGOS.map((logo) => (
-          <LogoTapeItem key={`b-${logo.name}`} logo={logo} decorative />
+        {half.map(({ logo, key }) => (
+          <LogoTapeItem key={`b-${key}`} logo={logo} decorative />
         ))}
       </div>
     </section>
