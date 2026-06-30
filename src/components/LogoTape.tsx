@@ -60,7 +60,9 @@ const LOGOS: Logo[] = [
   {
     name: 'Langfuse',
     href: 'https://langfuse.com/',
-    viewBox: '0 0 512 512',
+    // Tight viewBox cropped to the artwork bounds (the source 512x512 canvas
+    // is mostly padding, which made the mark render visibly smaller).
+    viewBox: '55 130 402 253',
     colorPaths: [
       { d: 'M254.75 302.25L285.25 326.75C285.25 326.75 308.587 309.418 325.75 306.875C343.75 304.208 362.954 314.244 380.75 326.208C407.629 344.279 430.25 367.208 430.25 367.208L456.75 341.208C456.75 341.208 383.686 262.047 325.75 269.208C287.75 273.905 254.75 302.25 254.75 302.25Z', fill: '#FF5D5F' },
       { d: 'M80.25 151.286L55.25 178.786C55.25 178.786 124.902 243.786 179.75 243.786C204.75 243.786 239.419 224.201 269.25 198.757C286.25 184.257 305.25 167.786 324.25 167.786C337.021 167.786 353.866 174.551 369.75 192.316C369.75 192.316 380.003 186.168 386.25 181.75C391.74 177.868 399.896 171.25 399.896 171.25C377.047 146.864 343.998 129.038 324.25 130.786C292.25 130.79 269.25 150.711 240.75 173.75C212.25 196.789 200.25 206.286 179.75 206.286C145.25 206.286 80.25 151.286 80.25 151.286Z', fill: '#4E9CFF' },
@@ -193,22 +195,25 @@ export default function LogoTape() {
   ).flat()
 
   return (
-    <section
-      aria-label="Technologies the build factory runs on"
-      className="w-full overflow-hidden"
-      style={{
-        background: 'transparent',
-        borderTop: '0.5px solid var(--tw-border-primary)',
-        borderBottom: '0.5px solid var(--tw-border-primary)',
-      }}
-    >
-      <div className="tape-track flex w-max items-center py-6">
-        {half.map(({ logo, real, key }) => (
-          <LogoTapeItem key={`a-${key}`} logo={logo} decorative={!real} />
-        ))}
-        {half.map(({ logo, key }) => (
-          <LogoTapeItem key={`b-${key}`} logo={logo} decorative />
-        ))}
+    <section aria-label="Technologies the build factory runs on" className="px-6">
+      {/* Constrained to the same max-w-6xl box as the factory cards below, so
+          the tape's clipped ends and borders align with the outer edges of the
+          Business Analyst (left) and Engineer (right) cards. */}
+      <div
+        className="max-w-6xl mx-auto overflow-hidden"
+        style={{
+          borderTop: '0.5px solid var(--tw-border-primary)',
+          borderBottom: '0.5px solid var(--tw-border-primary)',
+        }}
+      >
+        <div className="tape-track flex w-max items-center py-6">
+          {half.map(({ logo, real, key }) => (
+            <LogoTapeItem key={`a-${key}`} logo={logo} decorative={!real} />
+          ))}
+          {half.map(({ logo, key }) => (
+            <LogoTapeItem key={`b-${key}`} logo={logo} decorative />
+          ))}
+        </div>
       </div>
     </section>
   )
