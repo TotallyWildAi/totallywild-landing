@@ -197,15 +197,10 @@ export default function LogoTape() {
   return (
     <section aria-label="Technologies the build factory runs on" className="px-6">
       {/* Constrained to the same max-w-6xl box as the factory cards below, so
-          the tape's clipped ends and borders align with the outer edges of the
-          Business Analyst (left) and Engineer (right) cards. */}
-      <div
-        className="max-w-6xl mx-auto overflow-hidden"
-        style={{
-          borderTop: '0.5px solid var(--tw-border-primary)',
-          borderBottom: '0.5px solid var(--tw-border-primary)',
-        }}
-      >
+          the tape's clipped ends align with the outer edges of the Business
+          Analyst (left) and Engineer (right) cards. The .logo-tape hairlines
+          (centre-weighted, fading to the edges) replace solid borders. */}
+      <div className="logo-tape max-w-6xl mx-auto overflow-hidden">
         <div className="tape-track flex w-max items-center py-6">
           {half.map(({ logo, real, key }) => (
             <LogoTapeItem key={`a-${key}`} logo={logo} decorative={!real} />

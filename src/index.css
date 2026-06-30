@@ -63,6 +63,25 @@ html[data-theme="night"] {
   letter-spacing: 0.01em;
 }
 
+/* Logo-tape edge-faded hairlines — a thin line that's strongest at the centre
+   and fades to transparent toward the left/right edges, replacing the solid
+   top/bottom borders. */
+.logo-tape {
+  position: relative;
+}
+.logo-tape::before,
+.logo-tape::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--tw-border-primary), transparent);
+}
+.logo-tape::before { top: 0; }
+.logo-tape::after { bottom: 0; }
+
 /* Gradient accent text for hero emphasis (vision .grad). */
 .tw-grad {
   background: var(--headline-gradient);
