@@ -43,6 +43,35 @@ html {
   color: var(--tw-text-primary);
 }
 
+html[data-theme="night"] {
+  color-scheme: dark;
+}
+
+/* Vision eyebrow — mono pill, muted, with an optional leading icon. Replaces
+   the old uppercase accent chip across the reskinned pages. */
+.tw-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--tw-font-mono);
+  font-size: 0.8rem;
+  color: var(--tw-text-secondary);
+  background: var(--tw-bg-secondary);
+  border: 0.5px solid var(--tw-border-primary);
+  border-radius: 999px;
+  padding: 5px 13px;
+  letter-spacing: 0.01em;
+}
+
+/* Gradient accent text for hero emphasis (vision .grad). */
+.tw-grad {
+  background: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 body {
   margin: 0;
   padding: 0;

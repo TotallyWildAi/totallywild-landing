@@ -57,20 +57,7 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div
-            className="inline-flex items-center mb-6"
-            style={{
-              background: 'var(--tw-bg-accent)',
-              color: 'var(--tw-text-accent)',
-              padding: '4px 10px',
-              borderRadius: '8px',
-              fontSize: '12px',
-              fontWeight: 500,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              gap: '6px',
-            }}
-          >
+          <div className="tw-eyebrow mb-6">
             <i className="ti ti-sparkles" style={{ fontSize: 15 }} aria-hidden="true" />
             Agentic creation platform
           </div>
@@ -111,20 +98,7 @@ export default function Home() {
         <section className="py-16 md:py-20 px-6" style={{ background: 'var(--tw-bg-primary)' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
+              <div className="tw-eyebrow mb-5">
                 <i className="ti ti-robot" style={{ fontSize: 15 }} aria-hidden="true" />
                 The factory
               </div>
@@ -236,20 +210,7 @@ export default function Home() {
 
           <div className="relative max-w-6xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
+              <div className="tw-eyebrow mb-5">
                 <i className="ti ti-list-numbers" style={{ fontSize: 15 }} aria-hidden="true" />
                 Process
               </div>
@@ -345,20 +306,7 @@ export default function Home() {
 
           <div className="relative max-w-5xl mx-auto">
             <div className="text-center mb-8 md:mb-10">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
+              <div className="tw-eyebrow mb-5">
                 <i className="ti ti-broadcast" style={{ fontSize: 15 }} aria-hidden="true" />
                 Live Demo
               </div>
