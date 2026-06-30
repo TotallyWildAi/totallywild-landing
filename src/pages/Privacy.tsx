@@ -29,7 +29,7 @@ export default function Privacy() {
         <div className="max-w-4xl mx-auto text-center">
           <h1
             className="text-4xl md:text-5xl font-bold mb-6 headline-gradient"
-            style={{ letterSpacing: '-1px', lineHeight: 1.15, paddingBottom: '0.1em' }}
+            style={{ letterSpacing: '-1px', lineHeight: 1.15, paddingBottom: '0.1em', fontFamily: 'var(--tw-font-display)' }}
           >
             Privacy Policy
           </h1>
@@ -100,7 +100,7 @@ export default function Privacy() {
         </section>
       </ScrollReveal>
 
-      <article className="px-6 pb-24">
+      <article className="px-6 pb-16">
         <div
           className="max-w-3xl mx-auto"
           style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.65 }}

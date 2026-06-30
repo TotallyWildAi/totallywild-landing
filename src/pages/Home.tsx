@@ -1,576 +1,464 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import TerminalDemo from '../components/TerminalDemo'
+import Button from '../components/Button'
+import Collapse from '../components/Collapse'
+import Eyebrow from '../components/Eyebrow'
+import HeroEffects from '../components/HeroEffects'
 import ScrollReveal from '../components/ScrollReveal'
-import ParticleCloud from '../components/ParticleCloud'
-import { useDocumentTheme } from '../paperTheme'
+import SectionTitle, { GradientText } from '../components/SectionTitle'
+import SpotCard from '../components/SpotCard'
+import Stepper from '../components/Stepper'
+import Typewriter from '../components/Typewriter'
+import { apps } from '../data/apps'
 
-// Tracks viewport width across the md breakpoint (768px). Used to thin the
-// hero particle cloud on phones — fewer particles + faster motion feels
-// alive without crowding the small screen.
-function useIsMobile(breakpoint = 768): boolean {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < breakpoint)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [breakpoint])
-  return isMobile
-}
+const APP_URL = 'https://app.totallywild.ai/'
 
-// Home-tuned particle palette — same iris colours as /creators et al, but
-// the canvas paints over bg-primary (white in day, near-black in night)
-// instead of the warm cream/dark-warm-grey of the paper-aesthetic pages.
-const HOME_PARTICLE_THEMES = {
-  day: {
-    bgColor: '#FFFFFF',
-    particleColor: '60, 52, 137',
-    linkColor: '110, 92, 204',
-    glowColor: '155, 142, 232',
+const TYPEWRITER_PHRASES = ['built by AI.', 'shipped in days.', 'owned by you.', 'tested and live.']
+
+const FACTORY_CARDS = [
+  {
+    icon: 'ti-robot',
+    title: 'AI Agents for Business',
+    items: [
+      'Custom agents for your workflows',
+      'Use our library or build your own',
+      'Deploy them wherever you work',
+      'Full IP ownership on every output',
+    ],
   },
-  night: {
-    bgColor: '#0F0F0F',
-    particleColor: '255, 255, 255',
-    linkColor: '155, 142, 232',
-    glowColor: '110, 92, 204',
+  {
+    icon: 'ti-app-window',
+    title: 'Software for Industries',
+    items: [
+      'Industry-specific applications',
+      'Built end to end by AI',
+      'Source code fully yours',
+      'Tested and ready to deploy',
+    ],
   },
+  {
+    icon: 'ti-building-factory-2',
+    title: 'The Build Pipeline',
+    items: [
+      'Agents plan, write and review code',
+      'Parallel engineers build in tandem',
+      'Automated tests on every build',
+      'Shipped and deployed for you',
+    ],
+  },
+  {
+    icon: 'ti-lock',
+    title: 'You Own Everything',
+    items: [
+      'Full IP on every line of code',
+      'No lock-in, no licensing games',
+      'Keep it private or take it public',
+      'Handed off with complete source',
+    ],
+  },
+]
+
+const INDUSTRIES = [
+  'Healthcare & Medical',
+  'Finance & FinTech',
+  'Legal & Compliance',
+  'Real Estate',
+  'Retail & eCommerce',
+  'Education & Training',
+  'Construction & Trades',
+  'Logistics & Supply Chain',
+  'Hospitality & Tourism',
+  'Manufacturing',
+  'Marketing & Media',
+  'Government & Public Sector',
+]
+
+const USE_CASES = [
+  { label: 'Software development', desc: 'agents that scaffold, write and review code, then ship and maintain features.' },
+  { label: 'Industry automation', desc: 'automate the repetitive, rules-based work specific to your sector, end to end.' },
+  { label: 'Content creation', desc: 'draft, edit and repurpose copy and assets that stay on brand.' },
+  { label: 'Customer service', desc: 'answer enquiries, resolve tickets and escalate the rest, around the clock.' },
+  { label: 'Sales & CRM', desc: 'qualify leads, update records and follow up so the pipeline never goes cold.' },
+  { label: 'Operations & workflow', desc: 'orchestrate multi-step processes across your tools without manual handoffs.' },
+  { label: 'Research & analytics', desc: 'gather sources, surface patterns and turn raw data into decisions.' },
+  { label: 'Marketing automation', desc: 'plan campaigns, schedule sends and personalise outreach at scale.' },
+  { label: 'Data processing', desc: "clean, transform and enrich data so it's ready wherever you need it." },
+  { label: 'Legal & compliance', desc: 'review documents, flag risk and keep records aligned with your obligations.' },
+]
+
+const AGENT_STEPS = [
+  { title: 'Share your idea or business need', desc: 'Describe what you want the agent to do — no technical knowledge required.' },
+  { title: 'Use our agents or build your own', desc: 'Pick from our growing library or start fresh with a custom agent spec.' },
+  { title: 'Select templates or start from scratch', desc: 'Battle-tested templates for common use cases, or a blank canvas.' },
+  { title: 'Agent builds, tests & delivers', desc: 'Trained, tested and deployed — you review and own every output.' },
+  { title: 'Deploy it or keep it private', desc: 'IP stays with you. Deploy it publicly or run it internally — your call.' },
+]
+
+const HR_CARDS = [
+  { n: '01', title: 'Use Our HR Agents', desc: 'Deploy pre-built AI HR agents instantly. Hiring, onboarding, compliance, performance reviews — out of the box, zero configuration required.' },
+  { n: '02', title: 'Use Our Templates', desc: 'Start from battle-tested HR workflow templates and customise for your team size, industry and culture.' },
+  { n: '03', title: 'Build Your Own', desc: "Describe your HR processes and we build a fully custom AI agent stack tailored to your company's unique needs." },
+]
+
+const HR_FEATURES = [
+  'Hiring & candidate screening',
+  'Onboarding automation',
+  'Performance tracking',
+  'Policy & compliance',
+  'Payroll workflow agents',
+  'Team analytics & insights',
+  'Leave & absence management',
+  'Benefits administration',
+  'Employee communications',
+]
+
+const UPPER_LABEL_STYLE = {
+  fontSize: '0.7rem',
+  fontWeight: 600,
+  letterSpacing: '0.13em',
+  textTransform: 'uppercase',
+  color: 'var(--tw-text-tertiary)',
+  marginBottom: '1rem',
 } as const
 
+/** Collapsible use-case grid with a detail panel, from the vision agents section. */
+function UseCaseExplorer() {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState(0)
+  const active = USE_CASES[selected]
+
+  return (
+    <div className={open ? 'uc-open' : undefined} style={{ marginBottom: '1.5rem' }}>
+      <button type="button" className="uc-toggle" onClick={() => setOpen(!open)} aria-expanded={open}>
+        <span>Agent use cases</span>
+        <span className="uc-arr">▼</span>
+      </button>
+      <div className="uc-collapsible">
+        <div className="uc-grid">
+          {USE_CASES.map((uc, i) => (
+            <button
+              type="button"
+              key={uc.label}
+              className={`uc-item${i === selected ? ' active' : ''}`}
+              onClick={() => setSelected(i)}
+            >
+              {uc.label}
+            </button>
+          ))}
+        </div>
+        <div className="uc-detail">
+          <h5>{active.label}</h5>
+          <p>{active.desc}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
-  const theme = useDocumentTheme()
-  const p = HOME_PARTICLE_THEMES[theme]
-  const isMobile = useIsMobile()
-  // The subtitle gets passed to ParticleCloud as a repel zone so particles
-  // flow around its bounding rect instead of drifting over the copy.
-  const subtitleRef = useRef<HTMLParagraphElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const [factoryOpen, setFactoryOpen] = useState<number | null>(null)
+  const [openApps, setOpenApps] = useState<Set<number>>(new Set())
+
+  const toggleApp = (i: number) =>
+    setOpenApps((prev) => {
+      const next = new Set(prev)
+      if (next.has(i)) next.delete(i)
+      else next.add(i)
+      return next
+    })
 
   return (
     <>
-      {/* Hero — v6 copy on a ParticleCloud background.
-          ParticleCloud is `inline` so it positions absolute within this
-          section (not fixed to viewport), and `interactive={false}` so it
-          doesn't capture clicks or react to cursor — the hero is primarily
-          for reading. */}
-      <section className="relative px-6 py-20 md:py-28 overflow-hidden">
-        <ParticleCloud
-          inline
-          interactive={false}
-          bgColor={p.bgColor}
-          particleColor={p.particleColor}
-          linkColor={p.linkColor}
-          glowColor={p.glowColor}
-          count={isMobile ? 150 : 250}
-          speed={isMobile ? 0.6 : 0.32}
-          linkRadius={130}
-          cursorPull={0}
-          cursorRadius={0}
-          repelRefs={[subtitleRef]}
-          repelHalo={48}
-          repelStrength={0.5}
-        />
-
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div
-            className="inline-flex items-center mb-6"
-            style={{
-              background: 'var(--tw-bg-accent)',
-              color: 'var(--tw-text-accent)',
-              padding: '4px 10px',
-              borderRadius: '8px',
-              fontSize: '12px',
-              fontWeight: 500,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              gap: '6px',
-            }}
-          >
-            <i className="ti ti-sparkles" style={{ fontSize: 15 }} aria-hidden="true" />
-            Agentic creation platform
+      {/* Hero */}
+      <div className="hero-wrap">
+        <div className="hero-trail" ref={heroRef}>
+          <HeroEffects containerRef={heroRef} />
+          <div className="hero-content">
+            <h1 style={{ margin: 0 }}>
+              <span className="hero-h1-dark">Your software,</span>
+              <Typewriter phrases={TYPEWRITER_PHRASES} className="hero-h1-green" />
+            </h1>
+            <p className="hero-sub">
+              An autonomous build factory. Describe the app or agent you need — our AI engineers design it,
+              build it, test it and ship it, then hand you every line. No engineering team required.
+            </p>
+            <div className="hero-btns">
+              <Button variant="fill" href={APP_URL} arrow>
+                Get started free
+              </Button>
+              <Button variant="ghost" to="/contact">
+                Book a build
+              </Button>
+            </div>
+            <Link
+              to="/showcase"
+              style={{
+                display: 'inline-block',
+                marginTop: '0.9rem',
+                fontSize: '0.85rem',
+                color: 'var(--tw-text-tertiary)',
+                textDecoration: 'none',
+              }}
+            >
+              see what we've built →
+            </Link>
           </div>
+        </div>
+      </div>
 
-          <h1
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
-            style={{
-              letterSpacing: '-1.5px',
-              lineHeight: 1.08,
-              color: 'var(--tw-text-primary)',
-            }}
-          >
-            Build it. Ship it. Sell it.
-          </h1>
-
-          <p
-            ref={subtitleRef}
-            className="inline-block text-lg md:text-xl max-w-3xl mt-6"
-            style={{
-              color: 'var(--tw-text-primary)',
-              lineHeight: 1.55,
-              fontWeight: 500,
-            }}
-          >
-            Direct AI agents to build software, games and content. Publish to
-            the marketplace or deploy inside your business.
-          </p>
+      {/* Proof band */}
+      <section className="section-wrap section-g">
+        <div className="section-inner">
+          <ScrollReveal>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '1.6rem',
+              }}
+            >
+              {[
+                { big: '80%', caption: 'faster to ship — buyer-outreach platform for a business broker' },
+                { big: 'Hours, not days', caption: 'to a working loan-document review prototype for a mortgage broker' },
+                { big: '4', caption: 'production apps shipped and live' },
+                { big: '100%', caption: 'source and IP ownership — every line is yours' },
+              ].map((stat) => (
+                <div key={stat.caption}>
+                  <div
+                    style={{
+                      fontFamily: 'var(--tw-font-display)',
+                      color: 'var(--tw-text-accent)',
+                      fontSize: 'clamp(1.6rem, 3vw, 2rem)',
+                      lineHeight: 1.1,
+                      marginBottom: '0.5rem',
+                    }}
+                  >
+                    {stat.big}
+                  </div>
+                  <p
+                    style={{
+                      fontSize: '0.82rem',
+                      color: 'var(--tw-text-secondary)',
+                      lineHeight: 1.5,
+                      margin: 0,
+                    }}
+                  >
+                    {stat.caption}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Two Paths — adapted from C:\code\twai-landing-new\tw_ai_access_page_v6.html.
-          Two product cards (Workshop for business, then Studio + Marketplace
-          for creators) followed by a quiz/contact strip for undecided visitors.
-          On bg-primary so it flows from the hero; How It Works below sits on
-          bg-secondary, giving the page its alternating panel rhythm. */}
-      <ScrollReveal>
-        <section className="py-16 md:py-20 px-6" style={{ background: 'var(--tw-bg-primary)' }}>
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-10 md:mb-12">
-              <div
-                className="inline-flex items-center"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
-                <i className="ti ti-route" style={{ fontSize: 15 }} aria-hidden="true" />
-                Choose your path
-              </div>
-            </div>
+      {/* Built by the factory */}
+      <section className="section-wrap">
+        <div className="section-inner">
+          <ScrollReveal>
+            <Eyebrow>Proof</Eyebrow>
+            <SectionTitle sub="A few of the production applications the factory has designed, built and shipped.">
+              Real apps. Shipped and live.
+            </SectionTitle>
+          </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Business card */}
-              <article
-                className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                style={{
-                  background: 'var(--tw-bg-primary)',
-                  border: '0.5px solid var(--tw-border-primary)',
-                }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{
-                      background: 'var(--tw-bg-tertiary)',
-                      color: 'var(--tw-text-primary)',
-                    }}
-                  >
-                    <i className="ti ti-building" style={{ fontSize: 18 }} aria-hidden="true" />
-                  </div>
-                  <span
-                    className="text-[11px] px-2 py-1 rounded-md font-semibold uppercase"
-                    style={{
-                      background: 'var(--tw-bg-tertiary)',
-                      color: 'var(--tw-text-primary)',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    For Business
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-semibold mb-2"
-                  style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
-                >
-                  Workshop
-                </h3>
-                <p className="text-sm mb-5" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
-                  Your tenant. Your data. Build internal tools and software, or let
-                  TW AI run it for you.
-                </p>
-
-                <ul className="flex flex-col gap-2 mb-6 flex-1 list-none p-0 m-0">
-                  {[
-                    'SSO, audit logs, private templates',
-                    'Managed services tier optional',
-                    'Dedicated VPC available',
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-2"
-                      style={{
-                        color: 'var(--tw-text-secondary)',
-                        fontSize: '13px',
-                        lineHeight: 1.45,
-                      }}
+          <ScrollReveal>
+            <div className="sage-grid-2">
+              {apps.map((app, i) => {
+                const isOpen = openApps.has(i)
+                return (
+                  <article className="sage-card" key={app.name}>
+                    <button
+                      type="button"
+                      className="app-card-head"
+                      onClick={() => toggleApp(i)}
+                      aria-expanded={isOpen}
                     >
-                      <i
-                        className="ti ti-check"
-                        style={{
-                          fontSize: 15,
-                          color: 'var(--tw-green)',
-                          marginTop: 1,
-                          flexShrink: 0,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
+                      <span>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontFamily: 'var(--tw-font-display)',
+                            fontSize: '1rem',
+                            color: 'var(--tw-text-primary)',
+                            marginBottom: '0.35rem',
+                          }}
+                        >
+                          {app.name}
+                        </span>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: '0.84rem',
+                            color: 'var(--tw-text-secondary)',
+                          }}
+                        >
+                          {app.tagline}
+                        </span>
+                      </span>
+                      <span className="app-card-arr" aria-hidden="true">
+                        ▼
+                      </span>
+                    </button>
+                    <Collapse open={isOpen}>
+                      <div
+                        className="tpl-preview"
+                        style={{ marginTop: '1rem', marginBottom: 0 }}
+                      >
+                        <img
+                          src={app.image}
+                          alt={`${app.name} interface`}
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'top',
+                            display: 'block',
+                          }}
+                        />
+                      </div>
+                    </Collapse>
+                  </article>
+                )
+              })}
+            </div>
+          </ScrollReveal>
 
-                <div className="flex gap-2 mb-3">
-                  <a
-                    href="https://app.totallywild.ai/"
-                    className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'var(--tw-btn-primary-bg)',
-                      color: 'var(--tw-btn-primary-text)',
-                    }}
-                  >
-                    Start free
-                  </a>
-                  <Link
-                    to="/contact"
-                    className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--tw-text-primary)',
-                      border: '0.5px solid var(--tw-border-primary)',
-                    }}
-                  >
-                    See pricing
-                  </Link>
-                </div>
-                <p
-                  className="text-xs text-center"
-                  style={{ color: 'var(--tw-text-tertiary)' }}
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <Button variant="ghost" to="/showcase">
+                Explore the showcase
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* The Factory */}
+      <section className="section-wrap section-g" id="factory">
+        <div className="section-inner">
+          <ScrollReveal>
+            <Eyebrow>The Factory</Eyebrow>
+            <SectionTitle sub="Describe what you need and autonomous agents design, write, test and ship it. You keep the intellectual property on everything the factory builds.">
+              <GradientText>Build AI agents and software for any industry.</GradientText> Own what you make.
+            </SectionTitle>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="s-cards">
+              {FACTORY_CARDS.map((card, i) => (
+                <SpotCard
+                  key={card.title}
+                  className="sc"
+                  onClick={() => setFactoryOpen(factoryOpen === i ? null : i)}
                 >
-                  Self-serve · Managed · Enterprise
-                </p>
-              </article>
-
-              {/* Creator card */}
-              <article
-                className="flex flex-col p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                style={{
-                  background: 'var(--tw-bg-primary)',
-                  border: '0.5px solid var(--tw-border-primary)',
-                }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{ background: 'var(--tw-iris-subtle)', color: 'var(--tw-text-accent)' }}
-                  >
-                    <i className="ti ti-wand" style={{ fontSize: 18 }} aria-hidden="true" />
+                  <div className="sc-head">
+                    <i className={`sc-ico ti ${card.icon}`} aria-hidden="true" />
+                    <h4>{card.title}</h4>
                   </div>
-                  <span
-                    className="text-[11px] px-2 py-1 rounded-md font-semibold uppercase"
-                    style={{
-                      background: 'var(--tw-iris-subtle)',
-                      color: 'var(--tw-text-accent)',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    For Creators
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-semibold mb-2"
-                  style={{ color: 'var(--tw-text-primary)', letterSpacing: '-0.01em' }}
-                >
-                  Studio + Marketplace
-                </h3>
-                <p className="text-sm mb-5" style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}>
-                  Build software, games and content with agents. Own what you make.
-                  List it for sale.
-                </p>
-
-                <ul className="flex flex-col gap-2 mb-6 flex-1 list-none p-0 m-0">
-                  {[
-                    'Software, gaming, content design',
-                    'You own the output and IP',
-                    '80% revenue share, first year',
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-2"
-                      style={{
-                        color: 'var(--tw-text-secondary)',
-                        fontSize: '13px',
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      <i
-                        className="ti ti-check"
-                        style={{
-                          fontSize: 15,
-                          color: 'var(--tw-green)',
-                          marginTop: 1,
-                          flexShrink: 0,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex gap-2 mb-3">
-                  <Link
-                    to="/contact"
-                    className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-center transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'var(--tw-btn-primary-bg)',
-                      color: 'var(--tw-btn-primary-text)',
-                    }}
-                  >
-                    Book demo
-                  </Link>
-                  <Link
-                    to="/creators"
-                    className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                    style={{
-                      background: 'transparent',
-                      color: 'var(--tw-text-primary)',
-                      border: '0.5px solid var(--tw-border-primary)',
-                    }}
-                  >
-                    Browse templates
-                  </Link>
-                </div>
-                <p
-                  className="text-xs text-center"
-                  style={{ color: 'var(--tw-text-tertiary)' }}
-                >
-                  Coming soon
-                </p>
-              </article>
-            </div>
-
-            {/* Quiz / talk-to-us strip — matches the .paper-callout pattern
-                on /creators ("Have a template idea?"). Uses TW iris tokens
-                that visually approximate the warm tokens used over there. */}
-            <div
-              className="mt-6 flex flex-col sm:flex-row items-center justify-between"
-              style={{
-                background: 'var(--tw-bg-tertiary)',
-                padding: '14px 18px',
-                borderRadius: '8px',
-                gap: '16px',
-              }}
-            >
-              <div
-                className="flex items-center"
-                style={{
-                  color: 'var(--tw-text-secondary)',
-                  fontSize: '13px',
-                  gap: '10px',
-                }}
-              >
-                <i
-                  className="ti ti-info-circle"
-                  style={{ fontSize: 18, color: 'var(--tw-text-secondary)' }}
-                  aria-hidden="true"
-                />
-                <span>Not sure which fits? Tell us about your project.</span>
-              </div>
-              <Link
-                to="/contact"
-                className="hover:opacity-90 whitespace-nowrap"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px',
-                  background: 'transparent',
-                  color: 'var(--tw-text-primary)',
-                  border: '0.5px solid var(--tw-gray-300)',
-                  borderRadius: '8px',
-                  padding: '7px 12px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '-0.005em',
-                  textDecoration: 'none',
-                  transition: 'opacity 0.15s, transform 0.05s',
-                }}
-              >
-                Get in touch
-              </Link>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* How It Works — restyled to match Two Paths / About cards.
-          Iris chip eyebrow, sentence-case h2, 4-card grid with small iris
-          number badges replacing the 64x64 gradient blocks. Sits on
-          bg-primary with a soft iris wash for rhythm (mirroring the
-          Terminal Demo treatment one section below) instead of the old
-          flat grey panel. */}
-      <ScrollReveal>
-        <section
-          id="how-it-works"
-          className="relative py-16 md:py-20 px-6 overflow-hidden"
-        >
-          {/* Soft iris wash — fades at top/bottom so it blends with the
-              flanking white sections rather than cutting a hard band. */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'radial-gradient(ellipse 70% 55% at 50% 40%, var(--tw-bg-accent) 0%, transparent 75%)',
-              maskImage:
-                'linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%)',
-              WebkitMaskImage:
-                'linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%)',
-            }}
-          />
-
-          <div className="relative max-w-6xl mx-auto">
-            <div className="text-center mb-10 md:mb-12">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
-                <i className="ti ti-list-numbers" style={{ fontSize: 15 }} aria-hidden="true" />
-                Process
-              </div>
-              <h2
-                className="text-3xl md:text-4xl font-bold"
-                style={{ color: 'var(--tw-text-primary)', letterSpacing: '-1px' }}
-              >
-                How it works
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  num: '01',
-                  title: 'Describe',
-                  desc: 'Tell us what you need. We analyse, clarify, and define the scope.',
-                },
-                {
-                  num: '02',
-                  title: 'Design',
-                  desc: 'Our agents architect the system, plan every task, and choose the right technology.',
-                },
-                {
-                  num: '03',
-                  title: 'Build',
-                  desc: 'Multiple engineers write code in parallel. Reviewers verify. Testers validate. Security audits run automatically.',
-                },
-                {
-                  num: '04',
-                  title: 'Ship',
-                  desc: 'Tested, reviewed, and deployed. Production-ready.',
-                },
-              ].map((step) => (
-                <article
-                  key={step.num}
-                  className="text-center p-6 rounded-2xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                  style={{
-                    background: 'var(--tw-bg-primary)',
-                    border: '0.5px solid var(--tw-border-primary)',
-                  }}
-                >
-                  <div
-                    className="w-10 h-10 mx-auto mb-4 rounded-lg flex items-center justify-center"
-                    style={{
-                      background: 'var(--tw-iris-subtle)',
-                      color: 'var(--tw-text-accent)',
-                    }}
-                  >
-                    <span className="text-base font-semibold">{step.num}</span>
-                  </div>
-                  <h3
-                    className="text-lg font-semibold mb-2"
-                    style={{
-                      color: 'var(--tw-text-primary)',
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {step.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: 'var(--tw-text-secondary)',
-                      fontSize: '13px',
-                      lineHeight: 1.55,
-                    }}
-                  >
-                    {step.desc}
-                  </p>
-                </article>
+                  <Collapse open={factoryOpen === i}>
+                    <ul>
+                      {card.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </Collapse>
+                </SpotCard>
               ))}
             </div>
-          </div>
-        </section>
-      </ScrollReveal>
+          </ScrollReveal>
 
-      {/* Terminal Demo Section */}
-      <ScrollReveal>
-        <section className="relative pt-6 pb-28 md:pt-8 md:pb-32 px-6 overflow-hidden">
-          {/* Soft iris wash that fades out before reaching the footer */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'radial-gradient(ellipse 70% 55% at 50% 40%, var(--tw-bg-accent) 0%, transparent 75%)',
-              maskImage:
-                'linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%)',
-              WebkitMaskImage:
-                'linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%)',
-            }}
-          />
-
-          <div className="relative max-w-5xl mx-auto">
-            <div className="text-center mb-8 md:mb-10">
-              <div
-                className="inline-flex items-center mb-5"
-                style={{
-                  background: 'var(--tw-bg-accent)',
-                  color: 'var(--tw-text-accent)',
-                  padding: '4px 10px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  gap: '6px',
-                }}
-              >
-                <i className="ti ti-broadcast" style={{ fontSize: 15 }} aria-hidden="true" />
-                Live Demo
-              </div>
-              <h2
-                className="text-3xl md:text-4xl font-bold mb-3"
-                style={{ color: 'var(--tw-text-primary)', letterSpacing: '-1px' }}
-              >
-                Watch It Build
-              </h2>
-              <p
-                className="text-base max-w-xl mx-auto"
-                style={{ color: 'var(--tw-text-secondary)', lineHeight: 1.55 }}
-              >
-                A real run, end to end — from requirements to a deployed URL.
-              </p>
+          <ScrollReveal>
+            <p style={UPPER_LABEL_STYLE}>Industries we serve</p>
+            <div className="ind-grid">
+              {INDUSTRIES.map((industry) => (
+                <div className="ind-pill" key={industry}>
+                  <span className="ind-dot" />
+                  {industry}
+                </div>
+              ))}
             </div>
-            <TerminalDemo />
-          </div>
-        </section>
-      </ScrollReveal>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* AI Agents */}
+      <section className="section-wrap" style={{ paddingTop: '2rem' }} id="agents">
+        <div className="section-inner">
+          <ScrollReveal>
+            <Eyebrow>AI Agents</Eyebrow>
+            <SectionTitle sub="Custom AI agents for businesses and individuals. Use ours, adapt our templates, or we'll build from scratch.">
+              Agents built around your ideas. You own the output and IP.
+            </SectionTitle>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <div style={{ maxWidth: 600 }}>
+              <UseCaseExplorer />
+              <Stepper steps={AGENT_STEPS} />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* AI-Powered HR */}
+      <section className="section-wrap" style={{ paddingTop: '2rem' }} id="hr">
+        <div className="section-inner">
+          <ScrollReveal>
+            <Eyebrow>AI-Powered HR</Eyebrow>
+            <SectionTitle sub="An intelligent alternative to traditional HR. Deploy ready-made agents or build custom workflows. You stay in control.">
+              Your AI HR department. Use ours, use templates, or build your own.
+            </SectionTitle>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="hr-cards">
+              {HR_CARDS.map((card) => (
+                <div className="hr-card lift" key={card.n}>
+                  <div className="hr-top" />
+                  <div className="hr-n">{card.n}</div>
+                  <h4>{card.title}</h4>
+                  <p>{card.desc}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <p style={{ ...UPPER_LABEL_STYLE, letterSpacing: '0.12em', marginBottom: '0.8rem' }}>
+              Covers every aspect of HR
+            </p>
+            <div className="hr-feats">
+              {HR_FEATURES.map((feature) => (
+                <div className="hr-f" key={feature}>
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <div className="cta-box">
+        <h2>
+          <span className="cta-h2-dark">Ready to build</span>
+          <br />
+          <span className="cta-h2-green">something wild?</span>
+        </h2>
+        <div className="cta-btns">
+          <Button variant="fill" href={APP_URL} arrow>
+            Start Building Free
+          </Button>
+          <Button variant="ghost" to="/contact">
+            Talk to Sales
+          </Button>
+        </div>
+      </div>
     </>
   )
 }

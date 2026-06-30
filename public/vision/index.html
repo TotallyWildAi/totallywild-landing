@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>TotallyWild.ai — Certify the model. Then cut the bill.</title>
+<meta name="description" content="A SaaS LLM-evaluation platform that certifies the models you build, then distils and re-routes workloads to cut AI spend. The evals pay for themselves." />
+<script>
+  // No-flash theme: apply stored preference before first paint.
+  (function () {
+    try {
+      var t = localStorage.getItem('tw-vision-theme');
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    } catch (e) {}
+  })();
+</script>
+<style>
+/* ── reset (replaces Tailwind preflight for this standalone page) ── */
+*,*::before,*::after{box-sizing:border-box}
+body,h1,h2,h3,h4,p,ul,figure{margin:0}
+ul{list-style:none;padding:0}
+button{font:inherit;color:inherit;background:none;border:none}
+img,svg{display:block;max-width:100%}
+em{font-style:italic}
+
+:root{
+  --bg:#ffffff;--surface:#f6f8fa;--surface-2:#edf0f4;--text:#0b0d10;
+  --muted:#5b626e;--line:#e2e6ec;--line-soft:#eef1f4;--accent:#2f6be0;
+  --accent-deep:#2257c4;--green:#16a34a;
+  --btn-primary-bg:var(--text);--btn-primary-bg-hover:#000000;
+  --shadow-pop:0 24px 60px -20px rgba(11,13,16,0.22);
+  --nav-bg:rgba(255,255,255,0.78);
+  --hero-glow:radial-gradient(60% 50% at 50% 0%,rgba(47,107,224,0.1),transparent 70%);
+  --sans:-apple-system,"Segoe UI",system-ui,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Segoe UI Mono",Consolas,monospace;
+}
+.dark{
+  --bg:#0b0d10;--surface:#14171c;--surface-2:#1b1f26;--text:#f2f4f7;
+  --muted:#9aa3b2;--line:#262b33;--line-soft:#1e232b;--accent:#5b8def;
+  --accent-deep:#3f74d6;--green:#22c55e;
+  --btn-primary-bg:#ffffff;--btn-primary-bg-hover:#e7ebf1;
+  --shadow-pop:0 24px 60px -20px rgba(0,0,0,0.7);
+  --nav-bg:rgba(11,13,16,0.72);
+  --hero-glow:radial-gradient(60% 50% at 50% 0%,rgba(91,141,239,0.16),transparent 70%);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .2s ease,color .2s ease}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+::selection{background:rgba(47,107,224,0.18)}
+[data-ic]{display:inline-flex;align-items:center;justify-content:center}
+[data-ic] svg,[data-ic2] svg{width:1em;height:1em}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.9rem;font-weight:600;border-radius:8px;padding:9px 16px;border:.5px solid transparent;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.btn:active{transform:translateY(.5px)}
+.btn-primary{background:var(--btn-primary-bg);color:var(--bg)}
+.btn-primary:hover{background:var(--btn-primary-bg-hover);color:var(--bg)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:var(--accent-deep);color:#fff}
+
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:.5px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:24px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.02em;color:var(--text)}
+.mark{width:26px;height:26px;border-radius:7px;flex:0 0 auto;background:linear-gradient(145deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 2px 8px -2px rgba(47,107,224,.6)}
+.nav-links{display:flex;gap:22px;margin:0 auto}
+.nav-links a{color:var(--muted);font-size:.9rem}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.signin{color:var(--muted);font-size:.9rem}
+.signin:hover{color:var(--text)}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:.5px solid var(--line);color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s;font-size:17px}
+.icon-btn:hover{color:var(--text);border-color:var(--muted)}
+
+.eyebrow{display:inline-flex;font-family:var(--mono);font-size:.78rem;color:var(--muted);background:var(--surface);border:.5px solid var(--line);border-radius:999px;padding:5px 13px;letter-spacing:.01em}
+.section{padding:72px 0}
+.section-eyebrow{font-family:var(--mono);font-size:.82rem;color:var(--muted);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
+.section-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:650;letter-spacing:-.02em;text-align:center;margin:10px auto 0;max-width:26ch}
+.section-sub{color:var(--muted);text-align:center;max-width:60ch;margin:14px auto 0;font-size:1rem}
+
+.hero{position:relative;text-align:center;padding:88px 0 56px}
+.hero::before{content:"";position:absolute;inset:0;background:var(--hero-glow);pointer-events:none}
+.hero>.wrap{position:relative}
+.hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:24px auto 0;max-width:16ch}
+.grad{background:linear-gradient(120deg,var(--accent),var(--accent-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{color:var(--muted);font-size:1.05rem;max-width:58ch;margin:20px auto 0}
+.hero-note{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:16px}
+.hero-explore{display:inline-block;margin-top:14px;font-size:.9rem}
+
+.cmd-form{max-width:600px;margin:32px auto 0}
+.cmd-bar{display:flex;align-items:center;gap:8px;background:var(--surface);border:.5px solid var(--line);border-radius:12px;padding:8px 8px 8px 16px;transition:border-color .15s}
+.cmd-bar:focus-within{border-color:var(--accent)}
+.cmd-prompt{color:var(--accent);font-family:var(--mono);font-size:.95rem;flex:0 0 auto}
+.cmd-input{flex:1 1 auto;min-width:0;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:.95rem;padding:8px 4px}
+.cmd-input::placeholder{color:var(--muted)}
+.cmd-input:focus{outline:none}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--line);border-radius:14px;overflow:hidden;margin-top:64px;background:var(--bg)}
+.stat{padding:28px 24px;border-right:.5px solid var(--line);text-align:left}
+.stat:last-child{border-right:none}
+.stat .num{font-family:var(--mono);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:650;letter-spacing:-.02em}
+.stat .num .blue{color:var(--accent)}
+.stat .lbl{color:var(--muted);font-size:.85rem;margin-top:8px}
+
+.scroller{overflow-x:auto}
+.stack-grid{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:12px;margin-top:32px;min-width:740px}
+.tile{display:flex;align-items:center;gap:10px;background:var(--surface);border:.5px solid var(--line);border-radius:8px;padding:12px 14px;transition:border-color .15s,transform .15s}
+.tile:hover{border-color:var(--muted);transform:translateY(-1px)}
+.tile .glyph{flex:0 0 auto;color:var(--muted);font-size:18px;display:inline-flex}
+.tile .tlabel{font-family:var(--mono);font-size:.82rem;color:var(--text)}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.compare-col{border:.5px solid var(--line);border-radius:14px;padding:28px;background:var(--bg)}
+.compare-col.is-them{background:var(--surface)}
+.compare-col.is-us{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 18%,transparent)}
+.compare-h{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.01em;font-size:1.05rem}
+.compare-h .tag{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border:.5px solid var(--line);border-radius:999px;padding:3px 9px;margin-left:auto}
+.compare ul{margin:18px 0 0;display:flex;flex-direction:column;gap:13px}
+.compare li{display:flex;gap:11px;font-size:.92rem;color:var(--muted);align-items:flex-start}
+.compare li .li-ic{flex:0 0 auto;margin-top:1px;font-size:16px}
+.compare li b{color:var(--text);font-weight:600}
+.act-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.act{border:.5px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.act .aic{color:var(--accent);font-size:18px;display:inline-flex}
+.act .akey{font-family:var(--mono);font-weight:650;color:var(--accent);font-size:.92rem;margin-top:6px}
+
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:36px;align-items:stretch}
+.flow-step{border:.5px solid var(--line);border-radius:14px;padding:22px 18px;background:var(--surface)}
+.flow-step.is-owned{background:var(--bg);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.flow-step .fic{color:var(--accent);margin-bottom:12px;font-size:20px;display:inline-flex}
+.flow-step h3{font-size:.98rem;font-weight:650;letter-spacing:-.01em}
+.flow-step p{color:var(--muted);font-size:.85rem;margin-top:8px}
+.flow-step .owned-tag{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+
+.board-wrap{overflow-x:auto;border:.5px solid var(--line);border-radius:14px;margin-top:32px}
+table.board{width:100%;min-width:720px;border-collapse:collapse}
+.board th{text-align:left;font-family:var(--mono);font-size:.75rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:14px 18px;border-bottom:.5px solid var(--line);background:var(--surface)}
+.board td{padding:18px;border-bottom:.5px solid var(--line-soft);vertical-align:middle}
+.board tr:last-child td{border-bottom:none}
+.board tbody tr{transition:background .15s}
+.board tbody tr:hover{background:var(--surface)}
+.rank{font-family:var(--mono);color:var(--muted);font-size:.95rem}
+.app-name{font-weight:650;letter-spacing:-.01em}
+.app-sub{color:var(--muted);font-size:.82rem;margin-top:3px}
+.cat{font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+.qscore{font-family:var(--mono);font-size:.9rem;color:var(--text)}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.85rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.14);flex:0 0 auto}
+.dot.is-passing{background:var(--accent);box-shadow:0 0 0 3px rgba(47,107,224,.14)}
+.tp{display:flex;align-items:center;gap:12px;min-width:170px}
+.tp .val{font-family:var(--mono);font-size:.85rem;color:var(--text);width:54px;flex:0 0 auto}
+.bartrack{flex:1 1 auto;height:6px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+.bar{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-deep));border-radius:999px;width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.cards.four{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border:.5px solid var(--line);border-radius:14px;padding:24px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--muted);transform:translateY(-2px)}
+.card .cicon{color:var(--accent);margin-bottom:16px;font-size:26px;display:inline-flex}
+.card h3{font-size:1.05rem;font-weight:650;letter-spacing:-.01em}
+.card p{color:var(--muted);font-size:.92rem;margin-top:8px}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:28px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.82rem;color:var(--text);background:var(--surface);border:.5px solid var(--line);border-radius:8px;padding:9px 13px}
+.chip .tok{color:var(--accent);font-size:15px;display:inline-flex}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.step .snum{font-family:var(--mono);font-size:2.2rem;font-weight:650;color:var(--accent);letter-spacing:-.02em}
+.step h3{font-size:1.05rem;font-weight:650;margin-top:10px}
+.step p{color:var(--muted);font-size:.92rem;margin-top:8px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.split-card{border:.5px solid var(--line);border-radius:14px;padding:28px;background:var(--surface)}
+.split-card .sic{color:var(--accent);margin-bottom:14px;font-size:22px;display:inline-flex}
+.split-card h3{font-size:1.1rem;font-weight:650;letter-spacing:-.01em}
+.split-card ul{margin:16px 0 0;display:flex;flex-direction:column;gap:12px}
+.split-card li{display:flex;gap:10px;color:var(--muted);font-size:.92rem;align-items:flex-start}
+.split-card li .li-ic{flex:0 0 auto;margin-top:2px;color:var(--accent);font-size:16px}
+
+.pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+.price{display:flex;flex-direction:column;border:.5px solid var(--line);border-radius:16px;padding:26px 22px;background:var(--surface)}
+.price.is-featured{background:var(--bg);border-color:color-mix(in srgb,var(--accent) 50%,var(--line));box-shadow:var(--shadow-pop)}
+.price .ptier{font-weight:650;letter-spacing:-.01em;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.price .pbadge{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--accent);border-radius:999px;padding:3px 8px;margin-left:auto}
+.price .pbuyer{color:var(--muted);font-size:.82rem;margin-top:4px}
+.price .pamount{font-family:var(--mono);font-size:1.9rem;font-weight:650;letter-spacing:-.02em;margin-top:18px}
+.price .pamount .per{font-size:.8rem;color:var(--muted);font-weight:500}
+.price ul{margin:18px 0 0;display:flex;flex-direction:column;gap:11px;flex:1 1 auto}
+.price li{display:flex;gap:10px;font-size:.88rem;color:var(--muted);align-items:flex-start}
+.price li .li-ic{flex:0 0 auto;margin-top:1px;color:var(--green);font-size:15px}
+.price .pcta{margin-top:22px}
+.price .pcta .btn{width:100%}
+
+.cta{position:relative;overflow:hidden;background:var(--surface-2);border:.5px solid var(--line);border-radius:18px;text-align:center;padding:56px 24px}
+.cta h2{font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:700;letter-spacing:-.02em}
+.cta p{color:var(--muted);margin:14px auto 0;max-width:46ch}
+.cta-actions{display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+
+.footer{border-top:.5px solid var(--line);padding:56px 0 40px;margin-top:24px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:32px}
+.foot-brand .tagline{color:var(--muted);font-size:.9rem;margin-top:12px;max-width:26ch}
+.foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 14px;font-weight:600}
+.foot-col ul{display:flex;flex-direction:column;gap:10px}
+.foot-col a{color:var(--muted);font-size:.9rem}
+.foot-col a:hover{color:var(--text)}
+.foot-legal{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:40px;padding-top:24px;border-top:.5px solid var(--line-soft);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(11,13,16,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex;animation:fade .18s ease}
+.modal{width:100%;max-width:460px;background:var(--bg);border:.5px solid var(--line);border-radius:16px;box-shadow:var(--shadow-pop);padding:28px;animation:pop .2s cubic-bezier(.2,.7,.2,1)}
+.modal h3{font-size:1.25rem;font-weight:700;letter-spacing:-.02em}
+.modal .msub{color:var(--muted);font-size:.92rem;margin-top:8px}
+.modal-head{display:flex;align-items:flex-start;gap:12px}
+.modal-close{margin-left:auto}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:.8rem;font-weight:600;color:var(--text)}
+.input,.textarea{width:100%;background:var(--surface);border:.5px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--text);font-family:var(--sans);font-size:.92rem;transition:border-color .15s}
+.input:focus,.textarea:focus{outline:none;border-color:var(--accent)}
+.input::placeholder,.textarea::placeholder{color:var(--muted)}
+.textarea{resize:vertical;min-height:88px}
+.form-grid{display:grid;gap:14px;margin-top:20px}
+.form-status{font-size:.85rem;margin-top:4px}
+.form-status.is-ok{color:var(--green)}
+.form-status.is-err{color:#e5484d}
+.modal-ok{margin-top:24px;display:flex;gap:12px;align-items:center;font-size:.95rem}
+.ok-badge{width:28px;height:28px;border-radius:50%;background:var(--green);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex:0 0 auto}
+
+.spin{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+
+@media (max-width:980px){.pricing,.flow,.cards.four{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){
+  .nav-links{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(1),.stat:nth-child(2){border-bottom:.5px solid var(--line)}
+  .cards,.steps,.compare,.split{grid-template-columns:1fr}
+  .act-row{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .stats,.pricing,.flow,.cards.four{grid-template-columns:1fr}
+  .stat{border-right:none;border-bottom:.5px solid var(--line)}
+  .stat:last-child{border-bottom:none}
+  .foot-grid{grid-template-columns:1fr}
+  .section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark" style="font-size:14px" data-ic="brand"></span>
+      <span>TotallyWild.ai</span>
+    </a>
+    <div class="nav-links">
+      <a href="#product">product</a>
+      <a href="#showcase">showcase</a>
+      <a href="#how">how it works</a>
+      <a href="#pricing">pricing</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme"><span data-ic="moon"></span></button>
+      <a class="signin" href="https://app.totallywild.ai/">Sign in</a>
+      <a class="btn btn-primary" href="https://app.totallywild.ai/">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">// llm evaluation platform</span>
+    <h1>Certify the model.<br />Then <span class="grad">cut the bill.</span></h1>
+    <p class="sub">A SaaS LLM-evaluation platform that certifies the models you build, then distils and re-routes workloads to the cheapest backend that passes. The evals pay for themselves.</p>
+
+    <form class="cmd-form" id="heroForm">
+      <div class="cmd-bar">
+        <span class="cmd-prompt">tw&nbsp;certify</span>
+        <input class="cmd-input" id="heroEmail" type="email" aria-label="Your work email" placeholder="you@company.com" />
+        <button class="btn btn-primary" type="submit" id="heroBtn">Certify my model</button>
+      </div>
+      <p class="form-status" id="heroStatus" style="text-align:center"></p>
+    </form>
+
+    <div class="hero-note">certify in-house models · own your traces · cut frontier spend</div>
+    <a class="hero-explore" href="#showcase">explore the model leaderboard →</a>
+
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<!-- INTEGRATIONS -->
+<section class="section" style="padding-top:8px;padding-bottom:48px">
+  <div class="wrap">
+    <p class="section-eyebrow"><span data-ic="workflow"></span> works with the stack you already run — OTel-native, drop-in</p>
+    <div class="scroller">
+      <div class="stack-grid" id="tiles"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEDGE -->
+<section class="section" id="product">
+  <div class="wrap">
+    <p class="section-eyebrow">// the wedge</p>
+    <h2 class="section-title">Everyone measures quality. Almost nobody acts on it.</h2>
+    <p class="section-sub">The eval market sells dashboards. The money is in the decision the dashboard implies — so we close the loop to action.</p>
+    <div class="compare">
+      <div class="compare-col is-them">
+        <div class="compare-h">Today's tools stop at <em>observe</em><span class="tag">status quo</span></div>
+        <ul>
+          <li><span class="li-ic" data-ic="minus"></span><span>Trace, score and dashboard LLM output — Braintrust, Langfuse, Arize, promptfoo</span></li>
+          <li><span class="li-ic" data-ic="minus"></span><span>Tell you a model is drifting or hallucinating — but not what to do about the bill</span></li>
+          <li><span class="li-ic" data-ic="minus"></span><span>Priced per seat / per trace: cost grows with usage, value doesn't</span></li>
+          <li><span class="li-ic" data-ic="minus"></span><span>Core capabilities are now MIT open-source — features alone no longer defensible</span></li>
+        </ul>
+      </div>
+      <div class="compare-col is-us">
+        <div class="compare-h">We close the loop to <em>action</em><span class="tag" style="color:var(--accent);border-color:var(--accent)">totallywild</span></div>
+        <ul>
+          <li><span class="li-ic" data-ic="check" style="color:var(--accent)"></span><span><b>Certify</b> — grade the in-house models companies build</span></li>
+          <li><span class="li-ic" data-ic="check" style="color:var(--accent)"></span><span><b>Distil</b> — auto-train small student models on your traces</span></li>
+          <li><span class="li-ic" data-ic="check" style="color:var(--accent)"></span><span><b>Route</b> — send each step to the cheapest backend that passes</span></li>
+          <li><span class="li-ic" data-ic="check" style="color:var(--accent)"></span><span><b>Save</b> — we charge a slice of the frontier spend we remove</span></li>
+        </ul>
+        <div class="act-row">
+          <div class="act"><span class="aic" data-ic="award"></span><div class="akey">Certify</div></div>
+          <div class="act"><span class="aic" data-ic="network"></span><div class="akey">Distil</div></div>
+          <div class="act"><span class="aic" data-ic="route"></span><div class="akey">Route</div></div>
+          <div class="act"><span class="aic" data-ic="wallet"></span><div class="akey">Save</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLYWHEEL -->
+<section class="section" style="padding-top:16px">
+  <div class="wrap">
+    <p class="section-eyebrow">// the product</p>
+    <h2 class="section-title">A flywheel, not a dashboard</h2>
+    <p class="section-sub">Capture → Evaluate → Distil → Serve → Compare. We own Evaluate + Compare; every customer's traces, rubrics and distilled students make the loop — and the routing — smarter.</p>
+    <div class="flow">
+      <div class="flow-step"><span class="fic" data-ic="radio"></span><h3>Capture</h3><p>Traces from any agent or LLM app (OTel-native).</p></div>
+      <div class="flow-step is-owned"><span class="fic" data-ic="sparkles"></span><h3>Evaluate</h3><p>Rubric + LLM-as-judge, role-aware metrics.</p><span class="owned-tag">we own this</span></div>
+      <div class="flow-step"><span class="fic" data-ic="server"></span><h3>Distil</h3><p>Train small students on your own traces.</p></div>
+      <div class="flow-step"><span class="fic" data-ic="server"></span><h3>Serve</h3><p>Run free / private on local or cheap backends.</p></div>
+      <div class="flow-step is-owned"><span class="fic" data-ic="gitcompare"></span><h3>Compare</h3><p>Quality × cost × latency → routing decision.</p><span class="owned-tag">we own this</span></div>
+    </div>
+    <p class="section-sub" style="margin-top:28px;font-size:.9rem"><span data-ic="barchart" style="font-size:14px;vertical-align:-2px"></span> Why it compounds: the moat is the data we accumulate, not features competitors can copy.</p>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section class="section" id="showcase">
+  <div class="wrap">
+    <p class="section-eyebrow">// the showcase</p>
+    <h2 class="section-title">Certified models, ranked by what they save.</h2>
+    <p class="section-sub">Real in-house models and agents we've graded — scored on quality, then distilled and routed to cut frontier spend.</p>
+    <div class="board-wrap scroller" id="boardWrap">
+      <table class="board">
+        <thead><tr><th style="width:48px">#</th><th>model</th><th>category</th><th>status</th><th>quality</th><th style="min-width:210px">frontier spend removed</th></tr></thead>
+        <tbody id="boardBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD WEDGE -->
+<section class="section">
+  <div class="wrap">
+    <p class="section-eyebrow">// lead wedge</p>
+    <h2 class="section-title">You can't ship what you can't grade.</h2>
+    <p class="section-sub">The highest-need, no-DIY eval problem — and our on-ramp into the enterprise. Building your own model means there's no benchmark to lean on. We're the referee that certifies it.</p>
+    <div class="compare">
+      <div class="compare-col is-them">
+        <div class="compare-h">Using a vendor model<span class="tag">low stakes</span></div>
+        <ul>
+          <li><span class="li-ic" data-ic="checkcircle"></span><span>Public benchmarks already exist — someone else tested it</span></li>
+          <li><span class="li-ic" data-ic="checkcircle"></span><span>Vendor reputation and SLA to lean on</span></li>
+          <li><span class="li-ic" data-ic="checkcircle"></span><span>Eval is mostly a 'nice to have' for cost control</span></li>
+        </ul>
+      </div>
+      <div class="compare-col is-us">
+        <div class="compare-h">Building your own model<span class="tag" style="color:var(--accent);border-color:var(--accent)">we certify this</span></div>
+        <ul>
+          <li><span class="li-ic" data-ic="xcircle" style="color:var(--accent)"></span><span>No benchmark exists — you must build the test yourself</span></li>
+          <li><span class="li-ic" data-ic="xcircle" style="color:var(--accent)"></span><span>Every fine-tune or retrain has to be re-graded</span></li>
+          <li><span class="li-ic" data-ic="xcircle" style="color:var(--accent)"></span><span>You can't ship until you prove it's good enough</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="section-sub" style="margin-top:32px;color:var(--text);font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px"><span data-ic="award" style="color:var(--accent);font-size:18px"></span> Get hired to grade the model → stay to route it and cut the bill.</p>
+    <div class="chips">
+      <span class="chip"><span class="tok" data-ic="scan"></span> Golden datasets</span>
+      <span class="chip"><span class="tok" data-ic="gauge"></span> AI-judge scoring</span>
+      <span class="chip"><span class="tok" data-ic="gitbranch"></span> Regression harness</span>
+      <span class="chip"><span class="tok" data-ic="crosshair"></span> Frontier compare</span>
+      <span class="chip"><span class="tok" data-ic="shield"></span> Live monitoring</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="section">
+  <div class="wrap">
+    <p class="section-eyebrow">// privacy moat</p>
+    <h2 class="section-title">Certify without ever exposing your data.</h2>
+    <p class="section-sub">Synthetic test sets + private deployment open the regulated and classified markets cloud-only rivals can't touch — finance, healthcare, defense and government.</p>
+    <div class="split">
+      <div class="split-card">
+        <span class="sic" data-ic="lock"></span>
+        <h3>Synthetic test data</h3>
+        <ul>
+          <li><span class="li-ic" data-ic="check"></span><span>Generate realistic, fully fake test cases from your data's shape + a few scrubbed samples</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Adversarial edge cases real data rarely contains — better stress tests</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Or anonymized / perturbed real data when you do need it</span></li>
+        </ul>
+      </div>
+      <div class="split-card">
+        <span class="sic" data-ic="servercog"></span>
+        <h3>Private deployment</h3>
+        <ul>
+          <li><span class="li-ic" data-ic="check"></span><span>Eval engine + AI judge run inside your walls — cloud, on-prem or air-gapped</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>The little real data you use never leaves your environment</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Classified work: our tooling runs in your enclave; we ingest nothing</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOATS -->
+<section class="section">
+  <div class="wrap">
+    <p class="section-eyebrow">// defensibility</p>
+    <h2 class="section-title">Why this compounds instead of commoditizing</h2>
+    <p class="section-sub">Four moats that get stronger with every customer and every eval run.</p>
+    <div class="cards four">
+      <div class="card"><span class="cicon" data-ic="database"></span><h3>Data moat</h3><p>Your traces, rubrics and golden sets become your own definition of 'good.' Ripping us out means re-litigating what quality even means.</p></div>
+      <div class="card"><span class="cicon" data-ic="refresh"></span><h3>Loop moat</h3><p>Owning certify → distil → route means we own the decision, not just the chart. Switching means re-proving every routing call.</p></div>
+      <div class="card"><span class="cicon" data-ic="trending"></span><h3>Incentive moat</h3><p>Savings-share aligns us with the buyer's CFO. Our revenue rises as we cut their bill — incumbents can't follow without cannibalizing seats.</p></div>
+      <div class="card"><span class="cicon" data-ic="shield"></span><h3>Compliance moat</h3><p>Synthetic data + private / on-prem deploy let regulated and classified buyers certify without exposing real data — a market cloud-only rivals can't serve.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="section" id="how">
+  <div class="wrap">
+    <p class="section-eyebrow">// how it works</p>
+    <h2 class="section-title">From eval to action in three steps.</h2>
+    <div class="steps">
+      <div class="step"><div class="snum">1</div><h3>Certify your model</h3><p>Point us at your in-house model, fine-tune, RAG system or agent. We build the golden sets and grade it — synthetic data keeps your real records private.</p><span class="chip" style="margin-top:14px"><span class="tok">tw</span>&nbsp;certify ./model</span></div>
+      <div class="step"><div class="snum">2</div><h3>Distil on your traces</h3><p>We auto-train small student models on your own traces, then prove quality holds against the certified baseline.</p><span class="chip" style="margin-top:14px"><span class="tok">tw</span>&nbsp;distil --from traces</span></div>
+      <div class="step"><div class="snum">3</div><h3>Route &amp; cut the bill</h3><p>Every step routes to the cheapest backend that passes. You watch frontier spend fall on a private dashboard — and own every line.</p><span class="chip" style="margin-top:14px"><span class="tok">tw</span>&nbsp;route --cheapest-pass</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="wrap">
+    <p class="section-eyebrow">// pricing</p>
+    <h2 class="section-title">Land low, expand on value.</h2>
+    <p class="section-sub">Free for adoption; enterprise priced on certification, private deploy and the savings we create — not seats.</p>
+    <div class="pricing">
+      <div class="price">
+        <div class="ptier">Open Core</div><div class="pbuyer">Individual devs</div>
+        <div class="pamount">$0</div>
+        <ul>
+          <li><span class="li-ic" data-ic="check"></span><span>MIT eval engine, self-hosted</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Rubric + LLM-as-judge</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Local trace capture</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Community support</span></li>
+        </ul>
+        <div class="pcta"><a class="btn btn-ghost" href="https://app.totallywild.ai/">Start free</a></div>
+      </div>
+      <div class="price">
+        <div class="ptier">Team</div><div class="pbuyer">AI-native startups</div>
+        <div class="pamount">~$8K<span class="per"> / yr</span></div>
+        <ul>
+          <li><span class="li-ic" data-ic="check"></span><span>Hosted + collaboration</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Shared dashboards</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>CI gating on every build</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Regression harness</span></li>
+        </ul>
+        <div class="pcta"><a class="btn btn-ghost" href="https://app.totallywild.ai/">Get started</a></div>
+      </div>
+      <div class="price">
+        <div class="ptier">Business</div><div class="pbuyer">Scale-ups / mid-market</div>
+        <div class="pamount">~$40K<span class="per"> / yr</span></div>
+        <ul>
+          <li><span class="li-ic" data-ic="check"></span><span>Usage at scale</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>RBAC + SSO</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Distil &amp; route</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Savings-share opt-in</span></li>
+        </ul>
+        <div class="pcta"><a class="btn btn-ghost" href="https://app.totallywild.ai/">Get started</a></div>
+      </div>
+      <div class="price is-featured">
+        <div class="ptier">Enterprise<span class="pbadge">certification</span></div><div class="pbuyer">Model-builders &amp; regulated orgs</div>
+        <div class="pamount">$300K+</div>
+        <ul>
+          <li><span class="li-ic" data-ic="check"></span><span>Model certification &amp; sign-off</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Synthetic test data generation</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Private / on-prem / air-gapped</span></li>
+          <li><span class="li-ic" data-ic="check"></span><span>Savings-share + SLA</span></li>
+        </ul>
+        <div class="pcta"><button class="btn btn-accent" data-open-modal data-source="pricing-enterprise" data-title="Talk to sales" data-subtitle="Certification, synthetic data and private deployment for model-builders and regulated orgs.">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Certify the model. Then cut the bill.</h2>
+      <p>A $9.3B market pays to <em>see</em> their AI quality. We get hired to certify the models companies build — then paid to fix the bill they run.</p>
+      <div class="cta-actions">
+        <a class="btn btn-accent" href="https://app.totallywild.ai/">Start free</a>
+        <button class="btn btn-ghost" data-open-modal data-source="closing-cta" data-title="Talk to our team" data-subtitle="Tell us about the model you're building. We'll show you how certification works.">Talk to sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><span class="mark" style="font-size:14px" data-ic="brand"></span><span>TotallyWild.ai</span></a>
+        <p class="tagline">Certify the model. Then cut the bill.</p>
+      </div>
+      <div class="foot-col"><h4>product</h4><ul><li><a href="#product">the wedge</a></li><li><a href="#showcase">showcase</a></li><li><a href="#pricing">pricing</a></li><li><a href="#how">how it works</a></li></ul></div>
+      <div class="foot-col"><h4>company</h4><ul><li><a href="/about">about</a></li><li><a href="/case-studies">case studies</a></li><li><a href="/contact">contact</a></li></ul></div>
+      <div class="foot-col"><h4>resources</h4><ul><li><a href="https://app.totallywild.ai/">platform</a></li><li><a href="/showcase">showcase</a></li><li><a href="/contact">talk to sales</a></li></ul></div>
+      <div class="foot-col"><h4>legal</h4><ul><li><a href="/terms">terms</a></li><li><a href="/privacy">privacy</a></li></ul></div>
+    </div>
+    <div class="foot-legal"><span>© <span id="year">2026</span> Totally Wild AI — Brisbane, Australia.</span><a href="https://app.totallywild.ai/">app.totallywild.ai →</a></div>
+  </div>
+</footer>
+
+<!-- LEAD MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div>
+        <h3 id="modalTitle">Talk to our team</h3>
+        <p class="msub" id="modalSub">Tell us about the model you're building.</p>
+      </div>
+      <button class="icon-btn modal-close" id="modalClose" aria-label="Close"><span data-ic="x"></span></button>
+    </div>
+    <form class="form-grid" id="modalForm">
+      <div class="field"><label for="mfName">Name</label><input class="input" id="mfName" name="name" placeholder="Your name" autocomplete="name" /></div>
+      <div class="field"><label for="mfEmail">Work email *</label><input class="input" id="mfEmail" name="email" type="email" required placeholder="you@company.com" autocomplete="email" /></div>
+      <div class="field"><label for="mfCompany">Company</label><input class="input" id="mfCompany" name="company" placeholder="Company" autocomplete="organization" /></div>
+      <div class="field"><label for="mfMessage">What are you building?</label><textarea class="textarea" id="mfMessage" name="message" placeholder="e.g. fine-tuning a model for loan adjudication; need to certify before shipping…"></textarea></div>
+      <p class="form-status is-err" id="modalStatus"></p>
+      <button class="btn btn-accent" type="submit" id="modalSubmit">Send <span data-ic="arrowright"></span></button>
+    </form>
+    <div class="modal-ok" id="modalOk" style="display:none"><span class="ok-badge" data-ic="check"></span><span>Thanks — we'll be in touch shortly.</span></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── inline icon set (lucide-style, MIT) ──
+  function svg(inner, w) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 1.7) + '" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
+  }
+  var ICONS = {
+    brand: '<svg viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="5" cy="7" r="1" fill="currentColor"/><circle cx="9" cy="7" r="1" fill="currentColor"/><path d="M7 1.5V3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+    moon: svg('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>'),
+    sun: svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+    workflow: svg('<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h3.5a2 2 0 0 1 2 2V14"/>'),
+    activity: svg('<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>'),
+    sparkles: svg('<path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9z"/>'),
+    link: svg('<path d="M9 15l6-6"/><path d="M10.5 6.5l1.2-1.2a3.5 3.5 0 0 1 5 5l-1.2 1.2"/><path d="M13.5 17.5l-1.2 1.2a3.5 3.5 0 0 1-5-5l1.2-1.2"/>'),
+    boxes: svg('<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'),
+    cloud: svg('<path d="M17.5 19a4.5 4.5 0 0 0 .5-9 6 6 0 0 0-11.6 1.5A3.5 3.5 0 0 0 6.5 19z"/>'),
+    database: svg('<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
+    server: svg('<rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/>'),
+    filecode: svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M10 12l-2 2 2 2M14 12l2 2-2 2"/>'),
+    braces: svg('<path d="M7 4a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2"/><path d="M17 4a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2 2 2 0 0 0-2 2v3a2 2 0 0 1-2 2"/>'),
+    cpu: svg('<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>'),
+    triangle: svg('<path d="M12 4 22 19H2z"/>'),
+    minus: svg('<path d="M5 12h14"/>', 2),
+    check: svg('<path d="M20 6 9 17l-5-5"/>', 2.2),
+    award: svg('<circle cx="12" cy="9" r="6"/><path d="M9 14.5 8 22l4-2.2L16 22l-1-7.5"/>'),
+    network: svg('<rect x="9" y="2.5" width="6" height="5" rx="1"/><rect x="3" y="16.5" width="6" height="5" rx="1"/><rect x="15" y="16.5" width="6" height="5" rx="1"/><path d="M12 7.5v4M6 16.5v-2.5h12v2.5M12 11.5v5"/>'),
+    route: svg('<circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="5" r="2.2"/><path d="M8.2 19H15a3 3 0 0 0 3-3V7.2"/>'),
+    wallet: svg('<path d="M3 7a2 2 0 0 1 2-2h13v3"/><path d="M3 7v10a2 2 0 0 0 2 2h15V9H5a2 2 0 0 1-2-2Z"/><circle cx="16" cy="14" r="1"/>'),
+    radio: svg('<circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/>'),
+    gitcompare: svg('<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 3 3v6M15.5 18H9a3 3 0 0 1-3-3V9"/>'),
+    barchart: svg('<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>'),
+    checkcircle: svg('<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/>'),
+    xcircle: svg('<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'),
+    scan: svg('<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="11" cy="11" r="3"/><path d="M16 16l-2.5-2.5"/>'),
+    gauge: svg('<path d="M12 13l4-4"/><path d="M3.4 16a9 9 0 1 1 17.2 0"/>'),
+    gitbranch: svg('<circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 8v8M18 10v1a4 4 0 0 1-4 4H8"/>'),
+    crosshair: svg('<circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>'),
+    shield: svg('<path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4.5"/>'),
+    lock: svg('<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'),
+    servercog: svg('<rect x="3" y="4" width="18" height="6.5" rx="2"/><path d="M7 7.2h.01"/><circle cx="12" cy="17" r="2.6"/><path d="M12 13.4v-1M12 21.6v-1M16 14.6l-.9.5M8.9 18.4l-.9.5M16 19.4l-.9-.5M8.9 15.6l-.9-.5"/>'),
+    refresh: svg('<path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/>'),
+    trending: svg('<path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/>'),
+    x: svg('<path d="M18 6 6 18M6 6l12 12"/>', 2),
+    arrowright: svg('<path d="M5 12h14M13 5l7 7-7 7"/>', 2),
+    loader: svg('<path d="M12 3v4M12 17v4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M3 12h4M17 12h4M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>', 2)
+  };
+  document.querySelectorAll('[data-ic]').forEach(function (el) {
+    var ic = ICONS[el.getAttribute('data-ic')];
+    if (ic) el.innerHTML = ic;
+  });
+
+  // ── data (mirrors the eval-landing API payloads) ──
+  var METRICS = [
+    { value: '5-stage', label: 'Capture → Evaluate → Distil → Serve → Compare' },
+    { accent: 'OTel', value: '-native', label: 'drop-in trace capture from any agent or LLM app' },
+    { value: '100%', label: 'private / on-prem / air-gapped deploy available' },
+    { accent: '↓ 80%+', value: '', label: 'frontier spend removed once workloads distil' }
+  ];
+  var BOARD = [
+    { rank: 1, model: 'tw-distil-loan-7b', detail: 'fine-tuned student · loan adjudication', cat: 'fintech', quality: 98, savings: 92, status: 'live' },
+    { rank: 2, model: 'broker-router-v3', detail: 'agent · sell-side M&A outreach', cat: 'm&a', quality: 96, savings: 81, status: 'live' },
+    { rank: 3, model: 'claims-judge-3b', detail: 'RAG · insurance claims triage', cat: 'insurance', quality: 95, savings: 74, status: 'live' },
+    { rank: 4, model: 'support-distil-1b', detail: 'student · tier-1 support deflection', cat: 'saas', quality: 94, savings: 88, status: 'passing' },
+    { rank: 5, model: 'graph-query-agent', detail: 'agent · plain-English → graph queries', cat: 'data', quality: 93, savings: 67, status: 'live' }
+  ];
+  var TILES = [
+    ['OpenTelemetry', 'activity'], ['OpenAI', 'sparkles'], ['Anthropic', 'sparkles'], ['LangChain', 'link'],
+    ['LlamaIndex', 'boxes'], ['Hugging Face', 'cloud'], ['Postgres', 'database'], ['Redis', 'server'],
+    ['Python', 'filecode'], ['TypeScript', 'braces'], ['vLLM', 'cpu'], ['Vercel', 'triangle']
+  ];
+
+  // stats
+  document.getElementById('stats').innerHTML = METRICS.map(function (m) {
+    return '<div class="stat"><div class="num">' + (m.accent ? '<span class="blue">' + m.accent + '</span>' : '') + m.value + '</div><div class="lbl">' + m.label + '</div></div>';
+  }).join('');
+
+  // tiles
+  document.getElementById('tiles').innerHTML = TILES.map(function (t) {
+    return '<div class="tile"><span class="glyph" data-ic2="' + t[1] + '"></span><span class="tlabel">' + t[0] + '</span></div>';
+  }).join('');
+  document.querySelectorAll('[data-ic2]').forEach(function (el) { el.innerHTML = ICONS[el.getAttribute('data-ic2')] || ''; });
+
+  // leaderboard
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  document.getElementById('boardBody').innerHTML = BOARD.map(function (r) {
+    return '<tr><td class="rank">' + pad(r.rank) + '</td>' +
+      '<td><div class="app-name">' + r.model + '</div><div class="app-sub">' + r.detail + '</div></td>' +
+      '<td class="cat">' + r.cat + '</td>' +
+      '<td><span class="status"><span class="dot' + (r.status === 'passing' ? ' is-passing' : '') + '"></span>' + r.status + '</span></td>' +
+      '<td><span class="qscore">' + r.quality + '/100</span></td>' +
+      '<td><div class="tp"><span class="val">' + r.savings + '%</span><span class="bartrack"><span class="bar" data-w="' + r.savings + '"></span></span></div></td></tr>';
+  }).join('');
+
+  // animate bars when the leaderboard enters view (observer + scroll fallback)
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var boardWrap = document.getElementById('boardWrap');
+  var barsFilled = false;
+  function fillBars() {
+    if (barsFilled) return;
+    barsFilled = true;
+    document.querySelectorAll('.bar').forEach(function (b) { b.style.width = (b.getAttribute('data-w') || 0) + '%'; });
+  }
+  function maybeFill() {
+    if (boardWrap.getBoundingClientRect().top < (window.innerHeight || 800) * 0.9) fillBars();
+  }
+  if (reduce) {
+    fillBars();
+  } else {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) { if (e.isIntersecting) { fillBars(); obs.disconnect(); } });
+      }, { threshold: 0.15 });
+      io.observe(boardWrap);
+    }
+    maybeFill();
+    window.addEventListener('scroll', maybeFill, { passive: true });
+    // safety net in case the observer/scroll events don't fire
+    setTimeout(maybeFill, 1500);
+  }
+
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── theme toggle ──
+  var toggle = document.getElementById('themeToggle');
+  function setToggleIcon() {
+    var dark = document.documentElement.classList.contains('dark');
+    toggle.querySelector('span').innerHTML = dark ? ICONS.sun : ICONS.moon;
+    toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  setToggleIcon();
+  toggle.addEventListener('click', function () {
+    var dark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('tw-vision-theme', dark ? 'dark' : 'light'); } catch (e) {}
+    setToggleIcon();
+  });
+
+  // ── lead submission ──
+  function postLead(payload) {
+    return fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      return res.json().catch(function () { return null; }).then(function (data) {
+        if (!res.ok || !data || !data.success) {
+          throw new Error((data && data.error) || 'Something went wrong. Please try again.');
+        }
+        return data;
+      });
+    });
+  }
+
+  // hero bar
+  var heroForm = document.getElementById('heroForm');
+  var heroEmail = document.getElementById('heroEmail');
+  var heroBtn = document.getElementById('heroBtn');
+  var heroStatus = document.getElementById('heroStatus');
+  heroForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = heroEmail.value.trim();
+    heroStatus.className = 'form-status';
+    if (!email) { heroStatus.className = 'form-status is-err'; heroStatus.textContent = 'Please enter your email.'; return; }
+    heroBtn.disabled = true; heroBtn.textContent = '…';
+    postLead({ email: email, source: 'vision-hero' }).then(function () {
+      heroStatus.className = 'form-status is-ok'; heroStatus.textContent = "You're on the list — check your inbox.";
+      heroEmail.value = '';
+    }).catch(function (err) {
+      heroStatus.className = 'form-status is-err'; heroStatus.textContent = err.message;
+    }).then(function () { heroBtn.disabled = false; heroBtn.textContent = 'Certify my model'; });
+  });
+
+  // modal
+  var modal = document.getElementById('modal');
+  var modalForm = document.getElementById('modalForm');
+  var modalOk = document.getElementById('modalOk');
+  var modalStatus = document.getElementById('modalStatus');
+  var modalSubmit = document.getElementById('modalSubmit');
+  var currentSource = 'talk-to-sales';
+
+  function openModal(opts) {
+    currentSource = opts.source || 'talk-to-sales';
+    document.getElementById('modalTitle').textContent = opts.title || 'Talk to our team';
+    document.getElementById('modalSub').textContent = opts.subtitle || "Tell us about the model you're building.";
+    modalForm.style.display = ''; modalOk.style.display = 'none';
+    modalStatus.textContent = ''; modalForm.reset();
+    modal.classList.add('open'); document.body.style.overflow = 'hidden';
+    setTimeout(function () { document.getElementById('mfEmail').focus(); }, 60);
+  }
+  function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+
+  document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      openModal({ source: btn.getAttribute('data-source'), title: btn.getAttribute('data-title'), subtitle: btn.getAttribute('data-subtitle') });
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('mousedown', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+  modalForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('mfEmail').value.trim();
+    modalStatus.textContent = '';
+    if (!email) { modalStatus.textContent = 'Please enter your email.'; return; }
+    modalSubmit.disabled = true;
+    var orig = modalSubmit.innerHTML;
+    modalSubmit.innerHTML = '<span class="spin" style="display:inline-flex">' + ICONS.loader + '</span> Sending…';
+    postLead({
+      name: document.getElementById('mfName').value.trim(),
+      email: email,
+      company: document.getElementById('mfCompany').value.trim(),
+      message: document.getElementById('mfMessage').value.trim(),
+      source: currentSource
+    }).then(function () {
+      modalForm.style.display = 'none'; modalOk.style.display = 'flex';
+    }).catch(function (err) {
+      modalStatus.textContent = err.message; modalSubmit.disabled = false; modalSubmit.innerHTML = orig;
+    });
+  });
+})();
+</script>
+</body>
+</html>
